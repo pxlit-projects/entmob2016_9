@@ -1,0 +1,11 @@
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\FanaticFirefly.Windows.csprojResolveAssemblyReference.cache
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\App.g.i.cs
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\App.g.cs
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\MainPage.g.i.cs
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\MainPage.g.cs
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\XamlTypeInfo.g.cs
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\App.xaml
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\MainPage.xaml
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\App.xbf
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\MainPage.xbf
+C:\Projecten\FanaticFirefly\FanaticFirefly\FanaticFirefly.Windows\obj\Debug\XamlSaveStateFile.xml
