@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 okt 2016 om 09:22
+-- Gegenereerd op: 07 okt 2016 om 10:59
 -- Serverversie: 10.1.13-MariaDB
 -- PHP-versie: 7.0.8
 
@@ -28,51 +28,63 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `action` (
   `actId` int(11) NOT NULL,
-  `mappingId` int(11) NOT NULL,
   `act1` int(11) NOT NULL,
   `act2` int(11) NOT NULL,
   `act3` int(11) NOT NULL,
   `act4` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Gegevens worden geëxporteerd voor tabel `action`
+--
+
+INSERT INTO `action` (`actId`, `act1`, `act2`, `act3`, `act4`) VALUES
+(1, 555, 666, 777, 888),
+(2, 11, 22, 33, 44);
+
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `commands`
+-- Tabelstructuur voor tabel `command`
 --
 
-CREATE TABLE `commands` (
+CREATE TABLE `command` (
   `commandId` int(11) NOT NULL,
   `Command1` int(11) NOT NULL,
   `Command2` int(11) NOT NULL,
   `Command3` int(11) NOT NULL,
-  `Command4` int(11) NOT NULL,
-  `mappingId` int(11) NOT NULL
+  `Command4` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `command`
+--
+
+INSERT INTO `command` (`commandId`, `Command1`, `Command2`, `Command3`, `Command4`) VALUES
+(1, 55, 70, 80, 100),
+(2, 1, 2, 3, 4);
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `mapping`
+-- Tabelstructuur voor tabel `profile`
 --
 
-CREATE TABLE `mapping` (
-  `mappingId` int(11) NOT NULL,
-  `actionId` int(11) NOT NULL,
-  `profilesId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `profiles`
---
-
-CREATE TABLE `profiles` (
-  `profilesId` int(11) NOT NULL,
+CREATE TABLE `profile` (
+  `profileId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `mappingId` int(11) NOT NULL
+  `actionId` int(11) NOT NULL,
+  `commandId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `profile`
+--
+
+INSERT INTO `profile` (`profileId`, `userId`, `actionId`, `commandId`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1),
+(3, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -83,9 +95,16 @@ CREATE TABLE `profiles` (
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `firstName` text NOT NULL,
-  `lastName` text NOT NULL,
-  `profilesId` int(11) NOT NULL
+  `lastName` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `user`
+--
+
+INSERT INTO `user` (`userId`, `firstName`, `lastName`) VALUES
+(1, 'Giel', 'Reynders'),
+(2, 'Maarten', 'Hermans');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -98,22 +117,16 @@ ALTER TABLE `action`
   ADD PRIMARY KEY (`actId`);
 
 --
--- Indexen voor tabel `commands`
+-- Indexen voor tabel `command`
 --
-ALTER TABLE `commands`
+ALTER TABLE `command`
   ADD PRIMARY KEY (`commandId`);
 
 --
--- Indexen voor tabel `mapping`
+-- Indexen voor tabel `profile`
 --
-ALTER TABLE `mapping`
-  ADD PRIMARY KEY (`mappingId`);
-
---
--- Indexen voor tabel `profiles`
---
-ALTER TABLE `profiles`
-  ADD PRIMARY KEY (`profilesId`);
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`profileId`);
 
 --
 -- Indexen voor tabel `user`
@@ -129,27 +142,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `action`
 --
 ALTER TABLE `action`
-  MODIFY `actId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `actId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT voor een tabel `commands`
+-- AUTO_INCREMENT voor een tabel `command`
 --
-ALTER TABLE `commands`
-  MODIFY `commandId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `command`
+  MODIFY `commandId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT voor een tabel `mapping`
+-- AUTO_INCREMENT voor een tabel `profile`
 --
-ALTER TABLE `mapping`
-  MODIFY `mappingId` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT voor een tabel `profiles`
---
-ALTER TABLE `profiles`
-  MODIFY `profilesId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `profile`
+  MODIFY `profileId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
