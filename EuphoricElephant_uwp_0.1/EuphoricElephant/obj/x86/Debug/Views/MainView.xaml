@@ -9,7 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ListBox Name="DevicesListBox" ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedValue, Mode=TwoWay}">
+            <ListBox x:ConnectionId='1' Name="DevicesListBox" ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedValue, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=Name}"/>
@@ -63,3 +63,4 @@
         </StackPanel>
     </Grid>
 </Page>
+

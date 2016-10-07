@@ -45,5 +45,17 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+  <DeviceCapability Name="bluetooth.genericAttributeProfile">
+    <Device Id="any">
+     <Function Type="serviceId:0000180a-0000-1000-8000-00805f9b34fb" /> <!--Device Info Service-->
+        <Function Type="serviceId:f000aa80-0451-4000-b000-000000000000" /> <!--Temperature Device Service-->
+        <Function Type="serviceId:f000aa10-0451-4000-b000-000000000000" /> <!--Accelerometer Device Service-->
+        <Function Type="serviceId:f000aa20-0451-4000-b000-000000000000" /> <!--Humidity Device Service-->
+        <Function Type="serviceId:f000aa30-0451-4000-b000-000000000000" /> <!--Magnetometer Device Service-->
+        <Function Type="serviceId:f000aa40-0451-4000-b000-000000000000" /> <!--Barometer Device Service-->
+        <Function Type="serviceId:f000aa50-0451-4000-b000-000000000000" /> <!--Gyroscope Device Service-->
+        <Function Type="serviceId:0000ffe0-0000-1000-8000-00805f9b34fb" /> <!--Key Device Service-->
+    </Device>
+  </DeviceCapability>
   </Capabilities>
 </Package>

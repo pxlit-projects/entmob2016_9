@@ -95,11 +95,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Custom\CustomAccelerometer.cs" />
+    <Compile Include="Custom\CustomSimpleKey.cs" />
+    <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Enumerations\BindState.cs" />
-    <Compile Include="Models\AccelReading.cs" />
-    <Compile Include="Models\SensorTag.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Model\SensorTag.cs" />
+    <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="Services\SensorTagService.cs" />
     <Compile Include="ViewModels\SensorTagViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">

@@ -278,6 +278,15 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -2156,6 +2165,15 @@
           "runtimes/win8-arm/native/mscorrc.dll": {}
         }
       },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -3875,6 +3893,15 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Private.DataContractSerialization.dll": {}
+        }
+      },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -5608,6 +5635,15 @@
           "runtimes/win7-x64/native/mscorrc.dll": {}
         }
       },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -7327,6 +7363,15 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Private.DataContractSerialization.dll": {}
+        }
+      },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -9060,6 +9105,15 @@
           "runtimes/win7-x86/native/mscorrc.dll": {}
         }
       },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -10779,6 +10833,15 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Private.DataContractSerialization.dll": {}
+        }
+      },
+      "sensortag/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
+        },
+        "runtime": {
+          "lib/netcore451/X2CodingLab.SensorTag.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -12912,6 +12975,18 @@
         "runtimes/win8-arm/native/mscordbi.dll",
         "runtimes/win8-arm/native/mscorrc.debug.dll",
         "runtimes/win8-arm/native/mscorrc.dll"
+      ]
+    },
+    "sensortag/1.2.0": {
+      "sha512": "JZTo+CHb8XS2/8R5az4xfHkDxpft1C98tAiJZPov8/+huG2purfltGlTMzdtZ2nNyM1b3/TPAQXLFLxSWzVYuQ==",
+      "type": "package",
+      "path": "sensortag/1.2.0",
+      "files": [
+        "lib/netcore451/X2CodingLab.SensorTag.XML",
+        "lib/netcore451/X2CodingLab.SensorTag.dll",
+        "lib/netcore451/X2CodingLab.SensorTag.pdb",
+        "sensortag.1.2.0.nupkg.sha512",
+        "sensortag.nuspec"
       ]
     },
     "System.AppContext/4.0.0": {
@@ -15606,7 +15681,8 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0"
+      "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
+      "sensortag >= 1.2.0"
     ],
     "UAP,Version=v10.0": []
   },
