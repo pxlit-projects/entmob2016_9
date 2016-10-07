@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tc.maven.bean.Command;
 import com.tc.maven.bean.Profile;
+import com.tc.maven.bean.User;
 
 public class CommandDataService {
 	private EntityManagerFactory emf;
@@ -19,7 +20,7 @@ public class CommandDataService {
 		this.emf = emf;
 	}
 	
-	public Command getCommands(int id)
+	public Command getCommandById(int id)
 	{
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -28,5 +29,27 @@ public class CommandDataService {
 		tx.commit();
 		em.close();
 		return cm;
+	}
+	
+	public Command updateCommand(Command command) 
+	{
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction ticket = em.getTransaction();
+		ticket.begin();
+		em.merge(command);
+		ticket.commit();
+		em.close();
+		return command;
+	}
+	
+	
+	public void deleteCommand(int id) {
+		EntityManager em = emf.createEntityManager();
+		Command c = getCommandById(id);
+		EntityTransaction ticket = em.getTransaction();
+		ticket.begin();
+		em.remove(c);
+		ticket.commit();
+		em.close();
 	}
 }
