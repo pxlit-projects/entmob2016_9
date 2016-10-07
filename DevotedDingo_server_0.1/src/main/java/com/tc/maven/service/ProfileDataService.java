@@ -38,7 +38,9 @@ public class ProfileDataService {
 		return profiles;
 	}
 
-	public Profile addProfile(Profile profile) {
+	public Profile addProfile(Profile profile, Command command, Action action) {
+		new CommandDataService().addCommand(command);
+		new ActionDataService().addAction(action);
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();

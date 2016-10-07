@@ -25,4 +25,16 @@ public class Profile {
 	public void setProfileName(String profileName) {
 		this.profileName = profileName;
 	}
+	public int getCommands() {
+		return commands;
+	}
+	public void setCommands(int commands) {
+		this.commands = commands;
+	}
+	public int getActions() {
+		return actions;
+	}
+	public void setActions(int actions) {
+		this.actions = actions;
+	}
 }
