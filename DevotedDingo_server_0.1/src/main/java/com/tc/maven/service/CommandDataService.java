@@ -42,6 +42,16 @@ public class CommandDataService {
 		return command;
 	}
 	
+	public Command addCommand(Command command) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction ticket = em.getTransaction();
+		ticket.begin();
+		em.persist(command);
+		ticket.commit();
+		em.close();
+		return command;
+	}
+	
 	
 	public void deleteCommand(int id) {
 		EntityManager em = emf.createEntityManager();
