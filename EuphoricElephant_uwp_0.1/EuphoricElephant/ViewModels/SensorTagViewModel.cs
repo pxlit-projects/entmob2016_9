@@ -207,11 +207,23 @@ namespace EuphoricElephant.ViewModels
                 {
                     byte[] raw = e.RawData;
 
-                    while (Convert.ToBoolean(raw[0]))
-                    {
-                        byte[] data = await ActiveSensor.Accelerometer.ReadValue();
+                    pressed = Convert.ToBoolean(raw[0]);
+                    var c = true;
 
-                        foo(data);
+                    while (c)
+                    {
+                        Debug.WriteLine(c);
+
+                        if (pressed)
+                        {
+                            byte[] data = await ActiveSensor.Accelerometer.ReadValue();
+
+                            foo(data);
+                        }else
+                        {
+                            pressed = false;
+                            c = false;
+                        }
                     }
                 }
                 );
