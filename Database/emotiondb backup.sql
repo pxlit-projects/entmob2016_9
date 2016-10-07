@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 okt 2016 om 15:36
+-- Gegenereerd op: 07 okt 2016 om 10:59
 -- Serverversie: 10.1.13-MariaDB
 -- PHP-versie: 7.0.8
 
@@ -74,18 +74,17 @@ CREATE TABLE `profile` (
   `profileId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `actionId` int(11) NOT NULL,
-  `commandId` int(11) NOT NULL,
-  `profileName` varchar(999) NOT NULL
+  `commandId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `profile`
 --
 
-INSERT INTO `profile` (`profileId`, `userId`, `actionId`, `commandId`, `profileName`) VALUES
-(1, 1, 1, 1, ''),
-(2, 1, 2, 1, ''),
-(3, 2, 2, 2, '');
+INSERT INTO `profile` (`profileId`, `userId`, `actionId`, `commandId`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1),
+(3, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -96,17 +95,17 @@ INSERT INTO `profile` (`profileId`, `userId`, `actionId`, `commandId`, `profileN
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `firstName` text NOT NULL,
-  `lastName` text NOT NULL,
-  `Password` mediumtext NOT NULL
+  `lastName` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
-INSERT INTO `user` (`userId`, `firstName`, `lastName`, `Password`) VALUES
-(1, 'Giel', 'Reynders', 'dsfqfsqfsqfsqf'),
-(2, 'Maarten', 'Hermans', 'dfaefzrzarzfsqdf');
+INSERT INTO `user` (`userId`, `firstName`, `lastName`) VALUES
+(1, 'Giel', 'Reynders'),
+(2, 'Maarten', 'Hermans');
+
 --
 -- Indexen voor geëxporteerde tabellen
 --
