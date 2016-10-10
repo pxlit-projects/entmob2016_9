@@ -144,11 +144,7 @@ namespace EuphoricElephant.ViewModels
                         var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
 
                         await SimpleKey.Initialize(k[0]);
-                        await SimpleKey.EnableNotifications();
-
-
-
-                        
+                        await SimpleKey.EnableNotifications();                       
 
                         
                     }
@@ -183,8 +179,10 @@ namespace EuphoricElephant.ViewModels
                 });
         }
 
+
         private void foo(byte[] data)
         {
+            SensorTagDataStabilizer stabilizer = new SensorTagDataStabilizer();
             //GyroX = (BitConverter.ToInt16(data, 0) * 1.0) / (65536 / 500) + " °/s";
             //GyroY = (BitConverter.ToInt16(data, 2) * 1.0) / (65536 / 500) + " °/s";
             //GyroZ = (BitConverter.ToInt16(data, 4) * 1.0) / (65536 / 500) + " °/s";
@@ -193,11 +191,18 @@ namespace EuphoricElephant.ViewModels
             //AccelY = (BitConverter.ToInt16(data, 7) * 1.0) / (32768 / 16) + " G";
             //AccelZ = (BitConverter.ToInt16(data, 9) * 1.0) / (32768 / 16) + " G";
 
+            // short x = (short)(data[13] << 8);
+            //short y = (short)(data[15] << 8);
+            //short z = (short)(data[17] << 8);
+
             //MagX = (BitConverter.ToInt16(data, 7) * 1.0)  + " uT";
             //MagY = (BitConverter.ToInt16(data, 9) * 1.0)  + " uT";
             //MagZ = (BitConverter.ToInt16(data, 11) * 1.0)  + " uT";
 
-            Debug.WriteLine(String.Format("x:{0} - y:{1} - z:{2}", (BitConverter.ToInt16(data, 6) * 1.0) / (32768 / 16), (BitConverter.ToInt16(data, 8) * 1.0) / (32768 / 16), (BitConverter.ToInt16(data, 10) * 1.0) / (32768 / 16)));
+            /* if(data[14]!= 0)
+             Debug.WriteLine(String.Format("direction: coords: {0}", Math.Atan(data[12]/data[14])*180/Math.PI));*/
+
+            Debug.WriteLine(String.Format("x:{0} - y:{1} - z:{2}", stabilizer.AccellerometerStabilizer(data).XAcc, stabilizer.AccellerometerStabilizer(data).YAcc, stabilizer.AccellerometerStabilizer(data).ZAcc));
         }
 
         private async void sk_sensorValueChanged(object sender, SensorValueChangedEventArgs e)
@@ -205,6 +210,7 @@ namespace EuphoricElephant.ViewModels
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async() =>
                 {
+                    SensorTagDataCheck checker = new SensorTagDataCheck();
                     byte[] raw = e.RawData;
 
                     pressed = Convert.ToBoolean(raw[0]);
@@ -214,11 +220,11 @@ namespace EuphoricElephant.ViewModels
                     {
                         Debug.WriteLine(c);
 
-                        if (pressed)
+                        if (true)
                         {
                             byte[] data = await ActiveSensor.Accelerometer.ReadValue();
 
-                            foo(data);
+                            checker.MovementCheck(data);
                         }else
                         {
                             pressed = false;

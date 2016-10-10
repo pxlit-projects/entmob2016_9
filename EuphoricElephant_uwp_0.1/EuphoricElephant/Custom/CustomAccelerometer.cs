@@ -70,7 +70,7 @@ namespace EuphoricElephant.Custom
 
         public async Task CustomEnableSensor()
         {
-            await CustomEnableSensor(new byte[] { 0xfe, 0xc0 });
+            await CustomEnableSensor(new byte[] { 0x7F, 0x00 });
         }
 
 
