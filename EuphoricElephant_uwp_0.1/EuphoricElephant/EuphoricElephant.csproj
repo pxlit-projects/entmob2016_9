@@ -89,17 +89,23 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="ClassDiagram1.cd" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Custom\CustomAccelerometer.cs" />
+    <Compile Include="Custom\CustomSimpleKey.cs" />
+    <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Enumerations\BindState.cs" />
-    <Compile Include="Models\AccelReading.cs" />
-    <Compile Include="Models\SensorTag.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Helpers\MovementData.cs" />
+    <Compile Include="Model\SensorTag.cs" />
+    <Compile Include="Services\SensorTagDataCheck.cs" />
+    <Compile Include="Services\SensorTagDataStabilizer.cs" />
+    <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="Services\SensorTagService.cs" />
     <Compile Include="ViewModels\SensorTagViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
@@ -135,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

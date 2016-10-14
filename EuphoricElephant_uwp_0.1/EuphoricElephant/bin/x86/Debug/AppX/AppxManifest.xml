@@ -32,17 +32,37 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="bluetooth.genericAttributeProfile">
+      <Device Id="any">
+        <Function Type="serviceId:0000180a-0000-1000-8000-00805f9b34fb" />
+        <!--Device Info Service-->
+        <Function Type="serviceId:f000aa80-0451-4000-b000-000000000000" />
+        <!--Temperature Device Service-->
+        <Function Type="serviceId:f000aa10-0451-4000-b000-000000000000" />
+        <!--Accelerometer Device Service-->
+        <Function Type="serviceId:f000aa20-0451-4000-b000-000000000000" />
+        <!--Humidity Device Service-->
+        <Function Type="serviceId:f000aa30-0451-4000-b000-000000000000" />
+        <!--Magnetometer Device Service-->
+        <Function Type="serviceId:f000aa40-0451-4000-b000-000000000000" />
+        <!--Barometer Device Service-->
+        <Function Type="serviceId:f000aa50-0451-4000-b000-000000000000" />
+        <!--Gyroscope Device Service-->
+        <Function Type="serviceId:0000ffe0-0000-1000-8000-00805f9b34fb" />
+        <!--Key Device Service-->
+      </Device>
+    </DeviceCapability>
   </Capabilities>
   <build:Metadata>
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v5.0" />
     <build:Item Name="VisualStudio" Version="14.0" />
-    <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Professional 2015" />
-    <build:Item Name="OperatingSystem" Version="10.0.14393.0 (rs1_release.160715-1616)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="14.0.25420.1" />
+    <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2015" />
+    <build:Item Name="OperatingSystem" Version="10.0.10586.0 (th2_release.151029-1700)" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="14.0.25431.1" />
     <build:Item Name="ProjectGUID" Value="{00BE7886-D427-4F46-AB92-79F3C359F6EC}" />
     <build:Item Name="OptimizingToolset" Value="None" />
     <build:Item Name="TargetRuntime" Value="Managed" />
-    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="14.0.25420.1" />
-    <build:Item Name="MakePri.exe" Version="10.0.10586.212 (th2_release_sec.160328-1908)" />
+    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="14.0.25527.1" />
+    <build:Item Name="MakePri.exe" Version="10.0.14393.33 (rs1_release_sec.160727-1952)" />
   </build:Metadata>
 </Package>

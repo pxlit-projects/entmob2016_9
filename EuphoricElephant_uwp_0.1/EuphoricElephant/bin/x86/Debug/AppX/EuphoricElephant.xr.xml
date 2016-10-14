@@ -1,7 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="MagZ" />
+    <RootPropertyPathName Name="MagY" />
+    <RootPropertyPathName Name="MagX" />
+    <RootPropertyPathName Name="AccelZ" />
+    <RootPropertyPathName Name="AccelY" />
+    <RootPropertyPathName Name="AccelX" />
+    <RootPropertyPathName Name="GyroZ" />
+    <RootPropertyPathName Name="GyroY" />
+    <RootPropertyPathName Name="GyroX" />
     <RootPropertyPathName Name="Devices" />
+    <RootPropertyPathName Name="SelectedValue" />
+    <RootPropertyPathName Name="Name" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -24,17 +35,18 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="Name" />
       <RootProperty Name="ItemsSource" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="RenderTransformOrigin" />
-      <RootProperty Name="RenderTransform" />
+      <RootProperty Name="SelectedItem" />
+      <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
-      <RootProperty Name="Name" />
       <RootProperty Name="Text" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Data.Binding" />
-    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
-      <RootProperty Name="ScaleY" />
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="Mode" />
+      <RootProperty Name="Path" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
     </RootType>
     <RootType FullName="EuphoricElephant.MainView" />
   </Roots.RootTypes>
