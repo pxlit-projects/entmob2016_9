@@ -23,22 +23,13 @@ namespace eMotion.EF.Console.Display.DataLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<SWMovie>().HasKey(c => c.ResourceUri);
-            //base.OnModelCreating(modelBuilder); 
-
-            //modelBuilder.Entity<User>()
-            //.HasOptional<Contact>(u => u.Contact)
-            //.WithOptionalDependent(c => c.User).Map(p => p.MapKey("ContactID"));
-
-            //modelBuilder.Entity<Profile>()
-            //    .HasOptional<DomainClasses.Classes.Action>(p => p.action)
-            //    .WithOptionalDependent(a => a.profile).Map(p => p.MapKey("ActId"));
-
             modelBuilder.Entity<DomainClasses.Classes.Profile>().HasKey(p => p.ActId);
 
-            modelBuilder.Entity<DomainClasses.Classes.Action>().HasRequired(s => s.profile).WithRequiredDependent(a => a.action);
+            modelBuilder.Entity<DomainClasses.Classes.Action>().HasRequired(s => s.profile).WithRequiredDependent   (a => a.action);
+
+            modelBuilder.Entity<Command>().HasMany(s => s.profiles);
+
+            modelBuilder.Entity<User>().HasMany(s => s.profiles);
         }
     }
-
-    
 }

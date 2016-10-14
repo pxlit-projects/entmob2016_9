@@ -17,6 +17,7 @@ namespace eMotion.DomainClasses.Classes
         public int Command2 { get; set; }
         public int Command3 { get; set; }
         public int Command4 { get; set; }
-        
+
+        public virtual ICollection<Profile> profiles { get; set; }
     }
 }
