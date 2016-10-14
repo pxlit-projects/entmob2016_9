@@ -29,10 +29,30 @@ public class ProfileDataService {
 		return pr;
 	}
 
+	private Command getCommandById(int id) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Command com = em.find(Command.class, id);
+		tx.commit();
+		em.close();
+		return com;
+	}
+
+	private Action getActionById(int id) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Action act = em.find(Action.class, id);
+		tx.commit();
+		em.close();
+		return act;
+	}
+
 	public List<Profile> getProfilesByUserId(int id) {
 		EntityManager em = emf.createEntityManager();
-		List<Profile> profiles = em.createQuery("SELECT p FROM Profile p WHERE p.userId LIKE :uid").setParameter("uid", id)
-				.getResultList();
+		List<Profile> profiles = em.createQuery("SELECT p FROM Profile p WHERE p.userId LIKE :uid")
+				.setParameter("uid", id).getResultList();
 
 		em.close();
 		return profiles;
@@ -61,12 +81,28 @@ public class ProfileDataService {
 	}
 
 	public void deleteProfile(int id) {
-		EntityManager em = emf.createEntityManager();
 		Profile p = getProfileById(id);
+		Command c = getCommandById(p.getCommands());
+		Action a = getActionById(p.getActions());
+		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();
 		em.remove(p);
+		em.remove(c);
+		em.remove(a);
 		ticket.commit();
 		em.close();
+	}
+
+	public Command updateProfile(Command command, Action action) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction ticket = em.getTransaction();
+		ticket.begin();
+		em.merge(command);
+		em.merge(action);
+		ticket.commit();
+		em.close();
+		return command;
+
 	}
 }
