@@ -14,6 +14,7 @@ using System.Linq;
 using EuphoricElephant.Custom;
 using EuphoricElephant.Helpers;
 using X2CodingLab.SensorTag.Exceptions;
+using Windows.UI.Xaml.Controls;
 
 namespace EuphoricElephant.ViewModels
 {
@@ -22,6 +23,10 @@ namespace EuphoricElephant.ViewModels
         private ObservableCollection<DeviceInformation> devices;
         private SensorTag activeSensor;
         private DeviceInformation selectedValue;
+        private MusicPlayer player;
+
+        SensorTagDataCheck checker = new SensorTagDataCheck();
+
 
         private string gyroX;
         private string gyroY;
@@ -123,6 +128,11 @@ namespace EuphoricElephant.ViewModels
         {
             try
             {
+                player = new MusicPlayer();
+
+                player.init();
+                player.play();
+
                 ActiveSensor.Accelerometer = new CustomAccelerometer();
                 ActiveSensor.SimpleKey = new CustomSimpleKey();
 
@@ -142,6 +152,7 @@ namespace EuphoricElephant.ViewModels
                         SimpleKey.SensorValueChanged += sk_sensorValueChanged;
 
                         var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
+                        
 
                         await SimpleKey.Initialize(k[0]);
                         await SimpleKey.EnableNotifications();                       
@@ -199,8 +210,8 @@ namespace EuphoricElephant.ViewModels
             //MagY = (BitConverter.ToInt16(data, 9) * 1.0)  + " uT";
             //MagZ = (BitConverter.ToInt16(data, 11) * 1.0)  + " uT";
 
-            /* if(data[14]!= 0)
-             Debug.WriteLine(String.Format("direction: coords: {0}", Math.Atan(data[12]/data[14])*180/Math.PI));*/
+            /* if(data[14]!= 0)*/
+             Debug.WriteLine((BitConverter.ToInt16(data, 0) * 1.0) / (65536 / 500) + " °/s");
 
             Debug.WriteLine(String.Format("x:{0} - y:{1} - z:{2}", stabilizer.AccellerometerStabilizer(data).XAcc, stabilizer.AccellerometerStabilizer(data).YAcc, stabilizer.AccellerometerStabilizer(data).ZAcc));
         }
@@ -210,21 +221,18 @@ namespace EuphoricElephant.ViewModels
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async() =>
                 {
-                    SensorTagDataCheck checker = new SensorTagDataCheck();
-                    byte[] raw = e.RawData;
+                    byte[] raw = e.RawData;                    
 
                     pressed = Convert.ToBoolean(raw[0]);
                     var c = true;
 
                     while (c)
                     {
-                        Debug.WriteLine(c);
 
                         if (true)
                         {
                             byte[] data = await ActiveSensor.Accelerometer.ReadValue();
-
-                            checker.MovementCheck(data);
+                            checker.MovementCheck(data, player);
                         }else
                         {
                             pressed = false;

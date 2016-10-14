@@ -13,9 +13,9 @@ namespace EuphoricElephant.Helpers
         {            
         }
         
-        public double XAcc { get; set; }
-        public double YAcc { get; set; }
-        public double ZAcc { get; set; }
+        public float XAcc { get; set; }
+        public float YAcc { get; set; }
+        public float ZAcc { get; set; }
 
         public double XGyr { get; set; }
         public double YGyr { get; set; }

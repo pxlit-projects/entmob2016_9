@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EuphoricElephant.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,32 +10,59 @@ namespace EuphoricElephant.Services
 {
     public class SensorTagDataCheck
     {
-        public void MovementCheck(byte[] data)
+
+        Boolean b = true;
+
+        public void MovementCheck(byte[] data, MusicPlayer player)
         {
             SensorTagDataStabilizer stabilizer = new SensorTagDataStabilizer();
-            if (stabilizer.AccellerometerStabilizer(data).YAcc > 4)
+
+            lasthope.MixerInfo mi = lasthope.GetMixerControls();
+            
+
+            if (stabilizer.AccellerometerStabilizer(data).YAcc > 5)
             {
-                Debug.WriteLine("Volume up!");
+            //    Debug.WriteLine("Volume up!");
+                lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
             }
-            else if (stabilizer.AccellerometerStabilizer(data).YAcc < 4 && stabilizer.AccellerometerStabilizer(data).YAcc > -4)
+            else if (stabilizer.AccellerometerStabilizer(data).YAcc < 5 && stabilizer.AccellerometerStabilizer(data).YAcc > -5)
             {
-                Debug.WriteLine("No movement!");
+             //   Debug.WriteLine("No movement!");
             }
-            else if (stabilizer.AccellerometerStabilizer(data).YAcc < -4)
+            else if (stabilizer.AccellerometerStabilizer(data).YAcc < -5)
             {
-                Debug.WriteLine("Volume down!");
+             //   Debug.WriteLine("Volume down!");
+                lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
             }
-            if (stabilizer.AccellerometerStabilizer(data).XAcc > 4)
+
+            
+
+            if (stabilizer.AccellerometerStabilizer(data).XAcc > 5)
             {
-                Debug.WriteLine("Previous song!");
+                if (b)
+                {
+              //      Debug.WriteLine("Previous song!");
+                   
+                    player.previous();
+                    b = false;
+                    Debug.WriteLine("Current: " + player.getTitle());
+                }
             }
-            else if (stabilizer.AccellerometerStabilizer(data).XAcc < 4 && stabilizer.AccellerometerStabilizer(data).XAcc > -4)
+            else if (stabilizer.AccellerometerStabilizer(data).XAcc < 5 && stabilizer.AccellerometerStabilizer(data).XAcc > -5)
             {
-                Debug.WriteLine("No movement!");
+            //    Debug.WriteLine("No movement!");
+                b = true;
             }
-            else if (stabilizer.AccellerometerStabilizer(data).XAcc < -4)
+            else if (stabilizer.AccellerometerStabilizer(data).XAcc < -5)
             {
-                Debug.WriteLine("Next Song!");
+                if (b)
+                {
+              //      Debug.WriteLine("Next Song!");
+                    
+                    player.next();
+                    b = false;
+                    Debug.WriteLine("Current: " + player.getTitle());
+                }
             }
 
         }

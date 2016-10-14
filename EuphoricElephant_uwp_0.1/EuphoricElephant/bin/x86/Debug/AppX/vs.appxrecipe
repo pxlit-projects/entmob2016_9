@@ -16,7 +16,7 @@
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>8735C5081CEC91776C254B2BB6900578DA14A648DE6BE0BDC5A8F24BA6653AB5</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>CDD9B72FB289511A277B1A249DF2230FFE3F229F510FE7699C538E3EF175DE83</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>554678b6-fd40-44b3-b6a5-680909db4c87_1.0.0.0_x86__kpm9nnnxpags0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>554678b6-fd40-44b3-b6a5-680909db4c87_kpm9nnnxpags0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>554678b6-fd40-44b3-b6a5-680909db4c87</RegisteredPackageID>
@@ -28,13 +28,13 @@
     <AppXManifest Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-10T17:48:41.105</Modified>
+      <Modified>2016-10-14T14:45:41.277</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.exe">
       <PackagePath>entrypoint\EuphoricElephant.exe</PackagePath>
-      <Modified>2016-10-10T17:48:40.832</Modified>
+      <Modified>2016-10-14T14:45:41.043</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\siemen\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -452,6 +452,50 @@
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
       <Modified>2015-07-22T21:11:12.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\01 - Doomed.m4a">
+      <PackagePath>MyFolder\01 - Doomed.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.758</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\02 - Happy Song.m4a">
+      <PackagePath>MyFolder\02 - Happy Song.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.828</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\03 - Throne.m4a">
+      <PackagePath>MyFolder\03 - Throne.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.888</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\04 - True Friends.m4a">
+      <PackagePath>MyFolder\04 - True Friends.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.995</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\05 - Follow You.m4a">
+      <PackagePath>MyFolder\05 - Follow You.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:33.064</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\06 - What You Need.m4a">
+      <PackagePath>MyFolder\06 - What You Need.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.464</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\07 - Avalanche.m4a">
+      <PackagePath>MyFolder\07 - Avalanche.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.543</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\08 - Run.m4a">
+      <PackagePath>MyFolder\08 - Run.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.608</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\09 - Drown %28New%29.m4a">
+      <PackagePath>MyFolder\09 - Drown %28New%29.m4a</PackagePath>
+      <Modified>2016-10-14T14:23:32.676</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\10 - Blasphemy.m4a">
+      <PackagePath>MyFolder\10 - Blasphemy.m4a</PackagePath>
+      <Modified>2016-10-14T12:23:09.422</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\MyFolder\11 - Oh No.m4a">
+      <PackagePath>MyFolder\11 - Oh No.m4a</PackagePath>
+      <Modified>2016-10-14T13:15:35.143</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2016-10-10T09:07:13.147</Modified>
@@ -501,11 +545,11 @@
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-10T17:45:37.954</Modified>
+      <Modified>2016-10-14T14:26:28.881</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\EuphoricElephant.exe">
       <PackagePath>EuphoricElephant.exe</PackagePath>
-      <Modified>2016-10-10T17:48:41.102</Modified>
+      <Modified>2016-10-14T14:45:41.275</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

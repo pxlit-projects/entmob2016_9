@@ -9,13 +9,13 @@ namespace EuphoricElephant.Services
 {
     public class SensorTagDataStabilizer
     {
-        public MovementData AccellerometerStabilizer(byte[] data)                                   //returns a value between ~-8 and ~8 (need to use Y for up/down, X for left/right)
+        public MovementData AccellerometerStabilizer(byte[] data)                                   //returns a value between ~-10 and ~10 (need to use Y for up/down, X for left/right)
         {
             MovementData result = new MovementData(data);
 
-            result.XAcc = (BitConverter.ToInt16(data, 6) * 1.0) / (32768 / 64);
-            result.YAcc = (BitConverter.ToInt16(data, 8) * 1.0) / (32768 / 64);
-            result.ZAcc = (BitConverter.ToInt16(data, 10) * 1.0) / (32768 / 64);
+            result.XAcc = (BitConverter.ToInt16(data, 6) * 10.0f) / (32768 / 8);
+            result.YAcc = (BitConverter.ToInt16(data, 8) * 10.0f) / (32768 / 8);
+            result.ZAcc = (BitConverter.ToInt16(data, 10) * 10.0f) / (32768 / 8);
 
             return result;
         }

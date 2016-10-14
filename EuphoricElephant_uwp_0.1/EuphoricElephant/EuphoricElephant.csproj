@@ -101,7 +101,10 @@
     <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Enumerations\BindState.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\lasthope.cs" />
     <Compile Include="Helpers\MovementData.cs" />
+    <Compile Include="Helpers\MusicPlayer.cs" />
+    <Compile Include="Helpers\VolumeController.cs" />
     <Compile Include="Model\SensorTag.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />
@@ -120,6 +123,17 @@
     <None Include="EuphoricElephant_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MyFolder\01 - Doomed.m4a" />
+    <Content Include="MyFolder\02 - Happy Song.m4a" />
+    <Content Include="MyFolder\03 - Throne.m4a" />
+    <Content Include="MyFolder\04 - True Friends.m4a" />
+    <Content Include="MyFolder\05 - Follow You.m4a" />
+    <Content Include="MyFolder\06 - What You Need.m4a" />
+    <Content Include="MyFolder\07 - Avalanche.m4a" />
+    <Content Include="MyFolder\08 - Run.m4a" />
+    <Content Include="MyFolder\09 - Drown %28New%29.m4a" />
+    <Content Include="MyFolder\10 - Blasphemy.m4a" />
+    <Content Include="MyFolder\11 - Oh No.m4a" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
