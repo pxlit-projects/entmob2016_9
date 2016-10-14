@@ -16,7 +16,7 @@ public class StartUp extends HttpServlet
     {
     	System.out.println("started");
     	
-    	//new PropertyLoader().Load();
+    	new PropertyLoader().Load();
     	
 		Timer timer = new Timer();
 

@@ -17,9 +17,9 @@ public class UserController {
 
 	//Lijst van alle users opvragen (json user)
 	@RequestMapping(value = "/users", method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<User> getCountries() {
-		List<User> listOfCountries = userService.getAllUsers();
-		return listOfCountries;
+	public List<User> getUsers() {
+		List<User> listOfUsers = userService.getAllUsers();
+		return listOfUsers;
 	}
 	
 	//Een user opvragen aan de hand van id (json user)
