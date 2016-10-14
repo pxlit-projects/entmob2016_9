@@ -1,0 +1,12 @@
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\eMotion.EF.Console.Display.exe.config
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\eMotion.EF.Console.Display.exe
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\eMotion.EF.Console.Display.pdb
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\eMotion.DomainClasses1.dll
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\EntityFramework.dll
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\eMotion.DomainClasses1.pdb
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\EntityFramework.xml
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\obj\Debug\eMotion.EF.Console.Display.csprojResolveAssemblyReference.cache
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\obj\Debug\eMotion.EF.Console.Display.exe
+C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion.EF.Console.Display\obj\Debug\eMotion.EF.Console.Display.pdb
