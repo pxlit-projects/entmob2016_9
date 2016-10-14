@@ -25,7 +25,7 @@ namespace eMotion.EF.Console.Display.DataLayer
         {
             modelBuilder.Entity<DomainClasses.Classes.Profile>().HasKey(p => p.ActId);
 
-            modelBuilder.Entity<DomainClasses.Classes.Action>().HasRequired(s => s.profile).WithRequiredDependent   (a => a.action);
+            modelBuilder.Entity<DomainClasses.Classes.Action>().HasRequired(s => s.profile).WithRequiredDependent(a => a.action);
 
             modelBuilder.Entity<Command>().HasMany(s => s.profiles);
 
