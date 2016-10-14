@@ -111,6 +111,7 @@
     <Compile Include="Classes\Command.cs" />
     <Compile Include="Classes\Profile.cs" />
     <Compile Include="Classes\User.cs" />
+    <Compile Include="DataLayer\eMotionDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\eMotion.DomainClasses.rd.xml" />
   </ItemGroup>

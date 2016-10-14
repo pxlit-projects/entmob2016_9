@@ -8,5 +8,10 @@ namespace eMotion.DomainClasses.Classes
 {
     public class Command
     {
+        public int CommandId { get; set; }
+        public int Command1 { get; set; }
+        public int Command2 { get; set; }
+        public int Command3 { get; set; }
+        public int Command4 { get; set; }
     }
 }
