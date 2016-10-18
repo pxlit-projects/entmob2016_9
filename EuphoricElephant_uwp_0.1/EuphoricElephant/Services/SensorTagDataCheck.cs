@@ -43,9 +43,9 @@ namespace EuphoricElephant.Services
                 {
               //      Debug.WriteLine("Previous song!");
                    
-                    player.previous();
-                    b = false;
-                    Debug.WriteLine("Current: " + player.getTitle());
+                    //player.previous();
+                    //b = false;
+                    //Debug.WriteLine("Current: " + player.getTitle());
                 }
             }
             else if (stabilizer.AccellerometerStabilizer(data).XAcc < 5 && stabilizer.AccellerometerStabilizer(data).XAcc > -5)
@@ -59,9 +59,9 @@ namespace EuphoricElephant.Services
                 {
               //      Debug.WriteLine("Next Song!");
                     
-                    player.next();
-                    b = false;
-                    Debug.WriteLine("Current: " + player.getTitle());
+                    //player.next();
+                    //b = false;
+                    //Debug.WriteLine("Current: " + player.getTitle());
                 }
             }
 

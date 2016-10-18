@@ -190,7 +190,6 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Data\" />
-    <Folder Include="MyFolder\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

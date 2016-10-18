@@ -130,8 +130,8 @@ namespace EuphoricElephant.ViewModels
             {
                 player = new MusicPlayer();
 
-                player.init();
-                player.play();
+                //player.init();
+                //player.play();
 
                 ActiveSensor.Accelerometer = new CustomAccelerometer();
                 ActiveSensor.SimpleKey = new CustomSimpleKey();
