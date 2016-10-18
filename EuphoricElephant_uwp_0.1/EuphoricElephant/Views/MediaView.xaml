@@ -5,8 +5,8 @@
     xmlns:local="using:EuphoricElephant.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DataContext="{Binding Source={StaticResource viewModelLocator}, Path=MediaViewModel}"
     x:Name="MediaPage"
+    DataContext="{Binding Source={StaticResource viewModelLocator}, Path=MediaViewModel}"
     mc:Ignorable="d">
 
     <Grid x:Name="DataPanel">
@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Canvas Grid.Row="0" Grid.Column="0" Background="Green"/>
+        <Canvas x:Name="AudioCanvas" Grid.Row="0" Grid.Column="0"/>
 
         <RelativePanel x:Name="LayoutRoot" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel x:Name="PlayerPanel" Orientation="Horizontal" HorizontalAlignment="Center">

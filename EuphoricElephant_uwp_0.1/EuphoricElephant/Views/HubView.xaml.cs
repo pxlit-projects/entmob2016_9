@@ -4,6 +4,7 @@ using EuphoricElephant.ViewModels;
 using Windows.UI.Xaml.Controls;
 using EuphoricElephant.Messaging;
 using Windows.UI.Xaml;
+using EuphoricElephant.Interfaces;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 

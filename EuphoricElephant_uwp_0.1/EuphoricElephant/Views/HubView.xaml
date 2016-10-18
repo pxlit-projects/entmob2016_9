@@ -5,8 +5,8 @@
     xmlns:local="using:EuphoricElephant.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DataContext="{Binding Source={StaticResource viewModelLocator}, Path=HubViewModel}"
     x:Name="Page"
+    DataContext="{Binding Source={StaticResource viewModelLocator}, Path=HubViewModel}"
     mc:Ignorable="d">
 
     <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">

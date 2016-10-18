@@ -1,20 +1,33 @@
 ﻿using EuphoricElephant.Custom;
 using EuphoricElephant.Helpers;
+using EuphoricElephant.Interfaces;
 using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
+using EuphoricElephant.Views;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
 using X2CodingLab.SensorTag;
 
 namespace EuphoricElephant.ViewModels
@@ -40,7 +53,9 @@ namespace EuphoricElephant.ViewModels
 
         #endregion
 
-        #region Public Members
+        #region Public Members  
+        public IMediaView View { get; set; }
+
         public string PlayButtonText
         {
             get { return playButtonText; }
@@ -268,6 +283,16 @@ namespace EuphoricElephant.ViewModels
                 CurrentTrackTime = 0;
             }
 
+            CreateAudioImage(); 
+        }
+
+        private void CreateAudioImage()
+        {
+            if (View == null) return;
+
+            var b = player.GetStreamAsByteArray().Result;
+
+            View.DrawOnCanvas(b);
         }
         #endregion
     }

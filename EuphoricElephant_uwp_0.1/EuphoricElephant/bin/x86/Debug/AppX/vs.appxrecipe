@@ -16,7 +16,7 @@
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>D229690BF6ACF5C22A0A5AE0575AEA2194B2A5C002113FB80921986B7E21F0B9</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>90BD0266E0272988004CA5575D0DF68673D4A8E4771337558EE38257DA73CC5B</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>554678b6-fd40-44b3-b6a5-680909db4c87_1.0.0.0_x86__kpm9nnnxpags0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>554678b6-fd40-44b3-b6a5-680909db4c87_kpm9nnnxpags0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>554678b6-fd40-44b3-b6a5-680909db4c87</RegisteredPackageID>
@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T13:04:51.765</Modified>
+      <Modified>2016-10-18T16:11:37.234</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.exe">
       <PackagePath>entrypoint\EuphoricElephant.exe</PackagePath>
-      <Modified>2016-10-18T13:04:51.552</Modified>
+      <Modified>2016-10-18T16:11:37.010</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\joryj\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -452,6 +452,14 @@
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
       <Modified>2016-03-02T08:57:19.588</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\joryj\.nuget\packages\Win2D.uwp\1.19.0\runtimes\win10-x86\native\Microsoft.Graphics.Canvas.dll">
+      <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>
+      <Modified>2016-08-09T06:14:36.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\joryj\.nuget\packages\Win2D.uwp\1.19.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
+      <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
+      <Modified>2016-08-09T06:14:36.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2016-09-29T10:34:14.902</Modified>
@@ -492,7 +500,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.xr.xml">
       <PackagePath>EuphoricElephant.xr.xml</PackagePath>
-      <Modified>2016-10-18T12:02:13.395</Modified>
+      <Modified>2016-10-18T15:30:06.536</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -500,11 +508,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-10-18T13:02:08.979</Modified>
+      <Modified>2016-10-18T15:30:07.051</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\EuphoricElephant.exe">
       <PackagePath>EuphoricElephant.exe</PackagePath>
-      <Modified>2016-10-18T13:04:51.762</Modified>
+      <Modified>2016-10-18T16:11:37.225</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

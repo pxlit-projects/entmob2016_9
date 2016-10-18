@@ -1016,3 +1016,5 @@ C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricEl
 C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\obj\x86\Debug\qualifiers.txt.intermediate
 C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Microsoft.Graphics.Canvas.dll
+C:\Users\joryj\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Microsoft.Graphics.Canvas.winmd
