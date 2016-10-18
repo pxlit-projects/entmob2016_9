@@ -97,24 +97,49 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Custom\CustomAccelerometer.cs" />
+    <Compile Include="Custom\CustomCommand.cs" />
     <Compile Include="Custom\CustomSimpleKey.cs" />
     <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Enumerations\BindState.cs" />
+    <Compile Include="Enumerations\ViewType.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\lasthope.cs" />
     <Compile Include="Helpers\MovementData.cs" />
+    <Compile Include="Messaging\Messenger.cs" />
+    <Compile Include="Messaging\NavigationMessage.cs" />
     <Compile Include="Helpers\MusicPlayer.cs" />
     <Compile Include="Helpers\VolumeController.cs" />
     <Compile Include="Model\SensorTag.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />
+    <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="Services\SensorTagService.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\DroneViewModel.cs" />
+    <Compile Include="ViewModels\HubViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\SensorTagViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DroneView.xaml.cs">
+      <DependentUpon>DroneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HubView.xaml.cs">
+      <DependentUpon>HubView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MediaView.xaml.cs">
+      <DependentUpon>MediaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -123,17 +148,6 @@
     <None Include="EuphoricElephant_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MyFolder\01 - Doomed.m4a" />
-    <Content Include="MyFolder\02 - Happy Song.m4a" />
-    <Content Include="MyFolder\03 - Throne.m4a" />
-    <Content Include="MyFolder\04 - True Friends.m4a" />
-    <Content Include="MyFolder\05 - Follow You.m4a" />
-    <Content Include="MyFolder\06 - What You Need.m4a" />
-    <Content Include="MyFolder\07 - Avalanche.m4a" />
-    <Content Include="MyFolder\08 - Run.m4a" />
-    <Content Include="MyFolder\09 - Drown %28New%29.m4a" />
-    <Content Include="MyFolder\10 - Blasphemy.m4a" />
-    <Content Include="MyFolder\11 - Oh No.m4a" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -148,13 +162,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\DeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DroneView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HubView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MediaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Converters\" />
     <Folder Include="Data\" />
+    <Folder Include="MyFolder\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
