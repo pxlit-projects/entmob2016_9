@@ -4,7 +4,11 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.persistence.*;
+
+@Entity
 public class User {
+	@Id
 	public int userId;
 	public String firstName;
 	public String lastName;

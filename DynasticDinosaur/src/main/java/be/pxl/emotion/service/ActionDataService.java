@@ -4,12 +4,7 @@ import javax.persistence.*;
 import be.pxl.emotion.bean.Action;
 
 public class ActionDataService {
-	private EntityManagerFactory emf;
-	
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "dbpu" );
 	
 	public Action getActionById(int id)
 	{

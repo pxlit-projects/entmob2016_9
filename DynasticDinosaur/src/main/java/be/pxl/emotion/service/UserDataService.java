@@ -10,12 +10,7 @@ import be.pxl.emotion.bean.User;
 
 @Service("userService")
 public class UserDataService {
-	private EntityManagerFactory emf;
-	
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf){
-		this.emf = emf;
-	}
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "dbpu" );
 	
 	public User getUserById(int id){
 		EntityManager em = emf.createEntityManager();

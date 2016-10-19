@@ -1,6 +1,10 @@
 package be.pxl.emotion.bean;
 
+import javax.persistence.*;
+
+@Entity
 public class Command {
+	@Id
 	private int commandId;
 	private int command1;
 	private int command2;

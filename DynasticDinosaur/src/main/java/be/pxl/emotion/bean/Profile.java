@@ -1,9 +1,15 @@
 package be.pxl.emotion.bean;
 
+import javax.persistence.*;
+
+@Entity
 public class Profile {
+	@Id
 	private int profileId;
 	private int userId;
+	@Column(name="commandid")
 	private int commands;
+	@Column(name="actionid")
 	private int actions;
 	private String profileName;
 	
