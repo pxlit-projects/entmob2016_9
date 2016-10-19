@@ -1,4 +1,5 @@
-﻿using EuphoricElephant.Model;
+﻿using EuphoricElephant.Helpers;
+using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
 using System;
@@ -13,7 +14,6 @@ namespace EuphoricElephant.ViewModels
 {
     public class DeviceViewModel : BaseModel
     {
-
         private ObservableCollection<DeviceInformation> devices;
 
         private DeviceInformation selectedTag;
@@ -35,6 +35,7 @@ namespace EuphoricElephant.ViewModels
                 {
                     Info = value
                 };
+                ApplicationSettings.AddItem("ActiveSensor", activeSensor);
             }
         }
 

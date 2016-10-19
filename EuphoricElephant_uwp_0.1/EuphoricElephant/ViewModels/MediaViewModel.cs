@@ -1,33 +1,18 @@
 ﻿using EuphoricElephant.Custom;
+using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using EuphoricElephant.Interfaces;
 using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
-using EuphoricElephant.Views;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
-using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Shapes;
 using X2CodingLab.SensorTag;
 
 namespace EuphoricElephant.ViewModels
@@ -47,7 +32,7 @@ namespace EuphoricElephant.ViewModels
         private MusicPlayer player;
         private bool isPlaying;
         private bool pressed;
-        private int trackIndex = 0;
+        private int TrackIndex;
         private SensorTagDataCheck checker = new SensorTagDataCheck();
         private SensorTag activeSensor;
 
@@ -117,9 +102,9 @@ namespace EuphoricElephant.ViewModels
             player = new MusicPlayer();
             PlayButtonText = "Play";
 
-            SetTrackProperties();
+            SetTrackProperties(null);
 
-            //LoadTagListener();
+            LoadTagListener();
         }
 
         private void LoadCommands()
@@ -134,7 +119,7 @@ namespace EuphoricElephant.ViewModels
         {
             Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
             SelectedTrack = Tracks[0];
-            trackIndex = 0;
+            TrackIndex = 0;
             CurrentTrackTime = 0;
         }
 
@@ -142,6 +127,8 @@ namespace EuphoricElephant.ViewModels
         {
             try
             {
+                activeSensor = (SensorTag)ApplicationSettings.GetItem("ActiveSensor");
+
                 activeSensor.Accelerometer = new CustomAccelerometer();
                 activeSensor.SimpleKey = new CustomSimpleKey();
 
@@ -195,7 +182,27 @@ namespace EuphoricElephant.ViewModels
                         if (true)
                         {
                             byte[] data = await activeSensor.Accelerometer.ReadValue();
-                            checker.MovementCheck(data, player);
+                            ActionType action = checker.MovementCheck(data, player);
+
+                            lasthope.MixerInfo mi = lasthope.GetMixerControls();
+
+                            switch (action)
+                            {
+                                case ActionType.Left:
+                                    PreviousTrackAction(null);
+                                    break;
+                                case ActionType.Right:
+                                    NextTrackAction(null);
+                                    break;
+                                case ActionType.Up:
+                                    lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
+                                    break;
+                                case ActionType.Down:
+                                    lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else
                         {
@@ -209,63 +216,67 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Private Methods
-        private void PlayTrackAction(object param)
+        private async void PlayTrackAction(object param)
         {
-            player.Play(SelectedTrack);
+            TrackIndex = Tracks.IndexOf(SelectedTrack);
+
+            byte[] data = await player.Play(SelectedTrack);           
 
             isPlaying = true;
 
-            SetTrackProperties();
+            SetTrackProperties(data);
         }
 
         private void StopTrackAction(object param)
         {
             player.Stop();
 
-            SetTrackProperties();
+            isPlaying = false;
+
+            SetTrackProperties(null);
         }
 
-        private void PreviousTrackAction(object param)
+        private async void PreviousTrackAction(object param)
         {
             if (isPlaying)
             {
-                if (trackIndex == 0)
+                if (TrackIndex == 0)
                 {
-                    trackIndex = tracks.Count() - 1;
+                    TrackIndex = tracks.Count() - 1;
                 }
                 else
                 {
-                    trackIndex--;
+                    TrackIndex--;
                 }
 
-                SelectedTrack = tracks.ElementAt(trackIndex);
-                player.LoadNewTrack(SelectedTrack);
+                SelectedTrack = tracks.ElementAt(TrackIndex);
+                byte[] data = await player.LoadNewTrack(SelectedTrack);
 
-                SetTrackProperties();
+                SetTrackProperties(data);
             }
         }
 
-        private void NextTrackAction(object param)
+        private async void NextTrackAction(object param)
         {
             if (isPlaying)
             {
-                if (trackIndex == tracks.Count() - 1)
+                if (TrackIndex == tracks.Count() - 1)
                 {
-                    trackIndex = 0;
+                    TrackIndex = 0;
                 }
                 else
                 {
-                    trackIndex++;
+                    TrackIndex++;
                 }
 
-                SelectedTrack = tracks.ElementAt(trackIndex);
-                player.LoadNewTrack(SelectedTrack);
+                SelectedTrack = tracks.ElementAt(TrackIndex);
+                byte[] data = await player.LoadNewTrack(SelectedTrack);
 
-                SetTrackProperties();
+                SetTrackProperties(data);
             }
         }
 
-        private async void SetTrackProperties()
+        private async void SetTrackProperties(byte[] data)
         {
             MusicProperties properties = null;
 
@@ -283,16 +294,13 @@ namespace EuphoricElephant.ViewModels
                 CurrentTrackTime = 0;
             }
 
-            CreateAudioImage(); 
+            CreateAudioImage(data);          
         }
 
-        private void CreateAudioImage()
+        private void CreateAudioImage(byte[] data)
         {
             if (View == null) return;
-
-            var b = player.GetStreamAsByteArray().Result;
-
-            View.DrawOnCanvas(b);
+            View.DrawOnCanvas(data);
         }
         #endregion
     }

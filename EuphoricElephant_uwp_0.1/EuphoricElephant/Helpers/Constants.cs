@@ -18,5 +18,7 @@ namespace EuphoricElephant.Helpers
         public const string USER_TEXT = "My eMotion";
 
         public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, DRONE_TEXT, USER_TEXT };
+
+
     }
 }

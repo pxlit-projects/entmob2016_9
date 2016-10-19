@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -16,14 +17,13 @@ namespace EuphoricElephant.Helpers
     public class MusicPlayer
     {
         private MediaElement element = new MediaElement();
-        private Windows.Storage.Streams.IRandomAccessStream stream;
 
-        public async void Play(StorageFile track)
+        public async Task<byte[]> Play(StorageFile track)
         {
-            stream = await track.OpenAsync(Windows.Storage.FileAccessMode.Read);
+            byte[] bytes = await SetElement(track); 
+            element.Play();
 
-            element.SetSource(stream, "");
-            element.Play();               
+            return bytes;
         }
 
         public void Stop()
@@ -31,20 +31,35 @@ namespace EuphoricElephant.Helpers
             element.Stop();
         }
 
-        public async void LoadNewTrack(StorageFile track)
+        public async Task<byte[]> LoadNewTrack(StorageFile track)
         {
             Stop();
-            stream.Dispose();
-            stream = await track.OpenAsync(Windows.Storage.FileAccessMode.Read);
-            element.SetSource(stream, "");
-            Play(track);
+            byte[] bytes = await SetElement(track);
+            element.Play();
+
+            return bytes;
         }
 
-        public async Task<byte[]> GetStreamAsByteArray()
+        private async Task<byte[]> SetElement(StorageFile track)
+        {
+           IRandomAccessStream stream = await track.OpenAsync(Windows.Storage.FileAccessMode.Read);
+           element.SetSource(stream, "");
+
+            return await GetStreamAsByteArray(stream);
+        }
+
+        public async Task<byte[]> GetStreamAsByteArray(IRandomAccessStream stream)
         {
             var bytes = new byte[stream.Size];
 
-            await stream.ReadAsync(bytes.AsBuffer(), (uint)stream.Size, Windows.Storage.Streams.InputStreamOptions.None);
+            try
+            {
+                var v = await stream.ReadAsync(bytes.AsBuffer(), (uint)stream.Size, Windows.Storage.Streams.InputStreamOptions.None);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
             return bytes;
         }

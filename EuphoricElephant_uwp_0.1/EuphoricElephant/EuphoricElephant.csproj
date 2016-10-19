@@ -11,7 +11,7 @@
     <AssemblyName>EuphoricElephant</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -96,12 +96,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\SecondsToTimeConverter.cs" />
     <Compile Include="Custom\CustomAccelerometer.cs" />
     <Compile Include="Custom\CustomCommand.cs" />
     <Compile Include="Custom\CustomSimpleKey.cs" />
     <Compile Include="Custom\CustomValidator.cs" />
+    <Compile Include="Custom\CustomWaveStream.cs" />
+    <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\BindState.cs" />
     <Compile Include="Enumerations\ViewType.cs" />
+    <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\lasthope.cs" />
     <Compile Include="Helpers\MovementData.cs" />
@@ -190,7 +194,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>

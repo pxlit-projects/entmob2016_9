@@ -1,4 +1,5 @@
-﻿using EuphoricElephant.Helpers;
+﻿using EuphoricElephant.Enumerations;
+using EuphoricElephant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,17 +14,14 @@ namespace EuphoricElephant.Services
 
         Boolean b = true;
 
-        public void MovementCheck(byte[] data, MusicPlayer player)
+        public ActionType MovementCheck(byte[] data, MusicPlayer player)
         {
             SensorTagDataStabilizer stabilizer = new SensorTagDataStabilizer();
 
-            lasthope.MixerInfo mi = lasthope.GetMixerControls();
-            
-
             if (stabilizer.AccellerometerStabilizer(data).YAcc > 5)
             {
-            //    Debug.WriteLine("Volume up!");
-                lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
+                //    Debug.WriteLine("Volume up!");
+                return ActionType.Up;
             }
             else if (stabilizer.AccellerometerStabilizer(data).YAcc < 5 && stabilizer.AccellerometerStabilizer(data).YAcc > -5)
             {
@@ -31,8 +29,8 @@ namespace EuphoricElephant.Services
             }
             else if (stabilizer.AccellerometerStabilizer(data).YAcc < -5)
             {
-             //   Debug.WriteLine("Volume down!");
-                lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
+                //   Debug.WriteLine("Volume down!");
+                return ActionType.Down;
             }
 
             
@@ -41,9 +39,9 @@ namespace EuphoricElephant.Services
             {
                 if (b)
                 {
-              //      Debug.WriteLine("Previous song!");
-                   
-                    //player.previous();
+                    //      Debug.WriteLine("Previous song!");
+
+                    return ActionType.Left;
                     //b = false;
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }
@@ -57,13 +55,15 @@ namespace EuphoricElephant.Services
             {
                 if (b)
                 {
-              //      Debug.WriteLine("Next Song!");
-                    
-                    //player.next();
+                    //      Debug.WriteLine("Next Song!");
+
+                    return ActionType.Right;
                     //b = false;
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }
             }
+
+            return ActionType.NoAction;
 
         }
 
