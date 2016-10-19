@@ -54,7 +54,7 @@
         <StackPanel x:Name="TrackPanel" Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
             <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"/>
 
-            <ScrollViewer VerticalScrollBarVisibility="Visible" x:Name="TrackListBox">
+            <ScrollViewer x:Name="TrackListBox">
                 <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

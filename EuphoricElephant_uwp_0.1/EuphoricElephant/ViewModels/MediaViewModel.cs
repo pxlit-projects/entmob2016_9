@@ -43,7 +43,10 @@ namespace EuphoricElephant.ViewModels
 
         public string PlayButtonText
         {
-            get { return playButtonText; }
+            get {
+                LoadTagListener();
+
+                return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
         }  
 
@@ -104,7 +107,6 @@ namespace EuphoricElephant.ViewModels
 
             SetTrackProperties(null);
 
-            LoadTagListener();
         }
 
         private void LoadCommands()
@@ -186,7 +188,7 @@ namespace EuphoricElephant.ViewModels
                             byte[] data = await activeSensor.Accelerometer.ReadValue();
                             ActionType action = checker.MovementCheck(data, player);
 
-                            lasthope.MixerInfo mi = lasthope.GetMixerControls();
+                           lasthope.MixerInfo mi = lasthope.GetMixerControls();
 
                             switch (action)
                             {
@@ -198,8 +200,10 @@ namespace EuphoricElephant.ViewModels
                                     break;
                                 case ActionType.Up:
                                     lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
+                                    //player.changeVolume(0.1);
                                     break;
                                 case ActionType.Down:
+                                    //player.changeVolume(-0.1);
                                     lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
                                     break;
                                 default:

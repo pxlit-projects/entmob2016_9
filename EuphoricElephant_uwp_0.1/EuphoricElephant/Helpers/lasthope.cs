@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace EuphoricElephant.Helpers
 {
-    public class lasthope
+    public static class lasthope
     {
         const int MAXPNAMELEN = 32;
         const int MIXER_SHORT_NAME_CHARS = 16;
         const int MIXER_LONG_NAME_CHARS = 64;
 
         [Flags]
-        enum MIXERLINE_LINEF : uint
+        public enum MIXERLINE_LINEF : uint
         {
             ACTIVE = 0x00000001,
             DISCONNECTED = 0x00008000,
             SOURCE = 0x80000000
         }
         [Flags]
-        enum MIXER : uint
+        public enum MIXER : uint
         {
             GETLINEINFOF_DESTINATION = 0x00000000,
             GETLINEINFOF_SOURCE = 0x00000001,
@@ -53,7 +53,7 @@ namespace EuphoricElephant.Helpers
             OBJECTF_HMIDIIN = OBJECTF_HANDLE | OBJECTF_MIDIIN
         }
         [Flags]
-        enum MIXERCONTROL_CT : uint
+        public enum MIXERCONTROL_CT : uint
         {
             CLASS_MASK = 0xF0000000,
             CLASS_CUSTOM = 0x00000000,
@@ -87,7 +87,7 @@ namespace EuphoricElephant.Helpers
             UNITS_PERCENT = 0x00050000, /* in 10ths */
         }
         [Flags]
-        enum MIXERCONTROL_CONTROLTYPE : uint
+        public enum MIXERCONTROL_CONTROLTYPE : uint
         {
             CUSTOM = MIXERCONTROL_CT.CLASS_CUSTOM | MIXERCONTROL_CT.UNITS_CUSTOM,
             BOOLEANMETER = MIXERCONTROL_CT.CLASS_METER | MIXERCONTROL_CT.SC_METER_POLLED | MIXERCONTROL_CT.UNITS_BOOLEAN,
@@ -123,7 +123,7 @@ namespace EuphoricElephant.Helpers
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        struct MIXERLINE
+        public struct MIXERLINE
         {
             [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
             public struct TargetInfo
@@ -154,7 +154,7 @@ namespace EuphoricElephant.Helpers
             public TargetInfo Target;
         }
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        struct MIXERCONTROL
+        public struct MIXERCONTROL
         {
             [StructLayout(LayoutKind.Explicit)]
             public struct BoundsInfo
@@ -194,7 +194,7 @@ namespace EuphoricElephant.Helpers
             public MetricsInfo Metrics;
         }
         [StructLayout(LayoutKind.Explicit)]
-        struct MIXERLINECONTROLS
+        public struct MIXERLINECONTROLS
         {
             [FieldOffset(0)]
             public uint cbStruct;
@@ -212,7 +212,7 @@ namespace EuphoricElephant.Helpers
             public IntPtr pamxctrl;
         }
         [StructLayout(LayoutKind.Explicit)]
-        struct MIXERCONTROLDETAILS
+        public struct MIXERCONTROLDETAILS
         {
             [FieldOffset(0)]
             public uint cbStruct;
@@ -244,16 +244,16 @@ namespace EuphoricElephant.Helpers
         }
 
         [DllImport("WinMM.dll", CharSet = CharSet.Unicode)]
-        static extern uint mixerGetLineInfo(IntPtr hmxobj, ref MIXERLINE pmxl, MIXER flags);
+        public static extern uint mixerGetLineInfo(IntPtr hmxobj, ref MIXERLINE pmxl, MIXER flags);
 
         [DllImport("WinMM.dll", CharSet = CharSet.Unicode)]
-        static extern uint mixerGetLineControls(IntPtr hmxobj, ref MIXERLINECONTROLS pmxlc, MIXER flags);
+        public static extern uint mixerGetLineControls(IntPtr hmxobj, ref MIXERLINECONTROLS pmxlc, MIXER flags);
 
         [DllImport("WinMM.dll", CharSet = CharSet.Unicode)]
-        static extern uint mixerGetControlDetails(IntPtr hmxobj, ref MIXERCONTROLDETAILS pmxcd, MIXER flags);
+        public static extern uint mixerGetControlDetails(IntPtr hmxobj, ref MIXERCONTROLDETAILS pmxcd, MIXER flags);
 
         [DllImport("WinMM.dll", CharSet = CharSet.Unicode)]
-        static extern uint mixerSetControlDetails(IntPtr hmxobj, ref MIXERCONTROLDETAILS pmxcd, MIXER flags);
+        public static extern uint mixerSetControlDetails(IntPtr hmxobj, ref MIXERCONTROLDETAILS pmxcd, MIXER flags);
 
         public static MixerInfo GetMixerControls()
         {
@@ -311,7 +311,7 @@ namespace EuphoricElephant.Helpers
 
             return rtn;
         }
-        static bool IsMuted(MixerInfo mi)
+        public static bool IsMuted(MixerInfo mi)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
@@ -346,7 +346,7 @@ namespace EuphoricElephant.Helpers
 
             SetVolume(mi, volume);
         }
-        static void SetVolume(MixerInfo mi, VOLUME volume)
+        public static void SetVolume(MixerInfo mi, VOLUME volume)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));

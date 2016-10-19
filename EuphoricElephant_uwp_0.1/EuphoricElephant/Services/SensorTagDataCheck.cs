@@ -41,8 +41,9 @@ namespace EuphoricElephant.Services
                 {
                     //      Debug.WriteLine("Previous song!");
 
+                    b = false;
                     return ActionType.Left;
-                    //b = false;
+                    
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }
             }
@@ -57,8 +58,9 @@ namespace EuphoricElephant.Services
                 {
                     //      Debug.WriteLine("Next Song!");
 
+                    b = false;
                     return ActionType.Right;
-                    //b = false;
+                    
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }
             }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
@@ -17,6 +18,7 @@ namespace EuphoricElephant.Helpers
     public class MusicPlayer
     {
         private MediaElement element = new MediaElement();
+        private MediaPlayer player;
 
         public async Task<byte[]> Play(StorageFile track)
         {
@@ -62,6 +64,12 @@ namespace EuphoricElephant.Helpers
             }
 
             return bytes;
+        }
+
+        public void changeVolume(double delta)
+        {
+            //player = new MediaPlayer();
+            player.Volume += delta;
         }
 
     }

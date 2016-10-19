@@ -10,7 +10,7 @@ namespace EuphoricElephant.Services
 {
     public static class AudioFilterService
     {
-        private static List<string> ApprovedExtensions = new List<string> { ".mp3", ".flac", ".m4a", "wma" };
+        private static List<string> ApprovedExtensions = new List<string> { ".mp3", ".flac", ".m4a", ".wma" };
 
         public static ObservableCollection<StorageFile> FilterAudio(ObservableCollection<StorageFile> Tracks)
         {
@@ -18,7 +18,7 @@ namespace EuphoricElephant.Services
 
             foreach(var t in Tracks)
             {
-                if (!ApprovedExtensions.Contains(t.FileType.ToString()))
+                if (ApprovedExtensions.Contains(t.FileType.ToString()))
                 {
                     filteredTracks.Add(t);
                 }
