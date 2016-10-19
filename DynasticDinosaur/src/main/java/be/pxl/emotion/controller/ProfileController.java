@@ -32,11 +32,11 @@ public class ProfileController {
 		return profileService.addProfile(profile, command, action);
 	}
 
-	// Commandolijst in profile aanpassen adhv command en action object (json command, action)
-	@RequestMapping(value = "/profiles", method = RequestMethod.PUT, headers = "Accept=application/json")
-	public void updateProfile(@RequestBody Command command, Action action) {
-		profileService.updateProfile(command, action);
-	}
+//	// Commandolijst in profile aanpassen adhv command en action object (json command, action)
+//	@RequestMapping(value = "/profiles", method = RequestMethod.PUT, headers = "Accept=application/json")
+//	public void updateProfile(@RequestBody Command command, Action action) {
+//		profileService.updateProfile(command, action);
+//	}
 
 	// verwijder profile adhv id
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")

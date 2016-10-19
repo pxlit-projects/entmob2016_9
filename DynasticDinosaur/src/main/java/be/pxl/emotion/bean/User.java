@@ -12,7 +12,7 @@ public class User {
 	public int userId;
 	public String firstName;
 	public String lastName;
-	private String password;
+	public String password;
 
 	public boolean setPass(String toSet, String prev) {
 		if (password.equals(prev)) {

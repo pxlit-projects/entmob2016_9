@@ -27,26 +27,6 @@ public class ProfileDataService {
 		return pr;
 	}
 
-	private Command getCommandById(int id) {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		Command com = em.find(Command.class, id);
-		tx.commit();
-		em.close();
-		return com;
-	}
-
-	private Action getActionById(int id) {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		Action act = em.find(Action.class, id);
-		tx.commit();
-		em.close();
-		return act;
-	}
-
 	public List<Profile> getProfilesByUserId(int id) {
 		EntityManager em = emf.createEntityManager();
 		@SuppressWarnings("unchecked")
@@ -80,9 +60,11 @@ public class ProfileDataService {
 	}
 
 	public void deleteProfile(int id) {
+		CommandDataService cs = new CommandDataService();
+		ActionDataService as = new ActionDataService();
 		Profile p = getProfileById(id);
-		Command c = getCommandById(p.getCommands());
-		Action a = getActionById(p.getActions());
+		Command c = cs.getCommandById(p.getCommands());
+		Action a = as.getActionById(p.getActions());
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();
