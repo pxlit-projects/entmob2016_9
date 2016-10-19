@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EuphoricElephant.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace EuphoricElephant.Helpers
@@ -18,7 +20,6 @@ namespace EuphoricElephant.Helpers
     public class MusicPlayer
     {
         private MediaElement element = new MediaElement();
-        private MediaPlayer player;
 
         public async Task<byte[]> Play(StorageFile track)
         {
@@ -28,9 +29,23 @@ namespace EuphoricElephant.Helpers
             return bytes;
         }
 
+        public void Pause()
+        {
+            element.Pause();
+            //Debug.WriteLine(element.CurrentState.ToString());
+        }
+
+        public void Resume()
+        {
+            element.Play();
+            //Debug.WriteLine(element.CurrentState.ToString());
+        }
+
         public void Stop()
         {
+            //Debug.WriteLine(element.CurrentState.ToString());
             element.Stop();
+            //Debug.WriteLine(element.CurrentState.ToString());
         }
 
         public async Task<byte[]> LoadNewTrack(StorageFile track)
@@ -38,6 +53,9 @@ namespace EuphoricElephant.Helpers
             Stop();
             byte[] bytes = await SetElement(track);
             element.Play();
+            element.MediaEnded += OnMediaEnded;
+
+            //Debug.WriteLine(element.CurrentState.ToString());
 
             return bytes;
         }
@@ -66,11 +84,24 @@ namespace EuphoricElephant.Helpers
             return bytes;
         }
 
-        public void changeVolume(double delta)
+        public void OnMediaEnded(object sender, RoutedEventArgs e)
         {
-            //player = new MediaPlayer();
-            player.Volume += delta;
+            Messenger.Default.Send<OnMediaEndedMessage>(new OnMediaEndedMessage());
         }
 
+        private void Media_State_Changed(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine(element.CurrentState.ToString());
+        }
+
+        public string getstate()
+        {
+            return element.CurrentState.ToString();
+        }
+        
+        public MediaElement GetElement()
+        {
+            return element;
+        }
     }
 }

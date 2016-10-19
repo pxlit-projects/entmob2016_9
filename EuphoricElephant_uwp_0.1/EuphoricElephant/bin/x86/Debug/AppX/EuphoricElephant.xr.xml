@@ -27,6 +27,7 @@
     <RootPropertyPathName Name="Tracks" />
     <RootPropertyPathName Name="SelectedTrack" />
     <RootPropertyPathName Name="CurrentFolderName" />
+    <RootPropertyPathName Name="ToggleLoopCommand" />
     <RootPropertyPathName Name="NextTrackCommand" />
     <RootPropertyPathName Name="StopTrackCommand" />
     <RootPropertyPathName Name="PreviousTrackCommand" />

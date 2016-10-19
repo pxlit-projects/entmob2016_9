@@ -2,6 +2,7 @@
 using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using EuphoricElephant.Interfaces;
+using EuphoricElephant.Messaging;
 using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
@@ -9,10 +10,14 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.UI.Core;
+using Windows.UI.Input;
+using Windows.UI.Xaml;
 using X2CodingLab.SensorTag;
 
 namespace EuphoricElephant.ViewModels
@@ -30,7 +35,11 @@ namespace EuphoricElephant.ViewModels
         private string playButtonText = string.Empty;
 
         private MusicPlayer player;
-        private bool isPlaying;
+        private bool isPlaying = false;
+        private bool isPaused = false;
+        private bool isLoaded = false;
+        private bool isStopped = false;
+        private bool loop = false;
         private bool pressed;
         private int TrackIndex;
         private SensorTagDataCheck checker = new SensorTagDataCheck();
@@ -44,7 +53,11 @@ namespace EuphoricElephant.ViewModels
         public string PlayButtonText
         {
             get {
-                LoadTagListener();
+                if (!isLoaded)
+                {
+                    LoadTagListener();
+                    isLoaded = true;
+                }
 
                 return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
@@ -86,6 +99,8 @@ namespace EuphoricElephant.ViewModels
         public ICommand PreviousTrackCommand { get; set; }
         public ICommand StopTrackCommand { get; set; }
         public ICommand NextTrackCommand { get; set; }
+
+        public ICommand ToggleLoopCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -115,6 +130,8 @@ namespace EuphoricElephant.ViewModels
             PreviousTrackCommand = new CustomCommand(PreviousTrackAction);
             NextTrackCommand = new CustomCommand(NextTrackAction);
             StopTrackCommand = new CustomCommand(StopTrackAction);
+
+            ToggleLoopCommand = new CustomCommand(ToggleLoopAction);
         }
 
         private async void LoadMusic()
@@ -131,32 +148,37 @@ namespace EuphoricElephant.ViewModels
         {
             try
             {
-                activeSensor = (SensorTag)ApplicationSettings.GetItem("ActiveSensor");
+                if (ApplicationSettings.Contains("ActiveSensor"))
+                {
+                    activeSensor = (SensorTag)ApplicationSettings.GetItem("ActiveSensor");
 
-                activeSensor.Accelerometer = new CustomAccelerometer();
-                activeSensor.SimpleKey = new CustomSimpleKey();
+                    activeSensor.Accelerometer = new CustomAccelerometer();
+                    activeSensor.SimpleKey = new CustomSimpleKey();
+                }
 
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
+                    Task t = sk_elementValueChanged();
+
                     try
                     {
+                        if(activeSensor != null)
+                        {
+                            var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
 
-                        var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
+                            await activeSensor.Accelerometer.Initialize(c[0]);
+                            await activeSensor.Accelerometer.CustomEnableSensor();
 
-                        await activeSensor.Accelerometer.Initialize(c[0]);
-                        await activeSensor.Accelerometer.CustomEnableSensor();
+                            CustomSimpleKey SimpleKey = new CustomSimpleKey();
 
-                        CustomSimpleKey SimpleKey = new CustomSimpleKey();
+                            SimpleKey.SensorValueChanged += sk_sensorValueChanged;
 
-                        SimpleKey.SensorValueChanged += sk_sensorValueChanged;
+                            var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
 
-                        var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
-
-                        await SimpleKey.Initialize(k[0]);
-                        await SimpleKey.EnableNotifications();
-
-
+                            await SimpleKey.Initialize(k[0]);
+                            await SimpleKey.EnableNotifications();
+                        }
                     }
                     catch (Exception e)
                     {
@@ -169,6 +191,40 @@ namespace EuphoricElephant.ViewModels
                 Debug.WriteLine(e.Message);
             }
         }
+
+        private async Task sk_elementValueChanged()
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                async () =>
+                {
+                    while (true)
+                    {
+                        var e = player.GetElement();
+
+                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+
+                        Debug.WriteLine(e.CurrentState.ToString());
+
+                        if (e.CurrentState.ToString().Equals("Paused"))
+                        {
+                            if (!isPaused && isPlaying)
+                            {
+                                if (!loop)
+                                {
+                                    NextTrackAction(null);
+                                }
+                                else
+                                {
+                                    isPlaying = false;
+                                    PlayTrackAction(null);
+                                }
+                            }
+                        }                  
+                    }
+                }
+            );
+        }
+
 
         private async void sk_sensorValueChanged(object sender, SensorValueChangedEventArgs e)
         {
@@ -224,13 +280,34 @@ namespace EuphoricElephant.ViewModels
         #region Private Methods
         private async void PlayTrackAction(object param)
         {
-            TrackIndex = Tracks.IndexOf(SelectedTrack);
+            if(!isPaused && !isPlaying)
+            {
+                TrackIndex = Tracks.IndexOf(SelectedTrack);
 
-            byte[] data = await player.Play(SelectedTrack);           
+                byte[] data = await player.Play(SelectedTrack);
 
-            isPlaying = true;
+                PlayButtonText = "Pause";
 
-            SetTrackProperties(data);
+                isPlaying = true;
+
+                SetTrackProperties(data);
+            }
+            else if(!isPaused && isPlaying)
+            {
+                isPlaying = false;
+                isPaused = true;
+                player.Pause();
+                PlayButtonText = "Play";           
+            }
+            else if(isPaused && !isPlaying)
+            {
+                player.Resume();
+                PlayButtonText = "Pause";
+                isPlaying = true;
+                isPaused = false;
+            }
+
+            isStopped = false;
         }
 
         private void StopTrackAction(object param)
@@ -238,6 +315,10 @@ namespace EuphoricElephant.ViewModels
             player.Stop();
 
             isPlaying = false;
+            isPaused = false;
+            isStopped = true;
+
+            PlayButtonText = "Play";
 
             SetTrackProperties(null);
         }
@@ -254,6 +335,12 @@ namespace EuphoricElephant.ViewModels
                 {
                     TrackIndex--;
                 }
+
+                isPaused = false;
+                isPlaying = false;
+                isStopped = false;
+
+                PlayButtonText = "Pause";
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
                 byte[] data = await player.LoadNewTrack(SelectedTrack);
@@ -308,6 +395,12 @@ namespace EuphoricElephant.ViewModels
             if (View == null) return;
             View.DrawOnCanvas(data);
         }
+
+        private void ToggleLoopAction(object param)
+        {
+            loop = !loop;
+        }
         #endregion
+
     }
 }
