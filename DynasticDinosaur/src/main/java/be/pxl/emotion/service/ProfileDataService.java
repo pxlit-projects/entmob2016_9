@@ -4,6 +4,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,7 @@ import be.pxl.emotion.bean.Profile;
 
 @Service("profileService")
 public class ProfileDataService {
-	private EntityManagerFactory emf;
-
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "dbpu" );
 
 	public Profile getProfileById(int id) {
 		EntityManager em = emf.createEntityManager();

@@ -1,6 +1,10 @@
 package be.pxl.emotion.bean;
 
+import javax.persistence.*;
+
+@Entity
 public class Action {
+	@Id
 	private int actId;
 	private int act1;
 	private int act2;

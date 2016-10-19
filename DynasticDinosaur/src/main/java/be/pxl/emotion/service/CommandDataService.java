@@ -4,14 +4,7 @@ import javax.persistence.*;
 import be.pxl.emotion.bean.Command;
 
 public class CommandDataService {
-	private EntityManagerFactory emf;
-	
-	//Database interactie word hier geregeld
-	// entitymanagefactory is de basis van de connectie met de database
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "dbpu" );
 	
 	public Command getCommandById(int id)
 	{
