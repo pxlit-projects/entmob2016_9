@@ -115,6 +115,7 @@
     <Compile Include="Helpers\MusicPlayer.cs" />
     <Compile Include="Helpers\VolumeController.cs" />
     <Compile Include="Model\SensorTag.cs" />
+    <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />

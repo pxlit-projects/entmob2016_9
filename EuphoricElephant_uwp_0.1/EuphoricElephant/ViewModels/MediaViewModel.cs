@@ -118,6 +118,8 @@ namespace EuphoricElephant.ViewModels
         private async void LoadMusic()
         {
             Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+            Tracks = AudioFilterService.FilterAudio(Tracks);
+
             SelectedTrack = Tracks[0];
             TrackIndex = 0;
             CurrentTrackTime = 0;

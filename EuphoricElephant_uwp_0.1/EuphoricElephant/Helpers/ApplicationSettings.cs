@@ -19,6 +19,6 @@ namespace EuphoricElephant.Helpers
             {
                 return _settingsCache[itemKey];
             }
-        }
+        
     }
 }
