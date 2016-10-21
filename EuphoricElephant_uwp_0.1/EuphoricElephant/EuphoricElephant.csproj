@@ -120,7 +120,7 @@
     <Compile Include="Helpers\VolumeController.cs" />
     <Compile Include="Messaging\OnMediaEndedMessage.cs" />
     <Compile Include="Model\SensorTag.cs" />
-    <Compile Include="Helpers\AudioFilterService.cs" />
+    <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
