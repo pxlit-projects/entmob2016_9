@@ -39,7 +39,7 @@ namespace EuphoricElephant.ViewModels
         private bool isPaused = false;
         private bool isLoaded = false;
         private bool isStopped = false;
-        private bool loop = false;
+        private bool isLooped = false;
         private bool pressed;
         private int TrackIndex;
         private SensorTagDataCheck checker = new SensorTagDataCheck();
@@ -61,7 +61,13 @@ namespace EuphoricElephant.ViewModels
 
                 return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
-        }  
+        }
+
+        public bool IsLooped
+        {
+            get { return isLooped; }
+            set { SetProperty(ref isLooped, value); }
+        }
 
         public double CurrentTrackTime
         {
@@ -101,6 +107,7 @@ namespace EuphoricElephant.ViewModels
         public ICommand NextTrackCommand { get; set; }
 
         public ICommand ToggleLoopCommand { get; set; }
+        public ICommand ShuffleCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -132,6 +139,7 @@ namespace EuphoricElephant.ViewModels
             StopTrackCommand = new CustomCommand(StopTrackAction);
 
             ToggleLoopCommand = new CustomCommand(ToggleLoopAction);
+            ShuffleCommand = new CustomCommand(ShuffleAction);
         }
 
         private async void LoadMusic()
@@ -203,13 +211,11 @@ namespace EuphoricElephant.ViewModels
 
                         var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
 
-                        Debug.WriteLine(e.CurrentState.ToString());
-
                         if (e.CurrentState.ToString().Equals("Paused"))
                         {
                             if (!isPaused && isPlaying)
                             {
-                                if (!loop)
+                                if (!IsLooped)
                                 {
                                     NextTrackAction(null);
                                 }
@@ -233,20 +239,21 @@ namespace EuphoricElephant.ViewModels
                 {
                     byte[] raw = e.RawData;
 
-                    pressed = Convert.ToBoolean(raw[0]);
-                    var c = true;
+                    pressed = Convert.ToBoolean(raw[0]);                    
 
-                    while (c)
+                    while (ApplicationSettings.Contains("ActiveSensor"))
                     {
 
                         if (true)
                         {
-                            byte[] data = await activeSensor.Accelerometer.ReadValue();
-                            ActionType action = checker.MovementCheck(data, player);
+                            byte[] accData = await activeSensor.Accelerometer.ReadValue();
+                            //byte[] gyrData = await activeSensor.Accelerometer.ReadValue();
+                            ActionType accAction = checker.MovementCheck(accData, player);
+                            //ActionType gyrAction = checker.MovementCheck(accData, player);
 
-                           lasthope.MixerInfo mi = lasthope.GetMixerControls();
+                            lasthope.MixerInfo mi = lasthope.GetMixerControls();
 
-                            switch (action)
+                            switch (accAction)
                             {
                                 case ActionType.Left:
                                     PreviousTrackAction(null);
@@ -262,6 +269,9 @@ namespace EuphoricElephant.ViewModels
                                     //player.changeVolume(-0.1);
                                     lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
                                     break;
+                                case ActionType.Shake:
+                                    ShuffleAction(null);
+                                    break;
                                 default:
                                     break;
                             }
@@ -269,7 +279,7 @@ namespace EuphoricElephant.ViewModels
                         else
                         {
                             pressed = false;
-                            c = false;
+                          //  c = false;
                         }
                     }
                 }
@@ -398,9 +408,27 @@ namespace EuphoricElephant.ViewModels
 
         private void ToggleLoopAction(object param)
         {
-            loop = !loop;
+            IsLooped = !IsLooped;
         }
-        #endregion
 
-    }
+        private void ShuffleAction(object param)
+        {
+           StorageFile track = SelectedTrack;
+
+           AudioShuffleService.ShuffleAudio(Tracks, TrackIndex);
+
+           TrackIndex = Tracks.IndexOf(track);
+           SelectedTrack = Tracks.ElementAt(TrackIndex);      
+
+           foreach(var t in Tracks)
+            {
+                Debug.WriteLine(t.DisplayName);
+            }
+
+           // LoadMusic();
+           
+        }
+            #endregion
+
+        }
 }

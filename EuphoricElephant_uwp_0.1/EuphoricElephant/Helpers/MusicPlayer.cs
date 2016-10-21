@@ -32,20 +32,16 @@ namespace EuphoricElephant.Helpers
         public void Pause()
         {
             element.Pause();
-            //Debug.WriteLine(element.CurrentState.ToString());
         }
 
         public void Resume()
         {
             element.Play();
-            //Debug.WriteLine(element.CurrentState.ToString());
         }
 
         public void Stop()
         {
-            //Debug.WriteLine(element.CurrentState.ToString());
             element.Stop();
-            //Debug.WriteLine(element.CurrentState.ToString());
         }
 
         public async Task<byte[]> LoadNewTrack(StorageFile track)
@@ -55,7 +51,6 @@ namespace EuphoricElephant.Helpers
             element.Play();
             element.MediaEnded += OnMediaEnded;
 
-            //Debug.WriteLine(element.CurrentState.ToString());
 
             return bytes;
         }
@@ -91,7 +86,7 @@ namespace EuphoricElephant.Helpers
 
         private void Media_State_Changed(object sender, RoutedEventArgs e)
         {
-            //Debug.WriteLine(element.CurrentState.ToString());
+
         }
 
         public string getstate()

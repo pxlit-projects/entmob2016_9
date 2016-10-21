@@ -25,5 +25,9 @@ namespace EuphoricElephant.Helpers
             return _settingsCache.ContainsKey(itemKey);
         }
         
+        public static void Remove(string itemKey)
+        {
+            _settingsCache.Remove(itemKey);
+        }
     }
 }

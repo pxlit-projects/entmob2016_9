@@ -18,22 +18,29 @@ namespace EuphoricElephant.Services
         {
             SensorTagDataStabilizer stabilizer = new SensorTagDataStabilizer();
 
-            if (stabilizer.AccellerometerStabilizer(data).YAcc > 5)
+            if (b)
             {
-                //    Debug.WriteLine("Volume up!");
-                return ActionType.Up;
-            }
-            else if (stabilizer.AccellerometerStabilizer(data).YAcc < 5 && stabilizer.AccellerometerStabilizer(data).YAcc > -5)
-            {
-             //   Debug.WriteLine("No movement!");
-            }
-            else if (stabilizer.AccellerometerStabilizer(data).YAcc < -5)
-            {
-                //   Debug.WriteLine("Volume down!");
-                return ActionType.Down;
-            }
+                if (Math.Abs(stabilizer.GyroscopeStabilizer(data).XGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).ZGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).YGyr) >= 200)
+                {
+                    b = false;
+                    return ActionType.Shake;
+                }
 
-            
+                if (stabilizer.AccellerometerStabilizer(data).YAcc > 5)
+                {
+                    //    Debug.WriteLine("Volume up!");
+                    return ActionType.Up;
+                }
+                else if (stabilizer.AccellerometerStabilizer(data).YAcc < 5 && stabilizer.AccellerometerStabilizer(data).YAcc > -5)
+                {
+                    //   Debug.WriteLine("No movement!");
+                }
+                else if (stabilizer.AccellerometerStabilizer(data).YAcc < -5)
+                {
+                    //   Debug.WriteLine("Volume down!");
+                    return ActionType.Down;
+                }
+            }
 
             if (stabilizer.AccellerometerStabilizer(data).XAcc > 5)
             {

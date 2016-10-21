@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToColorConverter.cs" />
     <Compile Include="Converters\SecondsToTimeConverter.cs" />
     <Compile Include="Custom\CustomAccelerometer.cs" />
     <Compile Include="Custom\CustomCommand.cs" />
@@ -115,8 +116,10 @@
     <Compile Include="Helpers\MusicPlayer.cs" />
     <Compile Include="Helpers\VolumeController.cs" />
     <Compile Include="Messaging\OnMediaEndedMessage.cs" />
+    <Compile Include="Custom\CustomGyroscoop.cs" />
     <Compile Include="Model\SensorTag.cs" />
     <Compile Include="Services\AudioFilterService.cs" />
+    <Compile Include="Services\AudioShuffleService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />

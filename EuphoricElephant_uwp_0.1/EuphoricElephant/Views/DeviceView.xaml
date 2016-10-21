@@ -32,5 +32,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button Command="{Binding UnpairCommand}">Unpair</Button>
+        </StackPanel>
     </StackPanel>
 </Page>

@@ -73,7 +73,6 @@ namespace EuphoricElephant.Custom
             await CustomEnableSensor(new byte[] { 0x7F, 0x00 });
         }
 
-
         protected async Task CustomEnableSensor(byte[] sensorEnableData)
         {
             CustomValidator.Requires<ArgumentNullException>(sensorEnableData != null);
@@ -85,8 +84,6 @@ namespace EuphoricElephant.Custom
             GattCommunicationStatus status = await configCharacteristic.WriteValueAsync(sensorEnableData.AsBuffer());
             if (status == GattCommunicationStatus.Unreachable)
                 throw new DeviceUnreachableException("Error");
-        }
-
-        
+        }        
     }
 }

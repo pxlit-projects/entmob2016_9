@@ -45,8 +45,8 @@
             </StackPanel>
 
             <StackPanel x:Name="SettingsPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}"/>
-                <Button x:Name="ShuffleButton" Content="Shuffle"/>
+                <Button x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}"/>
+                <Button x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}"/>
                 <Button x:Name="FolderButton"  Content="Select Folder"/>
             </StackPanel>
         </RelativePanel>

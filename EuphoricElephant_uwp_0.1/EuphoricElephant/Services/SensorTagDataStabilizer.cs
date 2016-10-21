@@ -20,7 +20,7 @@ namespace EuphoricElephant.Services
             return result;
         }
 
-        public MovementData GyroscopeStabilizer(byte[] data)
+        public MovementData GyroscopeStabilizer(byte[] data)                                        //returns a value between ~-250 and ~250
         {
             MovementData result = new MovementData(data);
 

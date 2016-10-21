@@ -12,6 +12,7 @@ namespace EuphoricElephant.Enumerations
         Down,
         Up,
         Left,
-        Right
+        Right,
+        Shake
     }
 }
