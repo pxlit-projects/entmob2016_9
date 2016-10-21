@@ -2,6 +2,7 @@
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "NAudio": "1.7.3",
+    "Newtonsoft.Json": "9.0.1",
     "sensortag": "1.2.0"
   },
   "frameworks": {

@@ -39,7 +39,7 @@ namespace EuphoricElephant.ViewModels
         private bool isPaused = false;
         private bool isLoaded = false;
         private bool isStopped = false;
-        private bool loop = false;
+        private bool isLooped = false;
         private bool pressed;
         private int TrackIndex;
         private SensorTagDataCheck checker = new SensorTagDataCheck();
@@ -62,6 +62,12 @@ namespace EuphoricElephant.ViewModels
                 return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
         }  
+
+        public bool IsLooped
+        {
+            get { return isLooped; }
+            set { SetProperty(ref isLooped, value); }
+        }
 
         public double CurrentTrackTime
         {
@@ -209,7 +215,7 @@ namespace EuphoricElephant.ViewModels
                         {
                             if (!isPaused && isPlaying)
                             {
-                                if (!loop)
+                                if (!IsLooped)
                                 {
                                     NextTrackAction(null);
                                 }
@@ -272,8 +278,7 @@ namespace EuphoricElephant.ViewModels
                             c = false;
                         }
                     }
-                }
-                );
+                });
         }
         #endregion
 
@@ -398,7 +403,7 @@ namespace EuphoricElephant.ViewModels
 
         private void ToggleLoopAction(object param)
         {
-            loop = !loop;
+            IsLooped = !IsLooped;
         }
         #endregion
 
