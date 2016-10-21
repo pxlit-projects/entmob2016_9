@@ -69,6 +69,12 @@ namespace EuphoricElephant.ViewModels
             set { SetProperty(ref isLooped, value); }
         }
 
+        public bool IsLooped
+        {
+            get { return isLooped; }
+            set { SetProperty(ref isLooped, value); }
+        }
+
         public double CurrentTrackTime
         {
             get { return currentTrackTime; }
@@ -282,8 +288,7 @@ namespace EuphoricElephant.ViewModels
                           //  c = false;
                         }
                     }
-                }
-                );
+                });
         }
         #endregion
 

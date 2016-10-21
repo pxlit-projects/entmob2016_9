@@ -103,6 +103,10 @@
     <Compile Include="Custom\CustomSimpleKey.cs" />
     <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Custom\CustomWaveStream.cs" />
+    <Compile Include="Data\Action.cs" />
+    <Compile Include="Data\Command.cs" />
+    <Compile Include="Data\Profile.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\BindState.cs" />
     <Compile Include="Enumerations\ViewType.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioShuffleService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
+    <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />
     <Compile Include="ViewModelLocator.cs" />
@@ -198,9 +203,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
