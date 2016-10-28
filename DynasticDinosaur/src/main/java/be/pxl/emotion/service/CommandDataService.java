@@ -1,13 +1,13 @@
 package be.pxl.emotion.service;
+
 import javax.persistence.*;
 
 import be.pxl.emotion.bean.Command;
 
 public class CommandDataService {
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "dbpu" );
-	
-	public Command getCommandById(int id)
-	{
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("dbpu");
+
+	public Command getCommandById(int id) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -16,30 +16,37 @@ public class CommandDataService {
 		em.close();
 		return cm;
 	}
-	
-	public Command updateCommand(Command command) 
-	{
+
+	public Boolean updateCommand(Command command) {
+		try{
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();
 		em.merge(command);
 		ticket.commit();
 		em.close();
-		return command;
+		return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
-	
-	public Command addCommand(Command command) {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction ticket = em.getTransaction();
-		ticket.begin();
-		em.persist(command);
-		ticket.commit();
-		em.close();
-		return command;
+
+	public Boolean addCommand(Command command) {
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction ticket = em.getTransaction();
+			ticket.begin();
+			em.persist(command);
+			ticket.commit();
+			em.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-	
-	
-	public void deleteCommand(int id) {
+
+	public Boolean deleteCommand(int id) {
+		try {
 		EntityManager em = emf.createEntityManager();
 		Command c = getCommandById(id);
 		EntityTransaction ticket = em.getTransaction();
@@ -47,5 +54,9 @@ public class CommandDataService {
 		em.remove(c);
 		ticket.commit();
 		em.close();
+		return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

@@ -37,16 +37,18 @@ public class ProfileDataService {
 		return profiles;
 	}
 
-	public Profile addProfile(Profile profile, Command command, Action action) {
-		new CommandDataService().addCommand(command);
-		new ActionDataService().addAction(action);
+	public Boolean addProfile(Profile profile) {
+		try {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();
 		em.persist(profile);
 		ticket.commit();
 		em.close();
-		return profile;
+		return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public Profile updateProfile(Profile profile) {
@@ -73,17 +75,5 @@ public class ProfileDataService {
 		em.remove(a);
 		ticket.commit();
 		em.close();
-	}
-
-	public Command updateProfile(Command command, Action action) {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction ticket = em.getTransaction();
-		ticket.begin();
-		em.merge(command);
-		em.merge(action);
-		ticket.commit();
-		em.close();
-		return command;
-
 	}
 }
