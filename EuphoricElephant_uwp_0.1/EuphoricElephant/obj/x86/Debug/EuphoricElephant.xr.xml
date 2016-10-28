@@ -1,41 +1,159 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
+  <Roots.Interfaces>
+    <RootInterface FullName="Windows.UI.Xaml.Data.IValueConverter" />
+  </Roots.Interfaces>
   <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="DeviceViewModel" />
+    <RootPropertyPathName Name="UnpairCommand" />
     <RootPropertyPathName Name="Devices" />
+    <RootPropertyPathName Name="SelectedDrone" />
+    <RootPropertyPathName Name="Name" />
+    <RootPropertyPathName Name="SelectedTag" />
+    <RootPropertyPathName Name="HubViewModel" />
+    <RootPropertyPathName Name="HubPoints" />
+    <RootPropertyPathName Name="DataContext" />
+    <RootPropertyPathName Name="NavigateCommand" />
+    <RootPropertyPathName Name="MagZ" />
+    <RootPropertyPathName Name="MagY" />
+    <RootPropertyPathName Name="MagX" />
+    <RootPropertyPathName Name="AccelZ" />
+    <RootPropertyPathName Name="AccelY" />
+    <RootPropertyPathName Name="AccelX" />
+    <RootPropertyPathName Name="GyroZ" />
+    <RootPropertyPathName Name="GyroY" />
+    <RootPropertyPathName Name="GyroX" />
+    <RootPropertyPathName Name="SelectedValue" />
+    <RootPropertyPathName Name="MediaViewModel" />
+    <RootPropertyPathName Name="Tracks" />
+    <RootPropertyPathName Name="SelectedTrack" />
+    <RootPropertyPathName Name="CurrentFolderName" />
+    <RootPropertyPathName Name="ShuffleCommand" />
+    <RootPropertyPathName Name="ToggleLoopCommand" />
+    <RootPropertyPathName Name="IsLooped" />
+    <RootPropertyPathName Name="NextTrackCommand" />
+    <RootPropertyPathName Name="StopTrackCommand" />
+    <RootPropertyPathName Name="PreviousTrackCommand" />
+    <RootPropertyPathName Name="CurrentTrackTime" />
+    <RootPropertyPathName Name="PlayButtonText" />
+    <RootPropertyPathName Name="PlayTrackCommand" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
       <RootProperty Name="RequestedTheme" />
+      <RootProperty Name="Resources" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.ResourceDictionary" />
+    <RootType FullName="EuphoricElephant.ViewModelLocator" />
+    <RootType FullName="EuphoricElephant.Converters.SecondsToTimeConverter" />
+    <RootType FullName="EuphoricElephant.Converters.BooleanToColorConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
+      <RootProperty Name="DataContext" />
       <RootProperty Name="Content" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="Source" />
+      <RootProperty Name="Path" />
+      <RootProperty Name="Mode" />
+      <RootProperty Name="ElementName" />
+      <RootProperty Name="Converter" />
+      <RootProperty Name="ConverterParameter" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Orientation" />
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Command" />
+      <RootProperty Name="Content" />
+      <RootProperty Name="CommandParameter" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="Foreground" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Image">
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Source" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="Text" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="HorizontalAlignment" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="SelectedItem" />
+      <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="Name" />
+      <RootProperty Name="MinWidth" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="EuphoricElephant.Views.DeviceView" />
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
       <RootProperty Name="Children" />
+      <RootProperty Name="ColumnDefinitions" />
+      <RootProperty Name="RowDefinitions" />
+      <RootMethod Name="GetRow" />
+      <RootMethod Name="SetRow" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
-    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
-      <RootProperty Name="Orientation" />
+    <RootType FullName="EuphoricElephant.Views.DroneView" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalScrollBarVisibility" />
+      <RootProperty Name="VerticalScrollBarVisibility" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.GridView">
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="ItemTemplate" />
+    </RootType>
+    <RootType FullName="EuphoricElephant.Views.HubView" />
+    <RootType FullName="EuphoricElephant.MainView" />
+    <RootType FullName="Windows.UI.Xaml.VisualStateManager">
+      <RootMethod Name="GetVisualStateGroups" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
+      <RootProperty Name="Height" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Canvas" />
+    <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Children" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
-      <RootProperty Name="Name" />
-      <RootProperty Name="ItemsSource" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Slider">
+      <RootProperty Name="Orientation" />
+      <RootProperty Name="Minimum" />
+      <RootProperty Name="Maximum" />
       <RootProperty Name="Height" />
-      <RootProperty Name="RenderTransformOrigin" />
-      <RootProperty Name="RenderTransform" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
-      <RootProperty Name="Name" />
-      <RootProperty Name="Text" />
+    <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
+      <RootProperty Name="States" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Data.Binding" />
-    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
-      <RootProperty Name="ScaleY" />
+    <RootType FullName="Windows.UI.Xaml.VisualState">
+      <RootProperty Name="StateTriggers" />
+      <RootProperty Name="Setters" />
     </RootType>
-    <RootType FullName="EuphoricElephant.MainView" />
+    <RootType FullName="Windows.UI.Xaml.AdaptiveTrigger">
+      <RootProperty Name="MinWindowWidth" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Setter">
+      <RootProperty Name="Target" />
+      <RootProperty Name="Value" />
+    </RootType>
+    <RootType FullName="EuphoricElephant.Views.MediaView" />
+    <RootType FullName="EuphoricElephant.Views.UserView" />
   </Roots.RootTypes>
 </Roots>

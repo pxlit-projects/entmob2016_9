@@ -1,2 +1,7 @@
 App.xbf
+Views\DeviceView.xbf
+Views\DroneView.xbf
+Views\HubView.xbf
 Views\MainView.xbf
+Views\MediaView.xbf
+Views\UserView.xbf

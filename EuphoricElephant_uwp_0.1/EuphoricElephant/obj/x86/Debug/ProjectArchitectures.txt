@@ -1,1 +1,1 @@
-C:\Projecten\EuphoricElephant\EuphoricElephant\EuphoricElephant.csproj;x86
+D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\EuphoricElephant.csproj;x86

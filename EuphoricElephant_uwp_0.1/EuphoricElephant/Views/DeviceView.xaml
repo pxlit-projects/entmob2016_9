@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="EuphoricElephant.Views.DeviceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EuphoricElephant.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Source={StaticResource viewModelLocator}, Path=DeviceViewModel}"
+    x:Name="Page"
+    mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <Image Width="200" Height="200" Source="{Binding }"/>
+            <TextBlock Text="Select SensorTag" Foreground="Black" HorizontalAlignment="Center"/>
+            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <Image Width="200" Height="200" Source="{Binding }"/>
+            <TextBlock Text="Select Drone" Foreground="Black" HorizontalAlignment="Center"/>
+            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button Command="{Binding UnpairCommand}">Unpair</Button>
+        </StackPanel>
+    </StackPanel>
+</Page>

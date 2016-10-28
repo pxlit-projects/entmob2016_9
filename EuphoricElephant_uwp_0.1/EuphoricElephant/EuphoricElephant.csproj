@@ -11,7 +11,7 @@
     <AssemblyName>EuphoricElephant</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -89,23 +89,74 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="ClassDiagram1.cd" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToColorConverter.cs" />
+    <Compile Include="Converters\SecondsToTimeConverter.cs" />
+    <Compile Include="Custom\CustomAccelerometer.cs" />
+    <Compile Include="Custom\CustomCommand.cs" />
+    <Compile Include="Custom\CustomSimpleKey.cs" />
+    <Compile Include="Custom\CustomValidator.cs" />
+    <Compile Include="Custom\CustomWaveStream.cs" />
+    <Compile Include="Data\Action.cs" />
+    <Compile Include="Data\Command.cs" />
+    <Compile Include="Data\Profile.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\BindState.cs" />
-    <Compile Include="Models\AccelReading.cs" />
-    <Compile Include="Models\SensorTag.cs" />
+    <Compile Include="Enumerations\ViewType.cs" />
+    <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Helpers\lasthope.cs" />
+    <Compile Include="Helpers\MovementData.cs" />
+    <Compile Include="Interfaces\IMediaView.cs" />
+    <Compile Include="Messaging\Messenger.cs" />
+    <Compile Include="Messaging\NavigationMessage.cs" />
+    <Compile Include="Helpers\MusicPlayer.cs" />
+    <Compile Include="Helpers\VolumeController.cs" />
+    <Compile Include="Messaging\OnMediaEndedMessage.cs" />
+    <Compile Include="Custom\CustomGyroscoop.cs" />
+    <Compile Include="Model\SensorTag.cs" />
+    <Compile Include="Services\AudioFilterService.cs" />
+    <Compile Include="Services\AudioShuffleService.cs" />
+    <Compile Include="Services\AudioVisualizationService.cs" />
+    <Compile Include="Services\JsonParseService.cs" />
+    <Compile Include="Services\RestService.cs" />
+    <Compile Include="Services\SensorTagDataCheck.cs" />
+    <Compile Include="Services\SensorTagDataStabilizer.cs" />
+    <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="Services\SensorTagService.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\DroneViewModel.cs" />
+    <Compile Include="ViewModels\HubViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\SensorTagViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DroneView.xaml.cs">
+      <DependentUpon>DroneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HubView.xaml.cs">
+      <DependentUpon>HubView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MediaView.xaml.cs">
+      <DependentUpon>MediaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -128,13 +179,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\DeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DroneView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HubView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MediaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Data\" />
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

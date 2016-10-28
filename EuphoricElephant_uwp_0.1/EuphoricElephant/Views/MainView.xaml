@@ -9,15 +9,57 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ListBox Name="DevicesListBox" ItemsSource="{Binding Devices}" Height="30" RenderTransformOrigin="0.5,0.5">
-                <ListBox.RenderTransform>
-                    <CompositeTransform ScaleY="-1"/>
-                </ListBox.RenderTransform>
+            <ListBox Name="DevicesListBox" ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedValue, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-            <TextBlock Text="Time" Name="TimeTextBlock"></TextBlock>
-            <TextBlock Text="X:00" Name="XAccelTextBlock"></TextBlock>
-            <TextBlock Text="Y:00" Name="YAccelTextBlock"></TextBlock>
-            <TextBlock Text="X:00" Name="ZAccelTextBlock"></TextBlock>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Gyro X:"></TextBlock>
+                        <TextBlock Text="{Binding GyroX, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="GyroY"></TextBlock>
+                        <TextBlock Text="{Binding GyroY, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Gyro Z:"></TextBlock>
+                        <TextBlock Text="{Binding GyroZ, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Acceleration X:"></TextBlock>
+                        <TextBlock Text="{Binding AccelX, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Acceleration Y:"></TextBlock>
+                        <TextBlock Text="{Binding AccelY, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Acceleration Z:"></TextBlock>
+                        <TextBlock Text="{Binding AccelZ, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Magnetism X:"></TextBlock>
+                        <TextBlock Text="{Binding MagX, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Magnetism Y:"></TextBlock>
+                        <TextBlock Text="{Binding MagY, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Magnetism Z:"></TextBlock>
+                        <TextBlock Text="{Binding MagZ, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
