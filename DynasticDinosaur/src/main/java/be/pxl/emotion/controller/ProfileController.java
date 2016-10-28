@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.google.gson.Gson;
+
 import be.pxl.emotion.bean.Action;
 import be.pxl.emotion.bean.Command;
 import be.pxl.emotion.bean.Profile;
@@ -26,17 +28,17 @@ public class ProfileController {
 		return profileService.getProfileById(id);
 	}
 
-	// profile toevoegen (json profile, command, action)
+	// profile toevoegen (json profile)
 	@RequestMapping(value = "/profile", method = RequestMethod.POST, headers = "Accept=application/json")
-	public Profile addProfile(@RequestBody Profile profile, @RequestBody Command command, @RequestBody Action action) {
-		return profileService.addProfile(profile, command, action);
+	public Boolean addProfile(@RequestBody Profile profile) {
+		return profileService.addProfile(profile);
 	}
 
-//	// Commandolijst in profile aanpassen adhv command en action object (json command, action)
-//	@RequestMapping(value = "/profiles", method = RequestMethod.PUT, headers = "Accept=application/json")
-//	public void updateProfile(@RequestBody Command command, Action action) {
-//		profileService.updateProfile(command, action);
-//	}
+	// Commandolijst in profile aanpassen adhv command en action object (json command, action)
+	@RequestMapping(value = "/profiles", method = RequestMethod.PUT, headers = "Accept=application/json")
+	public void updateProfile(@RequestBody Profile profile) {
+		profileService.updateProfile(profile);
+	}
 
 	// verwijder profile adhv id
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
