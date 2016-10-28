@@ -13,6 +13,7 @@ namespace EuphoricElephant.Data
     {
         [Key]
         public int ActId { get; set; }
+        public List<int> ActionList { get; set; }
         public int Act1 { get; set; }
         public int Act2 { get; set; }
         public int Act3 { get; set; }

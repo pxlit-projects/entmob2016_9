@@ -125,6 +125,7 @@
     <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioShuffleService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
+    <Compile Include="Services\JsonParseService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />
