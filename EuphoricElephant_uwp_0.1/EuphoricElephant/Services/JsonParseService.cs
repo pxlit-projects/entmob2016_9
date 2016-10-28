@@ -16,12 +16,14 @@ namespace EuphoricElephant.Services
 {
     public class JsonParseService<T>
     {
+
+        private static String url = "http://localhost/";
+
+
         public static async Task<T> DeserializeDataFromJson(String type, int id)
         {
             try
             {
-                String url = "http://localhost/";
-
                 JsonArray res = null;
 
                 switch (type)
@@ -132,7 +134,6 @@ namespace EuphoricElephant.Services
             catch (Exception e)
             {
                 throw e;
-                
             }
         }
 
@@ -152,9 +153,6 @@ namespace EuphoricElephant.Services
         {
             try
             {
-
-                String url = "http://localhost/";
-
                 switch (type)
                 {
                     case "profile":
@@ -170,7 +168,6 @@ namespace EuphoricElephant.Services
                     default:
                         break;
                 }
-
             }
             catch (Exception e)
             {
@@ -180,7 +177,6 @@ namespace EuphoricElephant.Services
 
         public static async Task<JsonObject> Serialize(String url, Object data)
         {
-
             var client = new HttpClient();
             var serealizedfile = JsonConvert.SerializeObject(data);
             var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
@@ -192,6 +188,5 @@ namespace EuphoricElephant.Services
             string reply = await response.Content.ReadAsStringAsync();
             return await Task.Run(() => JsonObject.Parse(reply));
         }
-
     }
 }
