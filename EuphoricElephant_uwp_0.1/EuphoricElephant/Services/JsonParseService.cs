@@ -17,7 +17,6 @@ namespace EuphoricElephant.Services
 {
     public class JsonParseService<T>
     {
-
         private static String URL = Constants.BASE_URL;
         
         public static async Task<T> DeserializeDataFromJson(String type, int id)

@@ -141,6 +141,8 @@ namespace EuphoricElephant.ViewModels
                                 PassWord = string.Empty;
 
                                 LogButtonText = "Log out";
+
+                                ApplicationSettings.AddItem("CurrentUser", myUser);
                             }
                             else
                             {
