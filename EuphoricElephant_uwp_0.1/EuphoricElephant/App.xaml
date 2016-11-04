@@ -10,6 +10,7 @@
             <local:ViewModelLocator x:Key="viewModelLocator"></local:ViewModelLocator>
             <converter:SecondsToTimeConverter x:Key="secondsToTimeConverter"></converter:SecondsToTimeConverter>
             <converter:BooleanToColorConverter x:Key="booleanToColorConverter"></converter:BooleanToColorConverter>
+            <converter:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></converter:BooleanToVisibilityConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

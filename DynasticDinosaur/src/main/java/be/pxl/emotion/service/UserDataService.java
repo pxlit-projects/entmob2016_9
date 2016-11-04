@@ -22,6 +22,30 @@ public class UserDataService {
 		return us;
 	}
 	
+	public User getUserByName(String name){
+		
+		try{
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			Query q = em.createQuery("SELECT u from User u where u.userName LIKE '"  + name + "'");
+			User us = (User)q.getSingleResult();
+			tx.commit();
+			em.close();
+			
+			User newUser = new User();
+			newUser.userName = us.userName;
+			newUser.firstName = "";
+			newUser.lastName = "";
+			newUser.userId = us.userId;
+			newUser.password = "";
+			
+			return newUser;
+		}catch (Exception e){
+			return null;
+		}
+	}
+	
 	public List<User> getAllUsers(){
 		EntityManager em = emf.createEntityManager();
 		

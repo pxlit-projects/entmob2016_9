@@ -19,6 +19,6 @@ namespace EuphoricElephant.Helpers
 
         public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, DRONE_TEXT, USER_TEXT };
 
-
+        public const string BASE_URL = "http://localhost:8000/DynasticDinosaur/";
     }
 }

@@ -13,6 +13,7 @@ public class User {
 	public String firstName;
 	public String lastName;
 	public String password;
+	public String userName;
 
 	public boolean setPass(String toSet, String prev) {
 		if (password.equals(prev)) {
