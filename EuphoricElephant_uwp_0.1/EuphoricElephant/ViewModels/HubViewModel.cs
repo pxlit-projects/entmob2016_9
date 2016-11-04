@@ -17,6 +17,7 @@ using System.Windows.Input;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace EuphoricElephant.ViewModels
 {
@@ -62,9 +63,9 @@ namespace EuphoricElephant.ViewModels
             set { SetProperty(ref isNotBusy, value); }
         }
 
-        private ObservableCollection<string> hubPoints;
+        private ObservableCollection<String> hubPoints;
 
-        public ObservableCollection<string> HubPoints
+        public ObservableCollection<String> HubPoints
         {
             get { return hubPoints; }
             set { SetProperty(ref hubPoints, value); }
@@ -81,7 +82,8 @@ namespace EuphoricElephant.ViewModels
 
         private void Init()
         {
-            HubPoints = Constants.HUB_POINTS;
+                HubPoints = Constants.HUB_POINTS;
+
             LoadCommands();
         }
 

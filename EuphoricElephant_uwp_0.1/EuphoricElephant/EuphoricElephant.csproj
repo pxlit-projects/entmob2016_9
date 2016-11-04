@@ -166,6 +166,10 @@
     <None Include="EuphoricElephant_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\connect.png" />
+    <Content Include="Assets\drone.png" />
+    <Content Include="Assets\music.png" />
+    <Content Include="Assets\user.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

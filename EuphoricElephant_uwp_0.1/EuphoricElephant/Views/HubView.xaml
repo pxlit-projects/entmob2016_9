@@ -18,7 +18,7 @@
                             <Button Command="{Binding DataContext.NavigateCommand, ElementName=Page}" CommandParameter="{Binding }" IsEnabled="{Binding DataContext.IsLoggedIn, ElementName=Page}">
                                 <StackPanel>
                                     <Image Width="200" Height="200" Source="{Binding }"/>
-                                    <TextBlock Text="{Binding }" Foreground="White" HorizontalAlignment="Center"/>
+                                  <!--  <TextBlock Text="{Binding }" Foreground="White" HorizontalAlignment="Center"/>-->
                                 </StackPanel>
                             </Button>
                         </DataTemplate>
