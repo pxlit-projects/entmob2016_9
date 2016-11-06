@@ -1,4 +1,5 @@
 ﻿using EuphoricElephant.Data;
+using EuphoricElephant.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -16,36 +17,36 @@ namespace EuphoricElephant.Services
 {
     public class JsonParseService<T>
     {
-
-        private static String url = "http://localhost/";
-
-
+        private static String URL = Constants.BASE_URL;
+        
         public static async Task<T> DeserializeDataFromJson(String type, int id)
         {
             try
             {
                 JsonArray res = null;
+                var url = string.Empty;
 
                 switch (type)
                 {
                     case "user":
-                        url += "user/" + id;
-                        res = await Deserialize(url);
+                        url  = URL + "user/id/" + id;
+                        res =  await RestService.DeserializeSingle(url) ;
                         User user = new User();
 
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            user.UserId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
-                            user.FirstName = res.GetObjectAt(i).GetNamedString("firstName");
-                            user.LastName = res.GetObjectAt(i).GetNamedString("lastName");
-                            user.Password = res.GetObjectAt(i).GetNamedString("password");
+                            user.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            user.firstName = res.GetObjectAt(i).GetNamedString("firstName");
+                            user.lastName = res.GetObjectAt(i).GetNamedString("lastName");
+                            user.password = res.GetObjectAt(i).GetNamedString("password");
+                            user.userName = res.GetObjectAt(i).GetNamedString("userName");
                         }
 
                         return (T)Convert.ChangeType(user, typeof(T));
 
                     case "profile":
-                        url += "profile/" + id;
-                        res = await Deserialize(url);
+                        url  = URL + "profile/" + id;
+                        res = await RestService.Deserialize(url);
                         Profile profile = new Profile();
 
                         for (uint i = 0; i < res.Count; i++)
@@ -60,8 +61,8 @@ namespace EuphoricElephant.Services
                         return (T)Convert.ChangeType(profile, typeof(T));
 
                     case "commands":
-                        url += "command/" + id;
-                        res = await Deserialize(url);
+                        url  = URL + "command/" + id;
+                        res = await RestService.Deserialize(url);
                         Command command = new Command();
 
                         command.CommandId = (int)res.GetObjectAt(0).GetNamedNumber("commandId");
@@ -74,8 +75,8 @@ namespace EuphoricElephant.Services
                         return (T)Convert.ChangeType(command, typeof(T));
 
                     case "actions":
-                        url += "action/" + id;
-                        res = await Deserialize(url);
+                        url  = URL + "action/" + id;
+                        res = await RestService.Deserialize(url);
                         Data.Action action = new Data.Action();
 
                         action.ActId = (int)res.GetObjectAt(0).GetNamedNumber("actionId");
@@ -88,28 +89,26 @@ namespace EuphoricElephant.Services
                         return (T)Convert.ChangeType(action, typeof(T));
 
                     case "users":
-                        url += "users";
-                        res = await Deserialize(url);
-                        JsonArray users = res.GetObjectAt(0).GetNamedArray("users");
+                        url  = URL + "users";
+                        res = await RestService.Deserialize(url);
 
                         List<User> userList = new List<User>();
-
-                        User tempUser = new User();
-
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            tempUser.UserId = (int)users.GetObjectAt(i).GetNamedNumber("userId");
-                            tempUser.FirstName = users.GetObjectAt(i).GetNamedString("firstName");
-                            tempUser.LastName = users.GetObjectAt(i).GetNamedString("lastName");
-                            tempUser.Password = users.GetObjectAt(i).GetNamedString("password");
-                            userList[(int)i] = tempUser;
+                            User tempUser = new User();
+
+                            tempUser.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            tempUser.firstName = res.GetObjectAt(i).GetNamedString("firstName");
+                            tempUser.lastName = res.GetObjectAt(i).GetNamedString("lastName");
+                            tempUser.password = res.GetObjectAt(i).GetNamedString("password");
+                            userList.Add(tempUser);
                         }
 
                         return (T)Convert.ChangeType(userList, typeof(T));
 
                     case "profiles":
-                        url += "profiles";
-                        res = await Deserialize(url);
+                        url  = URL + "profiles";
+                        res = await RestService.Deserialize(url);
                         JsonArray profiles = res.GetObjectAt(0).GetNamedArray("profiles");
 
                         List<Profile> profileList = new List<Profile>();
@@ -137,32 +136,57 @@ namespace EuphoricElephant.Services
             }
         }
 
-        public static async Task<JsonArray> Deserialize(String url)
+        public static async Task<T> DeserializeDataFromJson(String type, string name)
         {
-            JsonArray res;
-            var client = new HttpClient();
+            try
+            {
+                JsonArray res = null;
 
-            HttpResponseMessage response = await client.GetAsync(url);
-            var data = await response.Content.ReadAsStringAsync();
-            res = JsonValue.Parse(data).GetArray();
+                switch (type)
+                {
+                    case "user":
+                        var url = URL + "user/name/" + name;
+                        res = await RestService.DeserializeSingle(url);
+                        User user = new User();
 
-            return res;
+                        if(res != null)
+                        {
+                            user.userId = Convert.ToInt32(res.GetObjectAt(0).GetNamedNumber("userId"));
+                            user.firstName = res.GetObjectAt(0).GetNamedString("firstName");
+                            user.lastName = res.GetObjectAt(0).GetNamedString("lastName");
+                            user.password = res.GetObjectAt(0).GetNamedString("password");
+                            user.userName = res.GetObjectAt(0).GetNamedString("userName");
+                        }
+
+                        return (T)Convert.ChangeType(user, typeof(T));
+                    default:
+                        return (T)Convert.ChangeType(res, typeof(T));
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+
+        
 
         public static async void SerializeDataToJson(String type, Object data)
         {
             try
             {
+                var url = string.Empty;
+
                 switch (type)
                 {
                     case "profile":
-                        url += "profile";
-                        await Serialize(url, data);
+                        url  = URL + "profile";
+                        await RestService.Serialize(url, data);
                         break;
 
                     case "user":
-                        url += "user";
-                        await Serialize(url, data);
+                        url  = URL + "users";
+                        await RestService.Serialize(url, data);
                         break;
 
                     default:
@@ -175,18 +199,6 @@ namespace EuphoricElephant.Services
             }
         }
 
-        public static async Task<JsonObject> Serialize(String url, Object data)
-        {
-            var client = new HttpClient();
-            var serealizedfile = JsonConvert.SerializeObject(data);
-            var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(url, content);
-
-            response.EnsureSuccessStatusCode();
-
-            string reply = await response.Content.ReadAsStringAsync();
-            return await Task.Run(() => JsonObject.Parse(reply));
-        }
+        
     }
 }

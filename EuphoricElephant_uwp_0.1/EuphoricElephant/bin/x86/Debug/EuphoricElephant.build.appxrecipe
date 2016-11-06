@@ -73,6 +73,9 @@
     <AppxPackagedFile Include="C:\Users\siemen\.nuget\packages\NAudio\1.7.3\lib\windows8\NAudio.Win8.dll">
       <PackagePath>NAudio.Win8.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\siemen\.nuget\packages\Newtonsoft.Json\9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll">
+      <PackagePath>Newtonsoft.Json.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\siemen\.nuget\packages\runtime.any.System.Private.DataContractSerialization\4.1.0\lib\netcore50\System.Private.DataContractSerialization.dll">
       <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
     </AppxPackagedFile>
@@ -340,8 +343,17 @@
     <AppxPackagedFile Include="C:\Users\siemen\.nuget\packages\System.Xml.XmlSerializer\4.0.10\lib\netcore50\System.Xml.XmlSerializer.dll">
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\connect.png">
+      <PackagePath>Assets\connect.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\drone.png">
+      <PackagePath>Assets\drone.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\music.png">
+      <PackagePath>Assets\music.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\user.png">
+      <PackagePath>Assets\user.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -369,6 +381,9 @@
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.xr.xml">
       <PackagePath>EuphoricElephant.xr.xml</PackagePath>

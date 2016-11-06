@@ -11,6 +11,13 @@
     <RootPropertyPathName Name="Name" />
     <RootPropertyPathName Name="SelectedTag" />
     <RootPropertyPathName Name="HubViewModel" />
+    <RootPropertyPathName Name="PassWord" />
+    <RootPropertyPathName Name="IsLoggedIn" />
+    <RootPropertyPathName Name="UserName" />
+    <RootPropertyPathName Name="RegisterCommand" />
+    <RootPropertyPathName Name="IsNotBusy" />
+    <RootPropertyPathName Name="LoginCommand" />
+    <RootPropertyPathName Name="LogButtonText" />
     <RootPropertyPathName Name="HubPoints" />
     <RootPropertyPathName Name="DataContext" />
     <RootPropertyPathName Name="NavigateCommand" />
@@ -47,6 +54,7 @@
     <RootType FullName="EuphoricElephant.ViewModelLocator" />
     <RootType FullName="EuphoricElephant.Converters.SecondsToTimeConverter" />
     <RootType FullName="EuphoricElephant.Converters.BooleanToColorConverter" />
+    <RootType FullName="EuphoricElephant.Converters.BooleanToVisibilityConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="DataContext" />
       <RootProperty Name="Content" />
@@ -55,8 +63,8 @@
       <RootProperty Name="Source" />
       <RootProperty Name="Path" />
       <RootProperty Name="Mode" />
-      <RootProperty Name="ElementName" />
       <RootProperty Name="Converter" />
+      <RootProperty Name="ElementName" />
       <RootProperty Name="ConverterParameter" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
@@ -65,10 +73,16 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Orientation" />
       <RootProperty Name="Children" />
+      <RootProperty Name="Padding" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Command" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="IsEnabled" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="CommandParameter" />
       <RootProperty Name="Background" />
       <RootProperty Name="Foreground" />
@@ -112,6 +126,20 @@
       <RootProperty Name="HorizontalScrollBarVisibility" />
       <RootProperty Name="VerticalScrollBarVisibility" />
       <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="Visibility" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Password" />
+      <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.GridView">
       <RootProperty Name="ItemsSource" />

@@ -1,4 +1,6 @@
-﻿using EuphoricElephant.Views;
+﻿using EuphoricElephant.Helpers;
+using EuphoricElephant.Services;
+using EuphoricElephant.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,6 +91,11 @@ namespace EuphoricElephant
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                RestService.Login(ApplicationSettings.GetItem("CurrentUser"));
+            }
         }
 
         /// <summary>
@@ -132,6 +139,14 @@ namespace EuphoricElephant
             {
                 e.Handled = true;
                 rootFrame.GoBack();
+            }
+        }
+
+        private void OnSuspension(object sender, SuspendingEventArgs args)
+        {
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                RestService.Logout(ApplicationSettings.GetItem("CurrentUser"));
             }
         }
     }

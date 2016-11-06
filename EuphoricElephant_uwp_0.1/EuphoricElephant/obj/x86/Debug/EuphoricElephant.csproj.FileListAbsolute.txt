@@ -1071,3 +1071,4 @@ D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\V
 D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Views\UserView.xbf
 D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\NAudio.Win8.dll
 C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Newtonsoft.Json.dll
+D:\entmob\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Newtonsoft.Json.dll
