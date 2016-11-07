@@ -44,6 +44,14 @@
     <RootPropertyPathName Name="CurrentTrackTime" />
     <RootPropertyPathName Name="PlayButtonText" />
     <RootPropertyPathName Name="PlayTrackCommand" />
+    <RootPropertyPathName Name="UserViewModel" />
+    <RootPropertyPathName Name="IsEditing" />
+    <RootPropertyPathName Name="CancelCommand" />
+    <RootPropertyPathName Name="SaveCommand" />
+    <RootPropertyPathName Name="EditCommand" />
+    <RootPropertyPathName Name="LastName" />
+    <RootPropertyPathName Name="FirstName" />
+    <RootPropertyPathName Name="SelectedProfileName" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -55,6 +63,7 @@
     <RootType FullName="EuphoricElephant.Converters.SecondsToTimeConverter" />
     <RootType FullName="EuphoricElephant.Converters.BooleanToColorConverter" />
     <RootType FullName="EuphoricElephant.Converters.BooleanToVisibilityConverter" />
+    <RootType FullName="EuphoricElephant.Converters.BooleanToOpacityConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="DataContext" />
       <RootProperty Name="Content" />
@@ -91,6 +100,7 @@
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
       <RootProperty Name="Source" />
+      <RootProperty Name="Opacity" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
       <RootProperty Name="Text" />
@@ -117,6 +127,8 @@
       <RootMethod Name="SetRow" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
+      <RootMethod Name="GetColumnSpan" />
+      <RootMethod Name="SetColumnSpan" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="EuphoricElephant.Views.DroneView" />
@@ -133,6 +145,7 @@
       <RootProperty Name="Width" />
       <RootProperty Name="Text" />
       <RootProperty Name="Visibility" />
+      <RootProperty Name="IsEnabled" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
       <RootProperty Name="PlaceholderText" />

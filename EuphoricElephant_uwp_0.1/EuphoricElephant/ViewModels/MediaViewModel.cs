@@ -1,4 +1,5 @@
 ﻿using EuphoricElephant.Custom;
+
 using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using EuphoricElephant.Interfaces;
@@ -128,7 +129,6 @@ namespace EuphoricElephant.ViewModels
             PlayButtonText = "Play";
 
             SetTrackProperties(null);
-
         }
 
         private void LoadCommands()
