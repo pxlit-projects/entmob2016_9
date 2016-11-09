@@ -83,6 +83,10 @@ namespace EuphoricElephant.ViewModels
         private void Init()
         {
             HubPoints = Constants.HUB_POINTS;
+            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "GRey"));
+            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "MHer"));
+            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "JJac"));
+            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "Kallef"));
 
             LoadCommands();
         }
@@ -135,7 +139,7 @@ namespace EuphoricElephant.ViewModels
                         {
                             User u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", v.userId);
 
-                            if (u.password.Equals(PassWord))
+                            if (u.password.Equals(CustomPasswordIncriptor.sha256_hash(PassWord, UserName)))
                             {
                                 myUser = u;
                                 IsLoggedIn = true;
@@ -272,7 +276,7 @@ namespace EuphoricElephant.ViewModels
                                 userName = userNameTB.Text,
                                 lastName = lnTB.Text,
                                 firstName = fnTB.Text,
-                                password = passWordTB.Text
+                                password = CustomPasswordIncriptor.sha256_hash(passWordTB.Text, userNameTB.Text)
                             };
 
                             try

@@ -102,6 +102,7 @@
     <Compile Include="Converters\SecondsToTimeConverter.cs" />
     <Compile Include="Custom\CustomAccelerometer.cs" />
     <Compile Include="Custom\CustomCommand.cs" />
+    <Compile Include="Custom\CustomPasswordIncriptor.cs" />
     <Compile Include="Custom\CustomSimpleKey.cs" />
     <Compile Include="Custom\CustomValidator.cs" />
     <Compile Include="Custom\CustomWaveStream.cs" />

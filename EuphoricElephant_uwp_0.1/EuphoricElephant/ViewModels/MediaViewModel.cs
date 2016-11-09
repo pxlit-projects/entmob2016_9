@@ -244,7 +244,7 @@ namespace EuphoricElephant.ViewModels
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
 
-                        if (true)
+                        if (true) //change true to pressed
                         {
                             byte[] accData = await activeSensor.Accelerometer.ReadValue();
                             //byte[] gyrData = await activeSensor.Accelerometer.ReadValue();
