@@ -11,6 +11,7 @@
             <converter:SecondsToTimeConverter x:Key="secondsToTimeConverter"></converter:SecondsToTimeConverter>
             <converter:BooleanToColorConverter x:Key="booleanToColorConverter"></converter:BooleanToColorConverter>
             <converter:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></converter:BooleanToVisibilityConverter>
+            <converter:BooleanToOpacityConverter x:Key="booleanToOpacityConverter"></converter:BooleanToOpacityConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

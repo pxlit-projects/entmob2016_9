@@ -8,9 +8,10 @@ namespace EuphoricElephant.Enumerations
 {
     public enum ViewType
     {
-        Default,
-        MediaPlayerViewType,
-        DroneViewType,
-        SettingsViewType
+        Default = 0,
+        MediaPlayerViewType = 1,
+        DroneViewType = 2,
+        SettingsViewType = 3,
+        UserViewType = 4
     }
 }

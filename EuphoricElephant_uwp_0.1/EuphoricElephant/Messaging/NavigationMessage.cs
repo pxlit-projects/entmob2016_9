@@ -13,7 +13,7 @@ namespace EuphoricElephant.Messaging
 
         public NavigationMessage(ViewType type)
         {
-            this.Type = Type;
+            Type = type;
         }
     }
 }

@@ -94,7 +94,7 @@ namespace EuphoricElephant
 
             if (ApplicationSettings.Contains("CurrentUser"))
             {
-                RestService.Login(ApplicationSettings.GetItem("CurrentUser"));
+                //RestService.Login(ApplicationSettings.GetItem("CurrentUser"));
             }
         }
 
@@ -117,6 +117,11 @@ namespace EuphoricElephant
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                //RestService.Logout(ApplicationSettings.GetItem("CurrentUser"));
+            }
+
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
@@ -139,14 +144,6 @@ namespace EuphoricElephant
             {
                 e.Handled = true;
                 rootFrame.GoBack();
-            }
-        }
-
-        private void OnSuspension(object sender, SuspendingEventArgs args)
-        {
-            if (ApplicationSettings.Contains("CurrentUser"))
-            {
-                RestService.Logout(ApplicationSettings.GetItem("CurrentUser"));
             }
         }
     }

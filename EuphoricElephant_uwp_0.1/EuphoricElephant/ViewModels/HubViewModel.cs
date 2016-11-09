@@ -82,7 +82,7 @@ namespace EuphoricElephant.ViewModels
 
         private void Init()
         {
-                HubPoints = Constants.HUB_POINTS;
+            HubPoints = Constants.HUB_POINTS;
 
             LoadCommands();
         }
@@ -111,6 +111,7 @@ namespace EuphoricElephant.ViewModels
                     break;
                 case Constants.USER_TEXT:
                     frame.Navigate(typeof(UserView));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType));
                     break;
                 default:
                     //throw error
