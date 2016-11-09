@@ -13,10 +13,10 @@ namespace EuphoricElephant.Data
     {
 
         [Key]
-        public int ProfileId { get; set; }
-        public int UserId { get; set; }
-        public string ProfileName { get; set; }
-        public string Pairings { get; set; }
+        public int profileId { get; set; }
+        public int userId { get; set; }
+        public string profileName { get; set; }
+        public string pairings { get; set; }
 
         public TypeCode GetTypeCode()
         {

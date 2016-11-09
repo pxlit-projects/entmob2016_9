@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -46,15 +47,23 @@ namespace EuphoricElephant.Services
 
         public static async Task<JsonObject> Serialize(String url, Object data)
         {
-            var client = new HttpClient();
-            var serealizedfile = JsonConvert.SerializeObject(data);
-            var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(url, content);
-
-            response.EnsureSuccessStatusCode();
-
-            string reply = await response.Content.ReadAsStringAsync();
-            return await Task.Run(() => JsonObject.Parse(reply));
+            try
+            {
+                var client = new HttpClient();
+                var serealizedfile = JsonConvert.SerializeObject(data);
+                var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(url, content);
+                response.EnsureSuccessStatusCode();
+                Debug.WriteLine("iets dom "+ response.StatusCode);
+                string reply = await response.Content.ReadAsStringAsync();
+                return await Task.Run(()=> JsonObject.Parse(reply));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+            
         }
     }
 }

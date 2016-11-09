@@ -14,7 +14,7 @@ public class User {
 	public String lastName;
 	public String password;
 	public String userName;
-	public int defaultProfile;
+	public int defaultProfileId;
 
 	public boolean setPass(String toSet, String prev) {
 		if (password.equals(prev)) {

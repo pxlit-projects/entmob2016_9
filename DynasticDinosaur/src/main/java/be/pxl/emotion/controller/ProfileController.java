@@ -30,7 +30,7 @@ public class ProfileController {
 
 	// profile toevoegen (json profile)
 	@RequestMapping(value = "/profile", method = RequestMethod.POST, headers = "Accept=application/json")
-	public Boolean addProfile(@RequestBody Profile profile) {
+	public Profile addProfile(@RequestBody Profile profile) {
 		return profileService.addProfile(profile);
 	}
 

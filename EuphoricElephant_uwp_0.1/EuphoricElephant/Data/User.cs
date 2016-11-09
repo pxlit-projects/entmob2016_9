@@ -17,7 +17,7 @@ namespace EuphoricElephant.Data
         public string lastName { get; set; }
         public string password { get; set; }
         public string userName { get; set; }
-        public int defaultProfile { get; set; }
+        public int defaultProfileId { get; set; }
 
         public virtual ICollection<Profile> profiles { get; set; }
 

@@ -40,6 +40,7 @@ namespace EuphoricElephant.Services
                             user.lastName = res.GetObjectAt(i).GetNamedString("lastName");
                             user.password = res.GetObjectAt(i).GetNamedString("password");
                             user.userName = res.GetObjectAt(i).GetNamedString("userName");
+                            user.defaultProfileId = (int)res.GetObjectAt(i).GetNamedNumber("defaultProfileId");
                         }
 
                         return (T)Convert.ChangeType(user, typeof(T));
@@ -47,18 +48,20 @@ namespace EuphoricElephant.Services
                     case "profile":
                         url  = URL + "profile/" + id;
                         res = await RestService.Deserialize(url);
-                        Profile profile = new Profile();
+                        List<Profile> profiles = new List<Profile>();
 
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            profile.ProfileId = (int)res.GetObjectAt(i).GetNamedNumber("profileId");
-                            profile.UserId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
-                            profile.ActId = (int)res.GetObjectAt(i).GetNamedNumber("actionId");
-                            profile.CommandId = (int)res.GetObjectAt(i).GetNamedNumber("commandId");
-                            profile.ProfileName = res.GetObjectAt(i).GetNamedString("profileName");
+                            Profile profile = new Profile();
+                            profile.profileId = (int)res.GetObjectAt(i).GetNamedNumber("profileId");
+                            profile.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            profile.profileName = res.GetObjectAt(i).GetNamedString("profileName");
+                            profile.pairings = res.GetObjectAt(i).GetNamedString("pairings");
+
+                            profiles.Add(profile);
                         }
 
-                        return (T)Convert.ChangeType(profile, typeof(T));
+                        return (T)Convert.ChangeType(profiles, typeof(T));
 
                     case "commands":
                         url  = URL + "command/" + id;
@@ -69,7 +72,7 @@ namespace EuphoricElephant.Services
 
                         for (uint i = 1; i < res.Count; i++)
                         {
-                            command.CommandList[(int)i] = (int)res.GetObjectAt(i).GetNamedNumber("command" + i);
+                            //command.CommandList[(int)i] = (int)res.GetObjectAt(i).GetNamedNumber("command" + i);
                         }
 
                         return (T)Convert.ChangeType(command, typeof(T));
@@ -83,7 +86,7 @@ namespace EuphoricElephant.Services
 
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            action.ActionList[(int)i] = (int)res.GetObjectAt(i).GetNamedNumber("action" + i);
+                            //action.ActionList[(int)i] = (int)res.GetObjectAt(i).GetNamedNumber("action" + i);
                         }
 
                         return (T)Convert.ChangeType(action, typeof(T));
@@ -101,6 +104,8 @@ namespace EuphoricElephant.Services
                             tempUser.firstName = res.GetObjectAt(i).GetNamedString("firstName");
                             tempUser.lastName = res.GetObjectAt(i).GetNamedString("lastName");
                             tempUser.password = res.GetObjectAt(i).GetNamedString("password");
+                            tempUser.defaultProfileId = (int)res.GetObjectAt(i).GetNamedNumber("defaultProfile");
+
                             userList.Add(tempUser);
                         }
 
@@ -109,7 +114,6 @@ namespace EuphoricElephant.Services
                     case "profiles":
                         url  = URL + "profiles";
                         res = await RestService.Deserialize(url);
-                        JsonArray profiles = res.GetObjectAt(0).GetNamedArray("profiles");
 
                         List<Profile> profileList = new List<Profile>();
 
@@ -117,11 +121,9 @@ namespace EuphoricElephant.Services
 
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            tempProfile.ProfileId = (int)res.GetObjectAt(i).GetNamedNumber("profileId");
-                            tempProfile.UserId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
-                            tempProfile.ActId = (int)res.GetObjectAt(i).GetNamedNumber("actionId");
-                            tempProfile.CommandId = (int)res.GetObjectAt(i).GetNamedNumber("commandId");
-                            tempProfile.ProfileName = res.GetObjectAt(i).GetNamedString("profileName");
+                            tempProfile.profileId = (int)res.GetObjectAt(i).GetNamedNumber("profileId");
+                            tempProfile.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            tempProfile.profileName = res.GetObjectAt(i).GetNamedString("profileName");
                         }
 
                         return (T)Convert.ChangeType(profileList, typeof(T));
@@ -142,10 +144,12 @@ namespace EuphoricElephant.Services
             {
                 JsonArray res = null;
 
+                string url;
+
                 switch (type)
                 {
                     case "user":
-                        var url = URL + "user/name/" + name;
+                        url = URL + "user/name/" + name;
                         res = await RestService.DeserializeSingle(url);
                         User user = new User();
 
@@ -159,6 +163,18 @@ namespace EuphoricElephant.Services
                         }
 
                         return (T)Convert.ChangeType(user, typeof(T));
+                    case "user/profile":
+                        url = URL + "user/profile/" + name;
+                        res = await RestService.DeserializeSingle(url);
+
+                        int id = 0;
+
+                        if(res != null)
+                        {
+                            id = (int)res.GetObjectAt(0).GetNamedNumber("userId");
+                        }
+
+                        return (T)Convert.ChangeType(id, typeof(T));
                     default:
                         return (T)Convert.ChangeType(res, typeof(T));
                 }
@@ -171,7 +187,7 @@ namespace EuphoricElephant.Services
 
         
 
-        public static async void SerializeDataToJson(String type, Object data)
+        public static async Task<bool> SerializeDataToJson(String type, Object data)
         {
             try
             {
@@ -195,8 +211,10 @@ namespace EuphoricElephant.Services
             }
             catch (Exception e)
             {
-                throw e;
+                return false;
             }
+
+            return true;
         }
 
         

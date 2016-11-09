@@ -83,10 +83,6 @@ namespace EuphoricElephant.ViewModels
         private void Init()
         {
             HubPoints = Constants.HUB_POINTS;
-            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "GRey"));
-            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "MHer"));
-            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "JJac"));
-            Debug.WriteLine(CustomPasswordIncriptor.sha256_hash("1111", "Kallef"));
 
             LoadCommands();
         }
@@ -165,6 +161,8 @@ namespace EuphoricElephant.ViewModels
             {
                 myUser = null;
                 IsLoggedIn = false;
+
+                ApplicationSettings.Remove("CurrentUser");
 
                 UserName = string.Empty;
                 PassWord = string.Empty;
@@ -271,17 +269,40 @@ namespace EuphoricElephant.ViewModels
 
                         if (tempUser.userName == null || tempUser.userName == string.Empty)
                         {
-                            User newUser = new User
-                            {
-                                userName = userNameTB.Text,
-                                lastName = lnTB.Text,
-                                firstName = fnTB.Text,
-                                password = CustomPasswordIncriptor.sha256_hash(passWordTB.Text, userNameTB.Text)
-                            };
-
                             try
                             {
-                                Services.JsonParseService<User>.SerializeDataToJson("user", newUser);
+                                User newUser = new User
+                                {
+                                    userName = userNameTB.Text,
+                                    lastName = lnTB.Text,
+                                    firstName = fnTB.Text,
+                                    password = CustomPasswordIncriptor.sha256_hash(passWordTB.Text, userNameTB.Text),
+                                    defaultProfileId = 0
+                                };
+                                bool succes =  await Services.JsonParseService<User>.SerializeDataToJson("user", newUser);
+
+                                if (succes)
+                                {
+                                    var u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", newUser.userName);
+
+                                    Debug.WriteLine("id= " + u.userId);
+
+                                    Profile newProfile = new Profile()
+                                    {
+                                        profileName = "Default Profile",
+                                        userId = u.userId,
+                                        pairings = "[(1,2,3,4,5),(1,2,3,4,5)]" //TODO dynamic
+                                    };
+
+                                    succes =  await Services.JsonParseService<Profile>.SerializeDataToJson("profile", newProfile);
+
+                                    if (succes)
+                                    {
+                                        await Services.JsonParseService<User>.DeserializeDataFromJson("user/profile", newUser.userName);
+                                    }
+                                }
+
+                                
                             }
                             catch (Exception e)
                             {

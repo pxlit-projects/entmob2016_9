@@ -28,4 +28,10 @@ public class Profile {
 	public void setProfileName(String profileName) {
 		this.profileName = profileName;
 	}
+	public String getPairings(){
+		return pairings;
+	}
+	public void setPairings(String pairings){
+		this.pairings = pairings;
+	}
 }

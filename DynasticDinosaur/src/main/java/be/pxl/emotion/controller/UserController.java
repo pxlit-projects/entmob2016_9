@@ -31,7 +31,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/name/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public User getUserById(@PathVariable String name) {
+	public User getUserByName(@PathVariable String name) {
 		return userService.getUserByName(name);
 	}
 	
@@ -51,5 +51,11 @@ public class UserController {
 	 @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteUser(@PathVariable("id") int id) {  
 	  userService.deleteUser(id); 
+	 }
+	 
+	 @RequestMapping(value = "/user/profile/{name}", method = RequestMethod.GET, headers = "Accept=application/json")  
+	 public User getUserProfileId(@PathVariable("name") String name) {
+		 System.out.println("?");
+		 return userService.getUserProfileId(name); 
 	 }
 }

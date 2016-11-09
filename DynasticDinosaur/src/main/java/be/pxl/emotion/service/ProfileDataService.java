@@ -19,57 +19,96 @@ public class ProfileDataService {
 
 	public Profile getProfileById(int id) {
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		Profile pr = em.find(Profile.class, id);
-		tx.commit();
-		em.close();
-		return pr;
+		
+		try{
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			Profile pr = em.find(Profile.class, id);
+			tx.commit();
+			return pr;
+
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}finally {
+			em.close();
+
+		}
+		
 	}
 
 	public List<Profile> getProfilesByUserId(int id) {
 		EntityManager em = emf.createEntityManager();
-		@SuppressWarnings("unchecked")
-		List<Profile> profiles = em.createQuery("SELECT p FROM Profile p WHERE p.userId LIKE :uid")
-				.setParameter("uid", id).getResultList();
+		
+		try{
+			@SuppressWarnings("unchecked")
+			List<Profile> profiles = em.createQuery("SELECT p FROM Profile p WHERE p.userId LIKE :uid")
+					.setParameter("uid", id).getResultList();
 
-		em.close();
-		return profiles;
+			return profiles;
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}finally {
+			em.close();
+		}
+		
 	}
 
-	public Boolean addProfile(Profile profile) {
-		try {
+	public Profile addProfile(Profile profile) {
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction ticket = em.getTransaction();
-		ticket.begin();
-		em.persist(profile);
-		ticket.commit();
-		em.close();
-		return true;
+
+		try {
+			EntityTransaction ticket = em.getTransaction();
+			ticket.begin();
+			em.persist(profile);
+			ticket.commit();
+			return profile;
 		} catch (Exception e) {
-			return false;
+			return null;
+		}finally{
+			em.close();
 		}
 	}
 
 	public Profile updateProfile(Profile profile) {
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction ticket = em.getTransaction();
-		ticket.begin();
-		em.merge(profile);
-		ticket.commit();
-		em.close();
-		return profile;
+		
+		try{
+
+			EntityTransaction ticket = em.getTransaction();
+			ticket.begin();
+			em.merge(profile);
+			ticket.commit();
+			return profile;
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		} finally{
+			em.close();
+		}
 	}
 
 	public void deleteProfile(int id) {
-		CommandDataService cs = new CommandDataService();
-		ActionDataService as = new ActionDataService();
-		Profile p = getProfileById(id);
+		
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction ticket = em.getTransaction();
-		ticket.begin();
-		em.remove(p);
-		ticket.commit();
-		em.close();
+		
+		try{
+			CommandDataService cs = new CommandDataService();
+			ActionDataService as = new ActionDataService();
+			Profile p = getProfileById(id);
+			
+			EntityTransaction ticket = em.getTransaction();
+			ticket.begin();
+			em.remove(p);
+			ticket.commit();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			em.close();
+
+		}
+		
+		
 	}
 }
