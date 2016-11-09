@@ -65,14 +65,10 @@ public class ProfileDataService {
 		CommandDataService cs = new CommandDataService();
 		ActionDataService as = new ActionDataService();
 		Profile p = getProfileById(id);
-		Command c = cs.getCommandById(p.getCommands());
-		Action a = as.getActionById(p.getActions());
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction ticket = em.getTransaction();
 		ticket.begin();
 		em.remove(p);
-		em.remove(c);
-		em.remove(a);
 		ticket.commit();
 		em.close();
 	}
