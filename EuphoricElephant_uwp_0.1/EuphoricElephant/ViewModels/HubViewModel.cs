@@ -102,16 +102,19 @@ namespace EuphoricElephant.ViewModels
             {
                 case Constants.DEVICES_TEXT:
                     frame.Navigate(typeof(DeviceView));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.DeviceViewType, frame));
                     break;
                 case Constants.MEDIA_TEXT:
                     frame.Navigate(typeof(MediaView));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, frame));
                     break;
                 case Constants.DRONE_TEXT:
                     frame.Navigate(typeof(DroneView));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.DroneViewType, frame));
                     break;
                 case Constants.USER_TEXT:
                     frame.Navigate(typeof(UserView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType, frame));
                     break;
                 default:
                     //throw error

@@ -9,31 +9,75 @@
     x:Name="Page"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-        <StackPanel Orientation="Vertical">
-            <Image Width="200" Height="200" Source="{Binding }"/>
-            <TextBlock Text="Select SensorTag" Foreground="Black" HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}">
+    <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Top" >
+        <StackPanel x:Name="Title" Orientation="Vertical" HorizontalAlignment="Center" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <TextBlock Text="Paired Devices" Foreground="Black" TextAlignment="Center" Margin="0, 100, 0, 50"/>
+        </StackPanel>
+        <StackPanel x:Name="Sensors" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="Select SensorTag" Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center"/>
+                <ListBox ItemsSource="{Binding Sensors, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" HorizontalAlignment="Center" Width="300">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" TextAlignment="Center" Width="150"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        <StackPanel x:Name="Drones" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <TextBlock Text="Select Drone" Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center"/>
+            <ListBox ItemsSource="{Binding Drones, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}" HorizontalAlignment="Left" Width="300">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}"/>
+                        <TextBlock TextAlignment="Center" Text="{Binding Path=Name}" Width="150"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <Image Width="200" Height="200" Source="{Binding }"/>
-            <TextBlock Text="Select Drone" Foreground="Black" HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Button Command="{Binding UnpairCommand}">Unpair</Button>
-        </StackPanel>
-    </StackPanel>
+        <Button x:Name="PairButton" HorizontalAlignment="Center" Width="300" Margin="15,0,15,15" Command="{Binding UnpairCommand}" RelativePanel.AlignHorizontalCenterWithPanel="True">Unpair</Button>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!-- Trigger when window width is larger than 720 ep-->
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Sensors.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="False"/>
+                        <Setter Target="Title.Width" Value="660"/>
+                        <Setter Target="Sensors.(RelativePanel.Below)" Value="Title"/>
+                        <Setter Target="Drones.(RelativePanel.Below)" Value="Title"/>
+                        <Setter Target="Drones.(RelativePanel.RightOf)" Value="Sensors"/>
+                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Title"/>
+                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Drones"/>
+                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Sensors"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!-- Trigger when window width is larger than 0 ep -->
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Title.Width" Value="360"/>
+                        <Setter Target="Sensors.(RelativePanel.Below)" Value="Title"/>
+                        <Setter Target="Drones.(RelativePanel.Below)" Value="Sensors"/>
+                        <Setter Target="PairButton.Width" Value="300"/>
+                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Drones"/>                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
 </Page>
+    
+    

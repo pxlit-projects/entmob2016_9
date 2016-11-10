@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
@@ -38,7 +39,7 @@ namespace EuphoricElephant.ViewModels
         private MusicPlayer player;
         private bool isPlaying = false;
         private bool isPaused = false;
-        private bool isLoaded = false;
+        private bool isLoading = false;
         private bool isStopped = false;
         private bool isLooped = false;
         private bool pressed;
@@ -53,14 +54,7 @@ namespace EuphoricElephant.ViewModels
 
         public string PlayButtonText
         {
-            get {
-                if (!isLoaded)
-                {
-                    LoadTagListener();
-                    isLoaded = true;
-                }
-
-                return playButtonText; }
+            get { return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
         }
 
@@ -68,6 +62,12 @@ namespace EuphoricElephant.ViewModels
         {
             get { return isLooped; }
             set { SetProperty(ref isLooped, value); }
+        }
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { SetProperty(ref isLoading, value); }
         }
 
         public double CurrentTrackTime
@@ -109,20 +109,36 @@ namespace EuphoricElephant.ViewModels
 
         public ICommand ToggleLoopCommand { get; set; }
         public ICommand ShuffleCommand { get; set; }
+        public ICommand OpenFolderCommand { get; set; }
         #endregion
 
         #region Constructor
         public MediaViewModel()
         {
-            Init();
+            RegisterMessages();
         }
         #endregion
 
         #region Init
+        private void RegisterMessages()
+        {
+            Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
+        }
+
+        private void OnNavigationMessageRecieved(NavigationMessage m)
+        {
+            if (m.Type == Enumerations.ViewType.MediaPlayerViewType)
+            {
+                Init();
+            }
+        }
+
         private void Init()
         {
+            LoadTagListener();
+
             CurrentFolder = KnownFolders.MusicLibrary;
-            LoadMusic();
+            LoadMusic("init");
             LoadCommands();
 
             player = new MusicPlayer();
@@ -140,16 +156,32 @@ namespace EuphoricElephant.ViewModels
 
             ToggleLoopCommand = new CustomCommand(ToggleLoopAction);
             ShuffleCommand = new CustomCommand(ShuffleAction);
+            OpenFolderCommand = new CustomCommand(OpenFolder);
         }
 
-        private async void LoadMusic()
+        private async void LoadMusic(String instance)
         {
-            Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+            IsLoading = true;
+            switch (instance)
+            {
+                case "init":
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                    break;
+                case "folder":
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
+                    break;
+                default:
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                    break;
+            }
             Tracks = AudioFilterService.FilterAudio(Tracks);
-
-            SelectedTrack = Tracks[0];
-            TrackIndex = 0;
-            CurrentTrackTime = 0;
+            if (Tracks.Count() != 0)
+            {
+                SelectedTrack = Tracks[0];
+                TrackIndex = 0;
+                CurrentTrackTime = 0;
+            }
+            IsLoading = false;
         }
 
         private async void LoadTagListener()
@@ -171,7 +203,7 @@ namespace EuphoricElephant.ViewModels
 
                     try
                     {
-                        if(activeSensor != null)
+                        if (activeSensor != null)
                         {
                             var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
 
@@ -209,7 +241,7 @@ namespace EuphoricElephant.ViewModels
                     {
                         var e = player.GetElement();
 
-                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
 
                         if (e.CurrentState.ToString().Equals("Paused"))
                         {
@@ -225,7 +257,7 @@ namespace EuphoricElephant.ViewModels
                                     PlayTrackAction(null);
                                 }
                             }
-                        }                  
+                        }
                     }
                 }
             );
@@ -239,12 +271,12 @@ namespace EuphoricElephant.ViewModels
                 {
                     byte[] raw = e.RawData;
 
-                    pressed = Convert.ToBoolean(raw[0]);                    
+                    pressed = Convert.ToBoolean(raw[0]);
 
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
 
-                        if (true) //change true to pressed
+                        if (!isLoading) //change true to pressed
                         {
                             byte[] accData = await activeSensor.Accelerometer.ReadValue();
                             //byte[] gyrData = await activeSensor.Accelerometer.ReadValue();
@@ -279,7 +311,7 @@ namespace EuphoricElephant.ViewModels
                         else
                         {
                             pressed = false;
-                          //  c = false;
+                            //  c = false;
                         }
                     }
                 });
@@ -289,7 +321,7 @@ namespace EuphoricElephant.ViewModels
         #region Private Methods
         private async void PlayTrackAction(object param)
         {
-            if(!isPaused && !isPlaying)
+            if (!isPaused && !isPlaying)
             {
                 TrackIndex = Tracks.IndexOf(SelectedTrack);
 
@@ -301,14 +333,14 @@ namespace EuphoricElephant.ViewModels
 
                 SetTrackProperties(data);
             }
-            else if(!isPaused && isPlaying)
+            else if (!isPaused && isPlaying)
             {
                 isPlaying = false;
                 isPaused = true;
                 player.Pause();
-                PlayButtonText = "Play";           
+                PlayButtonText = "Play";
             }
-            else if(isPaused && !isPlaying)
+            else if (isPaused && !isPlaying)
             {
                 player.Resume();
                 PlayButtonText = "Pause";
@@ -382,7 +414,7 @@ namespace EuphoricElephant.ViewModels
         {
             MusicProperties properties = null;
 
-            if(SelectedTrack != null)
+            if (SelectedTrack != null)
             {
                 properties = await SelectedTrack.Properties.GetMusicPropertiesAsync();
             }
@@ -396,7 +428,7 @@ namespace EuphoricElephant.ViewModels
                 CurrentTrackTime = 0;
             }
 
-            CreateAudioImage(data);          
+            CreateAudioImage(data);
         }
 
         private void CreateAudioImage(byte[] data)
@@ -412,22 +444,42 @@ namespace EuphoricElephant.ViewModels
 
         private void ShuffleAction(object param)
         {
-           StorageFile track = SelectedTrack;
+            StorageFile track = SelectedTrack;
 
-           AudioShuffleService.ShuffleAudio(Tracks, TrackIndex);
+            AudioShuffleService.ShuffleAudio(Tracks, TrackIndex);
 
-           TrackIndex = Tracks.IndexOf(track);
-           SelectedTrack = Tracks.ElementAt(TrackIndex);      
+            TrackIndex = Tracks.IndexOf(track);
+            SelectedTrack = Tracks.ElementAt(TrackIndex);
 
-           foreach(var t in Tracks)
+            foreach (var t in Tracks)
             {
                 Debug.WriteLine(t.DisplayName);
             }
 
-           // LoadMusic();
-           
-        }
-            #endregion
+            // LoadMusic();
 
         }
+
+        private async void OpenFolder(object param)
+        {
+            FolderPicker fp = new FolderPicker();
+            fp.SuggestedStartLocation = PickerLocationId.Desktop;
+            fp.FileTypeFilter.Add(".m4a");
+            fp.FileTypeFilter.Add(".mp3");
+            fp.FileTypeFilter.Add(".wma");
+            fp.FileTypeFilter.Add(".flac");
+
+            Windows.Storage.StorageFolder folder = await fp.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                // Application now has read/write access to all contents in the picked folder
+                // (including other sub-folder contents)
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+
+                CurrentFolder = folder;
+                LoadMusic("folder");
+            }
+        }
+        #endregion
+    }
 }
