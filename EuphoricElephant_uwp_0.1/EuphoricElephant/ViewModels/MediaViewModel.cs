@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
@@ -38,8 +39,8 @@ namespace EuphoricElephant.ViewModels
         private MusicPlayer player;
         private bool isPlaying = false;
         private bool isPaused = false;
-        private bool isLoaded = false;
         private bool isStopped = false;
+        private bool isLoading = false;
         private bool isLooped = false;
         private bool pressed;
         private int TrackIndex;
@@ -53,14 +54,7 @@ namespace EuphoricElephant.ViewModels
 
         public string PlayButtonText
         {
-            get {
-                if (!isLoaded)
-                {
-                    LoadTagListener();
-                    isLoaded = true;
-                }
-
-                return playButtonText; }
+            get { return playButtonText; }
             set { SetProperty(ref playButtonText, value); }
         }
 
@@ -69,6 +63,13 @@ namespace EuphoricElephant.ViewModels
             get { return isLooped; }
             set { SetProperty(ref isLooped, value); }
         }
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { SetProperty(ref isLoading, value); }
+        }
+
 
         public double CurrentTrackTime
         {
@@ -109,6 +110,7 @@ namespace EuphoricElephant.ViewModels
 
         public ICommand ToggleLoopCommand { get; set; }
         public ICommand ShuffleCommand { get; set; }
+        public ICommand OpenFolderCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -119,10 +121,26 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Init
+
+        private void RegisterMessages()
+        {
+            Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
+        }
+
+        private void OnNavigationMessageRecieved(NavigationMessage m)
+        {
+            if (m.Type == Enumerations.ViewType.DeviceViewType)
+            {
+                Init();
+            }
+        }
+
         private void Init()
         {
+            LoadTagListener();
+
             CurrentFolder = KnownFolders.MusicLibrary;
-            LoadMusic();
+            LoadMusic("init");
             LoadCommands();
 
             player = new MusicPlayer();
@@ -140,16 +158,32 @@ namespace EuphoricElephant.ViewModels
 
             ToggleLoopCommand = new CustomCommand(ToggleLoopAction);
             ShuffleCommand = new CustomCommand(ShuffleAction);
+            OpenFolderCommand = new CustomCommand(OpenFolder);
         }
 
-        private async void LoadMusic()
+        private async void LoadMusic(String instance)
         {
-            Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+            IsLoading = true;
+            switch (instance)
+            {
+                case "init":
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                    break;
+                case "folder":
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
+                    break;
+                default:
+                    Tracks = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                    break;
+            }            
             Tracks = AudioFilterService.FilterAudio(Tracks);
-
-            SelectedTrack = Tracks[0];
-            TrackIndex = 0;
-            CurrentTrackTime = 0;
+            if (Tracks.Count() != 0)
+            {
+                SelectedTrack = Tracks[0];
+                TrackIndex = 0;
+                CurrentTrackTime = 0;
+            }
+            IsLoading = false;
         }
 
         private async void LoadTagListener()
@@ -209,7 +243,7 @@ namespace EuphoricElephant.ViewModels
                     {
                         var e = player.GetElement();
 
-                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByMusicProperties));
+                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
 
                         if (e.CurrentState.ToString().Equals("Paused"))
                         {
@@ -244,7 +278,7 @@ namespace EuphoricElephant.ViewModels
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
 
-                        if (true) //change true to pressed
+                        if (!isLoading) //change true to pressed
                         {
                             byte[] accData = await activeSensor.Accelerometer.ReadValue();
                             //byte[] gyrData = await activeSensor.Accelerometer.ReadValue();
@@ -427,7 +461,27 @@ namespace EuphoricElephant.ViewModels
            // LoadMusic();
            
         }
-            #endregion
 
+        private async void OpenFolder(object param)
+        {
+            FolderPicker fp = new FolderPicker();
+            fp.SuggestedStartLocation = PickerLocationId.Desktop;
+            fp.FileTypeFilter.Add(".m4a");
+            fp.FileTypeFilter.Add(".mp3");
+            fp.FileTypeFilter.Add(".wma");
+            fp.FileTypeFilter.Add(".flac");
+
+            Windows.Storage.StorageFolder folder = await fp.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                // Application now has read/write access to all contents in the picked folder
+                // (including other sub-folder contents)
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+
+                CurrentFolder = folder;
+                LoadMusic("folder");
+            }
         }
+        #endregion
+    }
 }

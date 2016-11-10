@@ -13,7 +13,7 @@
         <StackPanel Orientation="Vertical">
             <Image Width="200" Height="200" Source="{Binding }"/>
             <TextBlock Text="Select SensorTag" Foreground="Black" HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}">
+            <ListBox ItemsSource="{Binding Sensors, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=Name}"/>
@@ -24,7 +24,7 @@
         <StackPanel Orientation="Vertical">
             <Image Width="200" Height="200" Source="{Binding }"/>
             <TextBlock Text="Select Drone" Foreground="Black" HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Devices, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}">
+            <ListBox ItemsSource="{Binding Drones, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=Name}"/>

@@ -56,10 +56,10 @@ namespace EuphoricElephant.ViewModels
 
         public UserViewModel()
         {
-            RefisterMessages();
+            RegisterMessages();
         }
 
-        private void RefisterMessages()
+        private void RegisterMessages()
         {
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
         }
