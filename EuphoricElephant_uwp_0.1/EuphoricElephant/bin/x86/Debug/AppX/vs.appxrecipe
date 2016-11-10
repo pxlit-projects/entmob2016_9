@@ -16,7 +16,7 @@
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>935E2D24C2DC2A9E71135251491148A807252F5593A0DB8573547ADAC518A9EE</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>C38306A31D4C44A1BBBA6BE72396A1F451ABE72CD4FB5BAC7A3F6953CF568B1D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>554678b6-fd40-44b3-b6a5-680909db4c87_1.0.0.0_x86__kpm9nnnxpags0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>554678b6-fd40-44b3-b6a5-680909db4c87_kpm9nnnxpags0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>554678b6-fd40-44b3-b6a5-680909db4c87</RegisteredPackageID>
@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-11-09T16:30:15.073</Modified>
+      <Modified>2016-11-10T11:51:41.633</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.exe">
       <PackagePath>entrypoint\EuphoricElephant.exe</PackagePath>
-      <Modified>2016-11-09T16:30:14.374</Modified>
+      <Modified>2016-11-10T11:51:40.985</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -462,61 +462,61 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\connect.png">
       <PackagePath>Assets\connect.png</PackagePath>
-      <Modified>2016-11-04T16:31:26.828</Modified>
+      <Modified>2016-11-10T09:16:14.896</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\drone.png">
       <PackagePath>Assets\drone.png</PackagePath>
-      <Modified>2016-11-04T16:31:26.830</Modified>
+      <Modified>2016-11-10T09:16:15.120</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\music.png">
       <PackagePath>Assets\music.png</PackagePath>
-      <Modified>2016-11-04T16:31:26.837</Modified>
+      <Modified>2016-11-10T09:16:15.333</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\user.png">
       <PackagePath>Assets\user.png</PackagePath>
-      <Modified>2016-11-04T16:31:26.838</Modified>
+      <Modified>2016-11-10T09:16:16.295</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2016-10-18T06:35:37.046</Modified>
+      <Modified>2016-11-10T09:16:15.218</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.043</Modified>
+      <Modified>2016-11-10T09:16:15.504</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.037</Modified>
+      <Modified>2016-11-10T09:16:15.580</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.031</Modified>
+      <Modified>2016-11-10T09:16:15.751</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.027</Modified>
+      <Modified>2016-11-10T09:16:15.940</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.018</Modified>
+      <Modified>2016-11-10T09:16:16.128</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-10-18T06:35:37.014</Modified>
+      <Modified>2016-11-10T09:16:16.483</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2016-10-18T06:35:36.939</Modified>
+      <Modified>2016-11-10T09:16:58.753</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.xr.xml">
       <PackagePath>EuphoricElephant.xr.xml</PackagePath>
-      <Modified>2016-11-06T15:02:17.400</Modified>
+      <Modified>2016-11-10T11:50:50.596</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -524,11 +524,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-11-09T11:31:55.050</Modified>
+      <Modified>2016-11-10T11:51:41.422</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\EuphoricElephant.exe">
       <PackagePath>EuphoricElephant.exe</PackagePath>
-      <Modified>2016-11-09T16:30:15.062</Modified>
+      <Modified>2016-11-10T11:51:41.621</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

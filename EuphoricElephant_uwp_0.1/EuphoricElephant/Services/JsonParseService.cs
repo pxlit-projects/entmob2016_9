@@ -45,8 +45,8 @@ namespace EuphoricElephant.Services
 
                         return (T)Convert.ChangeType(user, typeof(T));
 
-                    case "profile":
-                        url  = URL + "profile/" + id;
+                    case "profile/user":
+                        url  = URL + "profile/user/" + id;
                         res = await RestService.Deserialize(url);
                         List<Profile> profiles = new List<Profile>();
 

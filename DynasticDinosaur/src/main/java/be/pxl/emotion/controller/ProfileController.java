@@ -27,6 +27,11 @@ public class ProfileController {
 	public Profile getProfileById(@PathVariable int id) {
 		return profileService.getProfileById(id);
 	}
+	
+	@RequestMapping(value = "/profile/user/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Profile> getProfileByUserId(@PathVariable int id) {
+		return profileService.getProfilesByUserId(id);
+	}
 
 	// profile toevoegen (json profile)
 	@RequestMapping(value = "/profile", method = RequestMethod.POST, headers = "Accept=application/json")
