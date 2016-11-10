@@ -1,6 +1,5 @@
 ﻿using EuphoricElephant.Custom;
 using EuphoricElephant.Helpers;
-using EuphoricElephant.Messaging;
 using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
@@ -12,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Devices.Enumeration;
-using Windows.UI.Xaml.Controls;
 
 namespace EuphoricElephant.ViewModels
 {
@@ -23,15 +21,12 @@ namespace EuphoricElephant.ViewModels
         public ICommand UnpairCommand { get; set; }
         #endregion
 
-        private ObservableCollection<DeviceInformation> sensors;
-        private ObservableCollection<DeviceInformation> drones;
+        private ObservableCollection<DeviceInformation> devices;
 
         private DeviceInformation selectedTag;
         private DeviceInformation selectedDrone;
 
         private string selectedIndex = null;
-
-        private Frame frame;
 
         private void LoadCommands()
         {
@@ -50,16 +45,10 @@ namespace EuphoricElephant.ViewModels
             set { SetProperty(ref selectedIndex, value); }
         }
 
-        public ObservableCollection<DeviceInformation> Sensors
+        public ObservableCollection<DeviceInformation> Devices
         {
-            get { return sensors; }
-            set { SetProperty(ref sensors, value); }
-        }
-
-        public ObservableCollection<DeviceInformation> Drones
-        {
-            get { return drones; }
-            set { SetProperty(ref drones, value); }
+            get { return devices; }
+            set { SetProperty(ref devices, value); }
         }
 
         public DeviceInformation SelectedTag
@@ -67,7 +56,7 @@ namespace EuphoricElephant.ViewModels
             get { return selectedTag; }
             set
             {
-                if (value != null)
+                if( value != null)
                 {
                     SetProperty(ref selectedTag, value);
                     activeSensor = new SensorTag
@@ -89,7 +78,7 @@ namespace EuphoricElephant.ViewModels
             get { return selectedDrone; }
             set
             {
-                SetProperty(ref selectedDrone, value);
+                SetProperty(ref selectedDrone, value);               
             }
         }
 
@@ -97,63 +86,13 @@ namespace EuphoricElephant.ViewModels
 
         public DeviceViewModel()
         {
-            RegisterMessages();
-        }
-
-        private void RegisterMessages()
-        {
-            Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
-        }
-
-        private void OnNavigationMessageRecieved(NavigationMessage m)
-        {
-            if (m.Type == Enumerations.ViewType.DeviceViewType)
-            {
-                frame = m.Frame;
-                Init();
-            }
+            Init();
         }
 
         private async void Init()
         {
             LoadCommands();
-
-            Sensors = new ObservableCollection<DeviceInformation>();
-            Drones = new ObservableCollection<DeviceInformation>();
-
-
-            foreach (DeviceInformation d in (await SensorTagService.FindAllTagNames()))
-            {
-                switch (d.Name)
-                {
-                    case "CC2650 SensorTag":
-                        Sensors.Add(d);
-                        break;
-                    case "drone":
-                        Drones.Add(d);
-                        break;
-                }
-            }
-
-            if (Sensors.Count() == 0 && Drones.Count() == 0)
-            {
-                showError("No devices found.");                
-            }
-
-        }
-
-        private async void showError(string error)
-        {
-            var dialog = new Windows.UI.Popups.MessageDialog(error);
-
-            dialog.Commands.Add(new Windows.UI.Popups.UICommand("OK") { Id = 0 });
-
-            var result = await dialog.ShowAsync();
-
-            if (Convert.ToUInt32(result.Id.ToString()) == 0)
-            {
-                frame.GoBack();
-            }
+            Devices = new ObservableCollection<DeviceInformation>(await SensorTagService.FindAllTagNames());
         }
     }
 }

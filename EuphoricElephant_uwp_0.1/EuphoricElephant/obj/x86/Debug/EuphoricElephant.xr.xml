@@ -6,10 +6,9 @@
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="DeviceViewModel" />
     <RootPropertyPathName Name="UnpairCommand" />
-    <RootPropertyPathName Name="Drones" />
+    <RootPropertyPathName Name="Devices" />
     <RootPropertyPathName Name="SelectedDrone" />
     <RootPropertyPathName Name="Name" />
-    <RootPropertyPathName Name="Sensors" />
     <RootPropertyPathName Name="SelectedTag" />
     <RootPropertyPathName Name="HubViewModel" />
     <RootPropertyPathName Name="PassWord" />
@@ -31,14 +30,11 @@
     <RootPropertyPathName Name="GyroZ" />
     <RootPropertyPathName Name="GyroY" />
     <RootPropertyPathName Name="GyroX" />
-    <RootPropertyPathName Name="Devices" />
     <RootPropertyPathName Name="SelectedValue" />
     <RootPropertyPathName Name="MediaViewModel" />
     <RootPropertyPathName Name="Tracks" />
     <RootPropertyPathName Name="SelectedTrack" />
     <RootPropertyPathName Name="CurrentFolderName" />
-    <RootPropertyPathName Name="OpenFolderCommand" />
-    <RootPropertyPathName Name="IsLoading" />
     <RootPropertyPathName Name="ShuffleCommand" />
     <RootPropertyPathName Name="ToggleLoopCommand" />
     <RootPropertyPathName Name="IsLooped" />
@@ -110,8 +106,6 @@
       <RootProperty Name="Text" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="MaxWidth" />
-      <RootProperty Name="TextWrapping" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="ItemsSource" />
