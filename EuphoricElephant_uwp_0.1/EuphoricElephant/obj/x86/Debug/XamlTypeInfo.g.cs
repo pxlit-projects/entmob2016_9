@@ -132,37 +132,39 @@ namespace EuphoricElephant.EuphoricElephant_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[14];
+            _typeNameTable = new string[15];
             _typeNameTable[0] = "EuphoricElephant.ViewModelLocator";
             _typeNameTable[1] = "Object";
             _typeNameTable[2] = "EuphoricElephant.Converters.SecondsToTimeConverter";
             _typeNameTable[3] = "EuphoricElephant.Converters.BooleanToColorConverter";
             _typeNameTable[4] = "EuphoricElephant.Converters.BooleanToVisibilityConverter";
             _typeNameTable[5] = "EuphoricElephant.Converters.BooleanToOpacityConverter";
-            _typeNameTable[6] = "EuphoricElephant.Views.DeviceView";
-            _typeNameTable[7] = "Windows.UI.Xaml.Controls.Page";
-            _typeNameTable[8] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[9] = "EuphoricElephant.Views.DroneView";
-            _typeNameTable[10] = "EuphoricElephant.Views.HubView";
-            _typeNameTable[11] = "EuphoricElephant.MainView";
-            _typeNameTable[12] = "EuphoricElephant.Views.MediaView";
-            _typeNameTable[13] = "EuphoricElephant.Views.UserView";
+            _typeNameTable[6] = "EuphoricElephant.Converters.BooleanInverter";
+            _typeNameTable[7] = "EuphoricElephant.Views.DeviceView";
+            _typeNameTable[8] = "Windows.UI.Xaml.Controls.Page";
+            _typeNameTable[9] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[10] = "EuphoricElephant.Views.DroneView";
+            _typeNameTable[11] = "EuphoricElephant.Views.HubView";
+            _typeNameTable[12] = "EuphoricElephant.MainView";
+            _typeNameTable[13] = "EuphoricElephant.Views.MediaView";
+            _typeNameTable[14] = "EuphoricElephant.Views.UserView";
 
-            _typeTable = new global::System.Type[14];
+            _typeTable = new global::System.Type[15];
             _typeTable[0] = typeof(global::EuphoricElephant.ViewModelLocator);
             _typeTable[1] = typeof(global::System.Object);
             _typeTable[2] = typeof(global::EuphoricElephant.Converters.SecondsToTimeConverter);
             _typeTable[3] = typeof(global::EuphoricElephant.Converters.BooleanToColorConverter);
             _typeTable[4] = typeof(global::EuphoricElephant.Converters.BooleanToVisibilityConverter);
             _typeTable[5] = typeof(global::EuphoricElephant.Converters.BooleanToOpacityConverter);
-            _typeTable[6] = typeof(global::EuphoricElephant.Views.DeviceView);
-            _typeTable[7] = typeof(global::Windows.UI.Xaml.Controls.Page);
-            _typeTable[8] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[9] = typeof(global::EuphoricElephant.Views.DroneView);
-            _typeTable[10] = typeof(global::EuphoricElephant.Views.HubView);
-            _typeTable[11] = typeof(global::EuphoricElephant.MainView);
-            _typeTable[12] = typeof(global::EuphoricElephant.Views.MediaView);
-            _typeTable[13] = typeof(global::EuphoricElephant.Views.UserView);
+            _typeTable[6] = typeof(global::EuphoricElephant.Converters.BooleanInverter);
+            _typeTable[7] = typeof(global::EuphoricElephant.Views.DeviceView);
+            _typeTable[8] = typeof(global::Windows.UI.Xaml.Controls.Page);
+            _typeTable[9] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[10] = typeof(global::EuphoricElephant.Views.DroneView);
+            _typeTable[11] = typeof(global::EuphoricElephant.Views.HubView);
+            _typeTable[12] = typeof(global::EuphoricElephant.MainView);
+            _typeTable[13] = typeof(global::EuphoricElephant.Views.MediaView);
+            _typeTable[14] = typeof(global::EuphoricElephant.Views.UserView);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -202,12 +204,13 @@ namespace EuphoricElephant.EuphoricElephant_XamlTypeInfo
         private object Activate_3_BooleanToColorConverter() { return new global::EuphoricElephant.Converters.BooleanToColorConverter(); }
         private object Activate_4_BooleanToVisibilityConverter() { return new global::EuphoricElephant.Converters.BooleanToVisibilityConverter(); }
         private object Activate_5_BooleanToOpacityConverter() { return new global::EuphoricElephant.Converters.BooleanToOpacityConverter(); }
-        private object Activate_6_DeviceView() { return new global::EuphoricElephant.Views.DeviceView(); }
-        private object Activate_9_DroneView() { return new global::EuphoricElephant.Views.DroneView(); }
-        private object Activate_10_HubView() { return new global::EuphoricElephant.Views.HubView(); }
-        private object Activate_11_MainView() { return new global::EuphoricElephant.MainView(); }
-        private object Activate_12_MediaView() { return new global::EuphoricElephant.Views.MediaView(); }
-        private object Activate_13_UserView() { return new global::EuphoricElephant.Views.UserView(); }
+        private object Activate_6_BooleanInverter() { return new global::EuphoricElephant.Converters.BooleanInverter(); }
+        private object Activate_7_DeviceView() { return new global::EuphoricElephant.Views.DeviceView(); }
+        private object Activate_10_DroneView() { return new global::EuphoricElephant.Views.DroneView(); }
+        private object Activate_11_HubView() { return new global::EuphoricElephant.Views.HubView(); }
+        private object Activate_12_MainView() { return new global::EuphoricElephant.MainView(); }
+        private object Activate_13_MediaView() { return new global::EuphoricElephant.Views.MediaView(); }
+        private object Activate_14_UserView() { return new global::EuphoricElephant.Views.UserView(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -258,52 +261,59 @@ namespace EuphoricElephant.EuphoricElephant_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 6:   //  EuphoricElephant.Views.DeviceView
-                userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_6_DeviceView;
+            case 6:   //  EuphoricElephant.Converters.BooleanInverter
+                userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_6_BooleanInverter;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 7:   //  Windows.UI.Xaml.Controls.Page
+            case 7:   //  EuphoricElephant.Views.DeviceView
+                userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_7_DeviceView;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 8:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 8:   //  Windows.UI.Xaml.Controls.UserControl
+            case 9:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 9:   //  EuphoricElephant.Views.DroneView
+            case 10:   //  EuphoricElephant.Views.DroneView
                 userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_9_DroneView;
+                userType.Activator = Activate_10_DroneView;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 10:   //  EuphoricElephant.Views.HubView
+            case 11:   //  EuphoricElephant.Views.HubView
                 userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_10_HubView;
+                userType.Activator = Activate_11_HubView;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 11:   //  EuphoricElephant.MainView
+            case 12:   //  EuphoricElephant.MainView
                 userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_11_MainView;
+                userType.Activator = Activate_12_MainView;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 12:   //  EuphoricElephant.Views.MediaView
+            case 13:   //  EuphoricElephant.Views.MediaView
                 userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_12_MediaView;
+                userType.Activator = Activate_13_MediaView;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 13:   //  EuphoricElephant.Views.UserView
+            case 14:   //  EuphoricElephant.Views.UserView
                 userType = new global::EuphoricElephant.EuphoricElephant_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_13_UserView;
+                userType.Activator = Activate_14_UserView;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

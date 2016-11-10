@@ -45,13 +45,16 @@
     <RootPropertyPathName Name="PlayButtonText" />
     <RootPropertyPathName Name="PlayTrackCommand" />
     <RootPropertyPathName Name="UserViewModel" />
-    <RootPropertyPathName Name="IsEditing" />
-    <RootPropertyPathName Name="CancelCommand" />
-    <RootPropertyPathName Name="SaveCommand" />
+    <RootPropertyPathName Name="Profiles" />
+    <RootPropertyPathName Name="SelectedProfile" />
+    <RootPropertyPathName Name="profileName" />
+    <RootPropertyPathName Name="DefaultProfileName" />
+    <RootPropertyPathName Name="IsNotEditing" />
+    <RootPropertyPathName Name="EditButtonText" />
     <RootPropertyPathName Name="EditCommand" />
+    <RootPropertyPathName Name="SaveCommand" />
     <RootPropertyPathName Name="LastName" />
     <RootPropertyPathName Name="FirstName" />
-    <RootPropertyPathName Name="SelectedProfileName" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -64,6 +67,7 @@
     <RootType FullName="EuphoricElephant.Converters.BooleanToColorConverter" />
     <RootType FullName="EuphoricElephant.Converters.BooleanToVisibilityConverter" />
     <RootType FullName="EuphoricElephant.Converters.BooleanToOpacityConverter" />
+    <RootType FullName="EuphoricElephant.Converters.BooleanInverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="DataContext" />
       <RootProperty Name="Content" />
@@ -106,6 +110,7 @@
       <RootProperty Name="Text" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="ItemsSource" />
@@ -127,8 +132,6 @@
       <RootMethod Name="SetRow" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
-      <RootMethod Name="GetColumnSpan" />
-      <RootMethod Name="SetColumnSpan" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="EuphoricElephant.Views.DroneView" />

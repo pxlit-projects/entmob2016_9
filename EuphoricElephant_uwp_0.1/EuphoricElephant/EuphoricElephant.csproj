@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanInverter.cs" />
     <Compile Include="Converters\BooleanToColorConverter.cs" />
     <Compile Include="Converters\BooleanToOpacityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />

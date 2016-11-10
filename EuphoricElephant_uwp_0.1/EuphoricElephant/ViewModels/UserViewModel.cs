@@ -1,12 +1,16 @@
-﻿using EuphoricElephant.Data;
+﻿using EuphoricElephant.Custom;
+using EuphoricElephant.Data;
 using EuphoricElephant.Helpers;
 using EuphoricElephant.Messaging;
 using EuphoricElephant.Models;
+using EuphoricElephant.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace EuphoricElephant.ViewModels
 {
@@ -22,12 +26,26 @@ namespace EuphoricElephant.ViewModels
             set { SetProperty(ref userName, value); }
         }
 
-        private string selectedProfileName = "No Profile selected";
-
-        public string SelectedProfileName
+        private Profile selectedProfile;
+        public Profile SelectedProfile
         {
-            get { return selectedProfileName; }
-            set { SetProperty(ref selectedProfileName, value); }
+            get { return selectedProfile; }
+            set { SetProperty(ref selectedProfile, value); }
+        }
+
+        private ObservableCollection<Profile> profiles;
+        public ObservableCollection<Profile> Profiles
+        {
+            get { return profiles; }
+            set { SetProperty(ref profiles, value); }
+        } 
+
+        private string defaultProfileName = "No Profile selected";
+
+        public string DefaultProfileName
+        {
+            get { return defaultProfileName; }
+            set { SetProperty(ref defaultProfileName, value); }
         }
 
         private string firstName = string.Empty;
@@ -46,17 +64,34 @@ namespace EuphoricElephant.ViewModels
             set { SetProperty(ref lastName, value); }
         }
 
-        private bool isEditing = false;
+        private bool isNotEditing = true;
 
-        public bool IsEditing
+        public bool IsNotEditing
         {
-            get { return isEditing; }
-            set { SetProperty(ref isEditing, value); }
+            get { return isNotEditing; }
+            set { SetProperty(ref isNotEditing, value); }
         }
+
+        private string editButtonText = "Edit";
+        public string EditButtonText
+        {
+            get { return editButtonText; }
+            set { SetProperty(ref editButtonText, value); }
+        }
+
+        public ICommand EditCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
 
         public UserViewModel()
         {
             RefisterMessages();
+            LoadCommands();
+        }
+
+        private void LoadCommands()
+        {
+            EditCommand = new CustomCommand(EditAction);
+            SaveCommand = new CustomCommand(SaveAction);
         }
 
         private void RefisterMessages()
@@ -72,7 +107,25 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private void Init()
+        private void EditAction(object param)
+        {
+            IsNotEditing = !IsNotEditing;
+
+            if (!isNotEditing)
+            {
+                EditButtonText = "Cancel";
+            }else
+            {
+                EditButtonText = "Edit";
+            }
+        }
+
+        private void SaveAction(object param)
+        {
+
+        }
+
+        private async void Init()
         {
             if (ApplicationSettings.Contains("CurrentUser")){
                 currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
@@ -83,6 +136,10 @@ namespace EuphoricElephant.ViewModels
                 UserName = currentUser.userName;
                 FirstName = currentUser.firstName;
                 LastName = currentUser.lastName;
+
+                Profiles = new ObservableCollection<Profile>(await JsonParseService<List<Profile>>.DeserializeDataFromJson("profile/user", currentUser.userId));
+
+                DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
             }
         }
     }

@@ -9,66 +9,38 @@
     DataContext="{Binding Source={StaticResource viewModelLocator}, Path=UserViewModel}"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBox Width="150" x:Name="UserNameTextBox" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding UserName,Mode=OneWay}"/>
+                </StackPanel>
 
-            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="UserNameTextBox" IsEnabled="{Binding IsEditing}" Text="{Binding UserName}"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="ProfileNameTextBox" Text="{Binding SelectedProfileName}"/>
-            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="FirstNameTextBox" IsEnabled="{Binding IsEditing}" Text="{Binding FirstName}"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="LastNameTextBox" IsEnabled="{Binding IsEditing}" Text="{Binding LastName}"/>
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="EditButton" Content="Edit" Visibility="{Binding IsEditing, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding EditCommand}"/>
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="1" x:Name="SaveButton" Content="Save" Visibility="{Binding IsEditing, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding SaveCommand}"/>
-            <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" x:Name="CancelButton" Content="Cancel" Visibility="{Binding IsEditing, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding CancelCommand}"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <TextBox Width="150" x:Name="FirstNameTextBox" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding FirstName}"/>
+                    <TextBox Width="150" x:Name="LastNameTextBox" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding LastName}"/>
+                </StackPanel>
+            </StackPanel>
 
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <!-- Trigger when window width is larger than 720 ep-->
-                            <AdaptiveTrigger MinWindowWidth="720" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="FirstNameTextBox.(Grid.Row)" Value="0"/>
-                            <Setter Target="FirstNameTextBox.(Grid.Column)" Value="2"/>
-                            <Setter Target="FirstNameTextBox.(Grid.RowSpan)" Value="2"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Width="150" x:Name="SaveButton" Content="Save" Visibility="{Binding IsNotEditing, Converter={StaticResource booleanToVisibilityConverter}, Mode=OneWay}" Command="{Binding SaveCommand}"/>
+                <Button Width="150" x:Name="EditButton" Content="{Binding EditButtonText}" Command="{Binding EditCommand}"/>
+            </StackPanel>
+        </StackPanel>
 
-                            <Setter Target="LastNameTextBox.(Grid.Row)" Value="1"/>
-                            <Setter Target="LastNameTextBox.(Grid.Column)" Value="2"/>
-                            <Setter Target="LastNameTextBox.(Grid.RowSpan)" Value="2"/>
-
-                            <Setter Target="EditButton.(Grid.Row)" Value="0"/>
-                            <Setter Target="EditButton.(Grid.Column)" Value="2"/>
-                            <Setter Target="EditButton.(Grid.RowSpan)" Value="1"/>
-
-                            <Setter Target="SaveButton.(Grid.Row)" Value="2"/>
-                            <Setter Target="SaveButton.(Grid.Column)" Value="2"/>
-                            <Setter Target="SaveButton.(Grid.RowSpan)" Value="1"/>
-
-                            <Setter Target="CancelButton.(Grid.Row)" Value="3"/>
-                            <Setter Target="CancelButton.(Grid.Column)" Value="3"/>
-                            <Setter Target="CancelButton.(Grid.RowSpan)" Value="1"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                    
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </Grid>
-
-
-
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBox Width="250" x:Name="ProfileNameTextBox" Text="{Binding DefaultProfileName}" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}"/>
+            <ScrollViewer x:Name="ProfileListBox">
+                <ListBox ItemsSource="{Binding Profiles, Mode=OneWay}" SelectedItem="{Binding SelectedProfile, Mode=TwoWay}" MinWidth="250">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Width="250" Text="{Binding Path=profileName}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </StackPanel>
     </StackPanel>
+    
 </Page>
