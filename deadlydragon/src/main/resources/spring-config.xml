@@ -13,7 +13,7 @@
 
     <bean id="UserRepository" class="be.pxl.emotion.repositories.UserRepository" />
 
-    <bean id="UserDataService" class="be.pxl.emotion.service.UserDataService">
+    <bean id="UserDataService" class="be.pxl.emotion.services.UserDataService">
         <property name="UserRepository" ref="UserRepository" />
     </bean>
 
