@@ -2,40 +2,155 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee1b0182-2118-413c-9eba-fa8a7948f7ee" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/Application.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Action.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Command.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Profile.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/User.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ActionController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/CommandController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ProfileController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/UserController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/repositories/ActionRepository.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/repositories/CommandRepository.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/repositories/ProfileRepository.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/repositories/UserRepository.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ActionDataService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/CommandDataService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ProfileDataService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/UserDataService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/deadlydragon-0.0.1-SNAPSHOT.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/test-classes/be/pxl/emotion/deadlydragon/AppTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_3_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_8_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_transaction_jta_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_1_1_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_17.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_dbcp2_2_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_6_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_6_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_5_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_5_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_5_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_11_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_11_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_2_4_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_20_0_GA.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_all_1_10_19.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_21.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_21.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_21.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_1_4_2_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_12_5_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_10_5_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_4_1_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_4_1_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_4_1_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_3_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_17.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_4_01.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.project" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/deadlydragon.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/Application.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Command.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Profile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/User.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ActionController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/CommandController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ProfileController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/UserController.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/ActionRepository.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/CommandRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/ProfileRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/UserRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ActionDataService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/CommandDataService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ProfileDataService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/UserDataService.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/connections.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Action.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Action.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Command.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Command.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Profile.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/Profile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/User.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/beans/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ActionController.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ActionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/CommandController.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/CommandController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ProfileController.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/ProfileController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/UserController.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/controllers/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ActionDataService.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ActionDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/CommandDataService.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/CommandDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ProfileDataService.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/ProfileDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/UserDataService.class" afterPath="$PROJECT_DIR$/target/classes/be/pxl/emotion/services/UserDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Action.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Action.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Command.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Profile.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Profile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/User.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ActionController.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ActionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/CommandController.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/CommandController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ProfileController.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/ProfileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/controllers/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/ProfileRepository.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/repositories/ProfileRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ActionDataService.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ActionDataService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/CommandDataService.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/CommandDataService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ProfileDataService.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/ProfileDataService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/UserDataService.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/services/UserDataService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring-config.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/spring-config.xml" afterPath="$PROJECT_DIR$/target/classes/spring-config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/spring-config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/be/pxl/emotion/deadlydragon/AppTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/META-INF/maven/be.pxl.emotion/deadlydragon/pom.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/META-INF/maven/be.pxl.emotion/deadlydragon/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/spring-config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-be.pxl.emotion.deadlydragon.AppTest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/surefire-reports/be.pxl.emotion.deadlydragon.AppTest.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/Command.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/ActionController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/CommandController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/main/PropertyLoader.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/main/StartUp.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/ActionDataService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/CommandDataService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/resources/META-INF/persistence.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/resources/emotion.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/webapp/WEB-INF/springrest-servlet.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/webapp/index.jsp" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/Action.java" afterPath="$PROJECT_DIR$/src/main/java/be/pxl/emotion/beans/Action.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/.classpath" afterPath="$PROJECT_DIR$/../DynasticDinosaur/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/.settings/org.eclipse.wst.common.component" afterPath="$PROJECT_DIR$/../DynasticDinosaur/.settings/org.eclipse.wst.common.component" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/Profile.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/Profile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/User.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/bean/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/ProfileController.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/ProfileController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/UserController.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/ProfileDataService.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/ProfileDataService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/UserDataService.java" afterPath="$PROJECT_DIR$/../DynasticDinosaur/src/main/java/be/pxl/emotion/service/UserDataService.java" />
     </list>
     <ignored path="deadlydragon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,8 +195,8 @@
       <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+            <state relative-caret-position="17">
+              <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -994,12 +1109,12 @@
       <workItem from="1478797727348" duration="899000" />
       <workItem from="1478818954413" duration="2636000" />
       <workItem from="1478869014892" duration="3833000" />
-      <workItem from="1478872900082" duration="1929000" />
+      <workItem from="1478872900082" duration="2437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9489000" />
+    <option name="totallyTimeSpent" value="9997000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1012,7 +1127,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1022,7 +1137,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3128964" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3206934" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3206934" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1125,6 +1240,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1209,6 +1325,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1272,6 +1389,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1311,6 +1429,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1342,6 +1461,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1505,8 +1627,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        <state relative-caret-position="17">
+          <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
           <folding />
         </state>
       </provider>
