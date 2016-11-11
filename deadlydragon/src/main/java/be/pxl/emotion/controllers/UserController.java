@@ -53,8 +53,8 @@ public class UserController {
 	 
 	 //verwijder user adhv id
 	 @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
-	 public void deleteUser(@PathVariable("id") int id) {  
-	  userService.deleteUser(id);
+	 public String deleteUser(@PathVariable("id") int id) {
+	  return userService.deleteUser(id);
 
 	 }
 }

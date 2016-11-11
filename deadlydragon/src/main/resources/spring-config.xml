@@ -11,11 +11,26 @@
             http://www.springframework.org/schema/data/jpa
             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <bean id="UserRepository" class="be.pxl.emotion.repositories.UserRepository" />
+    <!--<bean id="UserRepository" class="be.pxl.emotion.repositories.UserRepository" />
+    <bean id="ProfileRepository" class="be.pxl.emotion.repositories.ProfileRepository" />
+    <bean id="ActionRepository" class="be.pxl.emotion.repositories.ActionRepository" />
+    <bean id="CommandRepository" class="be.pxl.emotion.repositories.CommandRepository"/>
+
+    <bean id="CommandDataService" class="be.pxl.emotion.services.CommandDataService">
+        <property name="CommandRepository" ref="CommandRepository"/>
+    </bean>
+
+    <bean id="ProfileDataService" class="be.pxl.emotion.services.ProfileDataService">
+        <property name="ProfileRepository" ref="ProfileRepository" />
+    </bean>
+
+    <bean id="ActionDataService" class="be.pxl.emotion.services.ActionDataService" >
+        <property name="ActionRepository" ref="ActionRepository" />
+    </bean>
 
     <bean id="UserDataService" class="be.pxl.emotion.services.UserDataService">
         <property name="UserRepository" ref="UserRepository" />
-    </bean>
+    </bean>-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />

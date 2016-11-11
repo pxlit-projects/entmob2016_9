@@ -38,9 +38,16 @@ public class UserDataService {
         return repo.save(user);
 	}
 
-	public boolean deleteUser(int id)
-    {
-		repo.delete(id);
-        return !repo.exists(id);
-	}
+	public String deleteUser(int id) {
+        try {
+            if (repo.exists(id)) {
+                repo.delete(id);
+                return "1";
+            } else {
+                return "2";
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }

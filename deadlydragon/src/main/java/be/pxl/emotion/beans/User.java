@@ -10,44 +10,49 @@ import javax.persistence.*;
 public class User {
 	@Id
 	@Column(name = "Id")
-	public int userId;
-	public String firstName;
-	public String lastName;
-	public String password;
-	public String userName;
+	private int userId;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String userName;
 
-	public boolean setPass(String toSet, String prev) {
-		if (password.equals(prev)) {
-			password = toSet;
-			return true;
-		}
-		return false;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public boolean checkPass(String toCheck) {
-		return password.equals(toCheck);
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	@SuppressWarnings("finally")
-	public String encrypt(String toEncrypt) {
-		MessageDigest md;
-		String ret = "";
-		toEncrypt += userId;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
+    public String getFirstName() {
+        return firstName;
+    }
 
-			md.update(toEncrypt.getBytes("UTF-8"));
-			
-			byte[] digest = md.digest();
-			ret = new String(digest);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			return ret;
-		}
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
