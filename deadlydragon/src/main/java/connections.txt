@@ -16,6 +16,7 @@ speciale urls per controller als volgt
 /user
     /all : selecteer alle users
     /name/{string} : selecteer users op username (!geeft jsonlijst terug)
+    /pass : check of password van meegegeven gebruiker overeenkomt met user in database
 /profile
     /userid/{int} : selecteer alle profiles van user
 

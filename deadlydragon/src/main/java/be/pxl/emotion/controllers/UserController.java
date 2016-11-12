@@ -54,7 +54,9 @@ public class UserController {
 	 //verwijder user adhv id
 	 @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public String deleteUser(@PathVariable("id") int id) {
-	  return userService.deleteUser(id);
+	  return userService.deleteUser(id); }
 
-	 }
+	//check password
+    @RequestMapping(value = "/pass", method=RequestMethod.POST, headers="Accept=application/json")
+    public boolean CheckPass(@RequestBody User user) {return userService.checkPass(user);}
 }

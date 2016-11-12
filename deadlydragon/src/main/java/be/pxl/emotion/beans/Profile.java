@@ -7,10 +7,11 @@ public class Profile {
 	@Id
 	@Column(name = "Id")
 	private int profileId;
+    @Column(name = "userId")
 	private int userId;
 	@Column(name="pairings")
     private String pairings;
-
+    @Column(name="profileName")
 	private String profileName;
 
     public int getProfileId() {

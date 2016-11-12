@@ -50,4 +50,9 @@ public class UserDataService {
             return e.getMessage();
         }
     }
+
+	public boolean checkPass(User user) {
+		User u = getUserByName(user.getUserName()).get(0);
+        return u.getPassword().equals(user.getPassword());
+	}
 }

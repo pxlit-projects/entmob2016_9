@@ -9,12 +9,17 @@ import javax.persistence.*;
 @Entity
 public class User {
 	@Id
-	@Column(name = "Id")
+	@Column(name = "id")
 	private int userId;
+    @Column(name = "firstName")
 	private String firstName;
+    @Column(name = "lastName")
 	private String lastName;
+    @Column(name = "password")
 	private String password;
+    @Column(name = "userName")
 	private String userName;
+    @Column(name = "defaultProfileId")
     private int defaultProfileId;
 
     public int getUserId() {
