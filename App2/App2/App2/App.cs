@@ -1,5 +1,4 @@
-﻿using App2.Pages;
-using App2.Views;
+﻿using App2.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
