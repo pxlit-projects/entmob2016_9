@@ -56,8 +56,16 @@ public class UserDataService {
         }
     }
 
-	public boolean checkPass(User user) {
-		User u = getUserByName(user.getUserName()).get(0);
-        return u.getPassword().equals(user.getPassword());
+	public String checkPass(User user) {
+        try {
+            User u = getUserByName(user.getUserName()).get(0);
+            if (u.getPassword().equals(user.getPassword())) {
+                return "1";
+            } else {
+                return "2";
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 	}
 }
