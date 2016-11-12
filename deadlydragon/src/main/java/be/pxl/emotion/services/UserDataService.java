@@ -33,7 +33,7 @@ public class UserDataService {
 	public String addOrUpdateUser(User user) {
         try {
             User u = repo.save(user);
-            if (repo.exists(u.getUserId())){
+            if (repo.findByUserName(u.getUserName()).get(0).getUserId() != 0){
                 return "1";
             } else {
                 return "2";
