@@ -80,10 +80,9 @@ namespace EuphoricElephant.ViewModels
             Init();
         }
 
-        private async void Init()
+        private void Init()
         {
             HubPoints = Constants.HUB_POINTS;
-            var v = await JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_ID_URL, "1");
             LoadCommands();
         }
 

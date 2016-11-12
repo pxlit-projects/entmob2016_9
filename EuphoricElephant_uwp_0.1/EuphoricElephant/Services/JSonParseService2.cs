@@ -55,6 +55,24 @@ namespace EuphoricElephant.Services
                     case Constants.PROFILE_BY_USERID_URL:
                         obj = res.ToObject<List<Profile>>();
                         break;
+                    case Constants.USER_BY_USERNAME_URL:
+                        obj = res.ToObject<User>();
+                        break;
+                    case Constants.PROFILE_BY_ID_URL:
+                        obj = res.ToObject<Profile>();
+                        break;
+                    case Constants.ACTION_BY_ID_URL:
+                        obj = res.ToObject<Data.Action>();
+                        break;
+                    case Constants.ACTION_ALL_URL:
+                        obj = res.ToObject<List<Data.Action>>();
+                        break;
+                    case Constants.COMMAND_BY_ID_URL:
+                        obj = res.ToObject<Command>();
+                        break;
+                    case Constants.COMMAND_ALL_URL:
+                        obj = res.ToObject<Command>();
+                        break;
                 }
 
                 return (T)Convert.ChangeType(obj, typeof(T));

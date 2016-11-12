@@ -27,7 +27,23 @@ namespace EuphoricElephant.Helpers
         public const string USER_DELETE_URL = BASE_URL + "user/delete/";
         public const string USER_ALL_URL = BASE_URL + "user/all";
         public const string USER_BY_USERNAME_URL = BASE_URL + "user/name/";
+        public const string PROFILE_BY_ID_URL = BASE_URL + "profile/id/";
+        public const string PROFILE_UPDATE_URL = BASE_URL + "profile/update";
+        public const string PROFILE_ADD_URL = BASE_URL + "profile/add";
+        public const string PROFILE_DELETE_URL = BASE_URL + "user/delete/";
+        public const string PROFILE_BY_USERID_URL = BASE_URL + "profile/userid/";
+        public const string ACTION_BY_ID_URL = BASE_URL + "action/id/";
+        public const string ACTION_UPDATE_URL = BASE_URL + "action/update";
+        public const string ACTION_ADD_URL = BASE_URL + "action/add";
+        public const string ACTION_DELETE_URL = BASE_URL + "action/delete/";
+        public const string ACTION_ALL_URL = BASE_URL + "action/all";
+        public const string COMMAND_BY_ID_URL = BASE_URL + "command/id/";
+        public const string COMMAND_UPDATE_URL = BASE_URL + "command/update";
+        public const string COMMAND_ADD_URL = BASE_URL + "command/add";
+        public const string COMMAND_DELETE_URL = BASE_URL + "command/delete/";
+        public const string COMMAND_ALL_URL = BASE_URL + "command/all";
+        public const string CHECK_PASSWORD = BASE_URL + "user/pass/";
 
-        public const string PROFILE_BY_USERID_URL = BASE_URL + "user/userid/";
+
     }
 }
