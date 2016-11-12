@@ -5,6 +5,8 @@ import be.pxl.emotion.repositories.CommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("commandService")
 public class CommandDataService {
 	@Autowired
@@ -34,4 +36,8 @@ public class CommandDataService {
             return e.getMessage();
         }
 	}
+
+    public List<Command> getAllCommands() {
+		return (List<Command>) repo.findAll();
+    }
 }

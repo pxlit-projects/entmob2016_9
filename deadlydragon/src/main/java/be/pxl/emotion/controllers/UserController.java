@@ -41,14 +41,14 @@ public class UserController {
 	
 	//user toevoegen (json user)
 	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")  
-	 public User addUser(@RequestBody User user) {
-	  return userService.addUser(user);
+	 public String addUser(@RequestBody User user) {
+	  return userService.addOrUpdateUser(user);
 	}
 	
 	//user updaten adhv volledig user object (json user)
 	 @RequestMapping(value = "/update", method = RequestMethod.PUT, headers = "Accept=application/json")  
-	 public User updateUser(@RequestBody User user) {  
-	  return userService.updateUser(user);
+	 public String updateUser(@RequestBody User user) {
+	  return userService.addOrUpdateUser(user);
 	 }
 	 
 	 //verwijder user adhv id

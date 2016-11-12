@@ -11,12 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import be.pxl.emotion.beans.Command;
 import be.pxl.emotion.services.CommandDataService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value="/command", produces="application/json")
 @Component
 public class CommandController {
 	@Autowired
 	CommandDataService commandService;
+
+	//Lijst van alle profiles opvragen
+	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Command> getProfiles() {
+		List<Command> listOfCommands = commandService.getAllCommands();
+		return listOfCommands;
+	}
 	
 	// Een commandlist opvragen aan de hand van id (json profile)
 		@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
