@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-11-10T11:51:41.633</Modified>
+      <Modified>2016-11-10T16:11:18.275</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.exe">
       <PackagePath>entrypoint\EuphoricElephant.exe</PackagePath>
-      <Modified>2016-11-10T11:51:40.985</Modified>
+      <Modified>2016-11-10T16:11:17.601</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -516,7 +516,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\EuphoricElephant.xr.xml">
       <PackagePath>EuphoricElephant.xr.xml</PackagePath>
-      <Modified>2016-11-10T11:50:50.596</Modified>
+      <Modified>2016-11-10T15:13:06.299</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -524,11 +524,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-11-10T11:51:41.422</Modified>
+      <Modified>2016-11-10T15:56:37.204</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Djuke\Documents\GitHub\entmob2016_9\EuphoricElephant_uwp_0.1\EuphoricElephant\bin\x86\Debug\Core\EuphoricElephant.exe">
       <PackagePath>EuphoricElephant.exe</PackagePath>
-      <Modified>2016-11-10T11:51:41.621</Modified>
+      <Modified>2016-11-10T16:11:18.264</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

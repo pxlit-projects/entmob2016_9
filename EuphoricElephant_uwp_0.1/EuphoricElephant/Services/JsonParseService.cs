@@ -191,26 +191,12 @@ namespace EuphoricElephant.Services
         {
             try
             {
-                var url = string.Empty;
-
-                switch (type)
-                {
-                    case "profile":
-                        url  = URL + "profile";
-                        await RestService.Serialize(url, data);
-                        break;
-
-                    case "user":
-                        url  = URL + "users";
-                        await RestService.Serialize(url, data);
-                        break;
-
-                    default:
-                        break;
-                }
+                var url = URL + type;
+                await RestService.Serialize(url, data);
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return false;
             }
 

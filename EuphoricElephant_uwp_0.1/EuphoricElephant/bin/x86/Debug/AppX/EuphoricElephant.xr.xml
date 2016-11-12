@@ -45,11 +45,12 @@
     <RootPropertyPathName Name="PlayButtonText" />
     <RootPropertyPathName Name="PlayTrackCommand" />
     <RootPropertyPathName Name="UserViewModel" />
+    <RootPropertyPathName Name="IsNotEditing" />
+    <RootPropertyPathName Name="NewCommand" />
     <RootPropertyPathName Name="Profiles" />
     <RootPropertyPathName Name="SelectedProfile" />
     <RootPropertyPathName Name="profileName" />
     <RootPropertyPathName Name="DefaultProfileName" />
-    <RootPropertyPathName Name="IsNotEditing" />
     <RootPropertyPathName Name="EditButtonText" />
     <RootPropertyPathName Name="EditCommand" />
     <RootPropertyPathName Name="SaveCommand" />
@@ -87,6 +88,7 @@
       <RootProperty Name="Orientation" />
       <RootProperty Name="Children" />
       <RootProperty Name="Padding" />
+      <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Command" />
@@ -118,6 +120,7 @@
       <RootProperty Name="ItemTemplate" />
       <RootProperty Name="Name" />
       <RootProperty Name="MinWidth" />
+      <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
@@ -128,6 +131,7 @@
       <RootProperty Name="Children" />
       <RootProperty Name="ColumnDefinitions" />
       <RootProperty Name="RowDefinitions" />
+      <RootProperty Name="Margin" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
       <RootMethod Name="GetColumn" />
@@ -141,6 +145,7 @@
       <RootProperty Name="HorizontalScrollBarVisibility" />
       <RootProperty Name="VerticalScrollBarVisibility" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="PlaceholderText" />
@@ -176,6 +181,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Children" />
+      <RootProperty Name="VerticalAlignment" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Slider">
       <RootProperty Name="Orientation" />

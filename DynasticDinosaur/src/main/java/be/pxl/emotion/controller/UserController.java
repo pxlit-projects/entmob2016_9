@@ -42,7 +42,7 @@ public class UserController {
 	}
 	
 	//user updaten adhv volledig user object (json user)
-	 @RequestMapping(value = "/users", method = RequestMethod.PUT, headers = "Accept=application/json")  
+	 @RequestMapping(value = "/user/new", method = RequestMethod.POST, headers = "Accept=application/json")  
 	 public User updateUser(@RequestBody User user) {  
 	  return userService.updateUser(user);
 	 }

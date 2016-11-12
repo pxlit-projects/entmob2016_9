@@ -54,6 +54,22 @@ public class ProfileDataService {
 		}
 		
 	}
+	
+	public Profile editProfile(Profile profile){
+		EntityManager em = emf.createEntityManager();
+
+		try {
+			EntityTransaction ticket = em.getTransaction();
+			ticket.begin();
+			em.persist(profile);
+			ticket.commit();
+			return profile;
+		} catch (Exception e) {
+			return null;
+		}finally{
+			em.close();
+		}
+	}
 
 	public Profile addProfile(Profile profile) {
 		EntityManager em = emf.createEntityManager();

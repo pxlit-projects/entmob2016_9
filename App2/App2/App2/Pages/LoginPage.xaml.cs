@@ -51,9 +51,9 @@ namespace App2.Pages
 
     internal class Person
     {
-        private string Name;
-        private int Age;
-        private string Location;
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Location { get; set; }
 
         public Person(string Name, int Age, string Location)
         {

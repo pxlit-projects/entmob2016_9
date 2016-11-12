@@ -38,10 +38,16 @@ public class ProfileController {
 	public Profile addProfile(@RequestBody Profile profile) {
 		return profileService.addProfile(profile);
 	}
+	
+	@RequestMapping(value = "/profile/name", method = RequestMethod.POST, headers = "Accept=application/json")
+	public Profile editProfile(@RequestBody Profile profile) {
+		return profileService.updateProfile(profile);
+	}
 
 	// Commandolijst in profile aanpassen adhv command en action object (json command, action)
 	@RequestMapping(value = "/profiles", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public void updateProfile(@RequestBody Profile profile) {
+		System.out.println("?");
 		profileService.updateProfile(profile);
 	}
 
