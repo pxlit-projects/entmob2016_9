@@ -54,5 +54,6 @@ public class UserController {
 
 	//check password
     @RequestMapping(value = "/pass", method=RequestMethod.POST, headers="Accept=application/json")
-    public String CheckPass(@RequestBody User user, @RequestHeader("X-Auth") String auth) {return userService.checkPass(user);}
+    public String CheckPass(@RequestBody User user) {
+    	return userService.checkPass(user);}
 }

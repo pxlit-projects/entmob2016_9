@@ -172,7 +172,7 @@ namespace EuphoricElephant.ViewModels
                 pairings = "[]"
             };
 
-            await JSonParseService2<Profile>.SerializeDataToJson("profile", newProfile, Enumerations.SerializeType.Put);
+            await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_ADD_URL, newProfile, Enumerations.SerializeType.Put);
         }
 
         private async void Init()
@@ -183,7 +183,7 @@ namespace EuphoricElephant.ViewModels
 
             if(currentUser != null)
             {
-                Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson("profile/user", ""));
+                Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
 
                 LoadUser();
             }

@@ -74,15 +74,15 @@ namespace EuphoricElephant.Services
             Grid.SetRow(uNT, 0);
             Grid.SetRow(userNameTB, 0);
 
-            Grid.SetColumn(lnT, 0);
-            Grid.SetColumn(lnTB, 1);
-            Grid.SetRow(lnT, 1);
-            Grid.SetRow(lnTB, 1);
-
             Grid.SetColumn(fnT, 0);
             Grid.SetColumn(fnTB, 1);
             Grid.SetRow(fnT, 2);
             Grid.SetRow(fnTB, 2);
+
+            Grid.SetColumn(lnT, 0);
+            Grid.SetColumn(lnTB, 1);
+            Grid.SetRow(lnT, 1);
+            Grid.SetRow(lnTB, 1);
 
             Grid.SetColumn(pwT, 0);
             Grid.SetColumn(passWordTB, 1);
@@ -140,9 +140,9 @@ namespace EuphoricElephant.Services
 
                                         if (succes.Equals("1"))
                                         {
-                                            Profile profile = await JSonParseService2<Profile>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(newUser.userId));
+                                            Profile profile = (await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(newUser.userId)))[0];
 
-                                            newUser.defaultProfileId = profile.userId;
+                                            newUser.defaultProfileId = profile.profileId;
 
                                             succes = await JSonParseService2<string>.SerializeDataToJson(Constants.USER_UPDATE_URL, newUser, SerializeType.Put);
 

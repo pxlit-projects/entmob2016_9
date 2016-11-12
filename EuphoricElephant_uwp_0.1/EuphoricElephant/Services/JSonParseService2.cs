@@ -57,7 +57,7 @@ namespace EuphoricElephant.Services
                         obj = res.ToObject<User>();
                         break;
                     case Constants.PROFILE_BY_USERID_URL:
-                        obj = res.ToObject<List<Profile>>()[0];
+                        obj = res.ToObject<List<Profile>>();
                         break;
                     case Constants.USER_BY_USERNAME_URL:
                         obj = res.ToObject<List<User>>()[0];
