@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
@@ -17,6 +18,8 @@ namespace EuphoricElephant.Services
         public static async Task<JToken> Deserialize(string url)
         {
             var client = new HttpClient();
+
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
 
             HttpResponseMessage response = await client.GetAsync(url);
             var data = await response.Content.ReadAsStringAsync();

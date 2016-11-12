@@ -93,7 +93,7 @@ namespace EuphoricElephant.ViewModels
             RegisterCommand = new CustomCommand(RegisterAction);
         }
 
-        public void NavigateAction(object param)
+        public async void NavigateAction(object param)
         {
             var frame = (Frame)Window.Current.Content;
 
@@ -116,26 +116,13 @@ namespace EuphoricElephant.ViewModels
                     Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType, frame));
                     break;
                 default:
-                    //throw error
+                    await ErrorService.showError(null);
                     break;
             }
         }
 
         public async void LoginAction(object param)
         {
-            User u = new User
-            {
-                userId = 1,
-                userName = "bleh",
-                defaultProfileId = 0,
-                firstName = "m",
-                lastName = "dd",
-                password = "sdlvk"
-            };
-
-            var v = await JSonParseService2<bool>.SerializeDataToJson(Constants.USER_UPDATE_URL, u, SerializeType.Put);
-            Debug.WriteLine(v.ToString());
-
             if (!IsLoggedIn)
             {
                 if (!UserName.Equals(""))
@@ -144,28 +131,33 @@ namespace EuphoricElephant.ViewModels
                     {
                         IsNotBusy = false;
 
-                        User user = await Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, userName);
-
-                        if (user.userName != null)
+                        User u = new User
                         {
-                            User u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", v.id);
+                            userName = UserName,
+                            password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
+                        };
 
-                            if (u.password.Equals(CustomPasswordIncriptor.sha256_hash(PassWord, UserName)))
-                            {
-                                myUser = u;
-                                IsLoggedIn = true;
+                        string b = await Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
 
-                                UserName = string.Empty;
-                                PassWord = string.Empty;
+                        if (b.Equals("1"))
+                        {
+                            myUser = await Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
+                            IsLoggedIn = true;
 
-                                LogButtonText = "Log out";
+                            UserName = string.Empty;
+                            PassWord = string.Empty;
 
-                                ApplicationSettings.AddItem("CurrentUser", myUser);
-                            }
-                            else
-                            {
-                                showError("Username and password did not match.");
-                            }
+                            LogButtonText = "Log out";
+
+                            ApplicationSettings.AddItem("CurrentUser", myUser);
+                        }
+                        else if(b.Equals("2"))
+                        {
+                            await ErrorService.showError("Username and password did not match.");
+                        }
+                        else
+                        {
+                            await ErrorService.showError(b);
                         }
 
                         IsNotBusy = true;

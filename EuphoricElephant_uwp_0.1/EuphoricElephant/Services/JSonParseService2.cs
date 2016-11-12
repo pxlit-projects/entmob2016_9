@@ -15,23 +15,27 @@ namespace EuphoricElephant.Services
 {
     public class JSonParseService2<T>
     {
-        public static async Task<bool> SerializeDataToJson(String url, Object data, SerializeType type)
+        public static async Task<string> SerializeDataToJson(String url, Object data, SerializeType type)
         {
+            string reply = string.Empty;
+
             try
             {
-                await RestService.Serialize(url, data, type);
+                reply = await RestService.Serialize(url, data, type);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return false;
             }
 
-            return true;
+            return reply;
         }
 
         public static async Task<T> DeserializeDataFromJson(String url, string param)
         {
+
+            object obj = null;
+
             try
             {
                 var formattedParam = param;
@@ -43,12 +47,11 @@ namespace EuphoricElephant.Services
 
                 var formattedUrl = url + param;
 
-                JToken res = res = await RestService.Deserialize(formattedUrl); ;
-                object obj = null;
+                JToken res = res = await RestService.Deserialize(formattedUrl);
 
                 switch (url){
                     case Constants.USER_ALL_URL:
-                        obj = res.ToObject<List<User>>()[0];
+                        obj = res.ToObject<List<User>>();
                         break;
                     case Constants.USER_BY_ID_URL:
                         obj = res.ToObject<User>();
@@ -57,7 +60,7 @@ namespace EuphoricElephant.Services
                         obj = res.ToObject<List<Profile>>();
                         break;
                     case Constants.USER_BY_USERNAME_URL:
-                        obj = res.ToObject<User>();
+                        obj = res.ToObject<List<User>>()[0];
                         break;
                     case Constants.PROFILE_BY_ID_URL:
                         obj = res.ToObject<Profile>();
@@ -75,15 +78,15 @@ namespace EuphoricElephant.Services
                         obj = res.ToObject<Command>();
                         break;
                 }
-
-                return (T)Convert.ChangeType(obj, typeof(T));
-
             }
             catch (Exception e)
             {
+                //OK Just Return NULL
                 Debug.WriteLine(e.Message);
-                throw e;
             }
+
+            return (T)Convert.ChangeType(obj, typeof(T));
+        
         }
     }
 }

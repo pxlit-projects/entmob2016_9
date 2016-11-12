@@ -11,7 +11,14 @@ namespace EuphoricElephant.Services
     {
         public async static Task<IUICommand> showError(string message)
         {
-            var dialog = new Windows.UI.Popups.MessageDialog(message);
+            var m = message;
+
+            if(m == null)
+            {
+                m = "Oops, something went wrong.";
+            }
+
+            var dialog = new Windows.UI.Popups.MessageDialog(m);
 
             dialog.Commands.Add(new Windows.UI.Popups.UICommand("OK") { Id = 0 });
 
