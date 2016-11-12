@@ -3,7 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
         xmlns:data="http://www.springframework.org/schema/data/jpa"
         xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:security="http://www.springframework.org/schema/security"
         xsi:schemaLocation="
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
             http://www.springframework.org/schema/mvc
@@ -11,33 +14,19 @@
             http://www.springframework.org/schema/data/jpa
             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <!--<bean id="UserRepository" class="be.pxl.emotion.repositories.UserRepository" />
-    <bean id="ProfileRepository" class="be.pxl.emotion.repositories.ProfileRepository" />
-    <bean id="ActionRepository" class="be.pxl.emotion.repositories.ActionRepository" />
-    <bean id="CommandRepository" class="be.pxl.emotion.repositories.CommandRepository"/>
-
-    <bean id="CommandDataService" class="be.pxl.emotion.services.CommandDataService">
-        <property name="CommandRepository" ref="CommandRepository"/>
-    </bean>
-
-    <bean id="ProfileDataService" class="be.pxl.emotion.services.ProfileDataService">
-        <property name="ProfileRepository" ref="ProfileRepository" />
-    </bean>
-
-    <bean id="ActionDataService" class="be.pxl.emotion.services.ActionDataService" >
-        <property name="ActionRepository" ref="ActionRepository" />
-    </bean>
-
-    <bean id="UserDataService" class="be.pxl.emotion.services.UserDataService">
-        <property name="UserRepository" ref="UserRepository" />
-    </bean>-->
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/emotiondb" />
         <property name="username" value="user" />
         <property name="password" value="" />
     </bean>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:password-encoder hash="sha-256" />
+            <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT userName, password FROM user WHERE userName = ?" authorities-by-username-query="SELECT userName,role FROM users WHERE userName = ?" />
+        </security:authentication-provider>
+    </security:authentication-manager>
 
     <data:repositories base-package="be.pxl.emotion.repositories" />
 

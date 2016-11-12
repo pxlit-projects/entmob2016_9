@@ -30,12 +30,17 @@ public class UserDataService {
 		return (List<User>) repo.findAll();
 	}
 
-	public User addUser(User user) {
-		return repo.save(user);
-	}
-
-	public User updateUser(User user) {
-        return repo.save(user);
+	public String addOrUpdateUser(User user) {
+        try {
+            User u = repo.save(user);
+            if (repo.exists(u.getUserId())){
+                return "1";
+            } else {
+                return "2";
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 	}
 
 	public String deleteUser(int id) {

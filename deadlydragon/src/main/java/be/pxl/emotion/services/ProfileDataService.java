@@ -2,6 +2,7 @@ package be.pxl.emotion.services;
 
 import java.util.List;
 
+import be.pxl.emotion.beans.User;
 import be.pxl.emotion.repositories.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,17 @@ public class ProfileDataService {
 		return repo.findByUserId(id);
 	}
 
-	public Profile addProfile(Profile profile) {
-		return repo.save(profile);
-	}
-
-	public Profile updateProfile(Profile profile) {
-		return repo.save(profile);
+	public String addOrUpdateProfile(Profile profile) {
+		try {
+			Profile p = repo.save(profile);
+			if (repo.exists(p.getProfileId())){
+				return "1";
+			} else {
+				return "2";
+			}
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 	}
 
 	public String deleteProfile(int id) {
@@ -41,4 +47,8 @@ public class ProfileDataService {
             return e.getMessage();
         }
 	}
+
+    public List<Profile> getAllprofiles() {
+		return (List<Profile>) repo.findAll();
+    }
 }

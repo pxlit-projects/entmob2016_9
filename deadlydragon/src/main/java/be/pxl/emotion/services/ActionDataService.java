@@ -5,6 +5,8 @@ import be.pxl.emotion.repositories.ActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("actionService")
 public class ActionDataService {
 	@Autowired
@@ -36,5 +38,9 @@ public class ActionDataService {
         } catch (Exception e) {
             return e.getMessage();
         }
+	}
+
+	public List<Action> getAllActions() {
+		return (List<Action>) repo.findAll();
 	}
 }
