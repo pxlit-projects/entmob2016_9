@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,18 @@ namespace EuphoricElephant.Services
             res = JsonValue.Parse(data).GetArray();
 
             return res;
+        }
+
+        public static async Task<JToken> foo(string url)
+        {
+            var client = new HttpClient();
+
+            HttpResponseMessage response = await client.GetAsync(url);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var token = JsonConvert.DeserializeObject<JToken>(data);
+
+            return token;
         }
 
         public static async Task<JsonArray> DeserializeSingle(String url)

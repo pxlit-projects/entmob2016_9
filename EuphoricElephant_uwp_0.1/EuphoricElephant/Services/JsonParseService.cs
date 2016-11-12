@@ -35,10 +35,10 @@ namespace EuphoricElephant.Services
 
                         for (uint i = 0; i < res.Count; i++)
                         {
-                            user.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            user.id = (int)res.GetObjectAt(i).GetNamedNumber("userId");
                             user.firstName = res.GetObjectAt(i).GetNamedString("firstName");
                             user.lastName = res.GetObjectAt(i).GetNamedString("lastName");
-                            user.password = res.GetObjectAt(i).GetNamedString("password");
+                            user.password = res.GetObjectAt(i).GetNamedString("passWord");
                             user.userName = res.GetObjectAt(i).GetNamedString("userName");
                             user.defaultProfileId = (int)res.GetObjectAt(i).GetNamedNumber("defaultProfileId");
                         }
@@ -100,10 +100,10 @@ namespace EuphoricElephant.Services
                         {
                             User tempUser = new User();
 
-                            tempUser.userId = (int)res.GetObjectAt(i).GetNamedNumber("userId");
+                            tempUser.id = (int)res.GetObjectAt(i).GetNamedNumber("userId");
                             tempUser.firstName = res.GetObjectAt(i).GetNamedString("firstName");
                             tempUser.lastName = res.GetObjectAt(i).GetNamedString("lastName");
-                            tempUser.password = res.GetObjectAt(i).GetNamedString("password");
+                            tempUser.password = res.GetObjectAt(i).GetNamedString("passWord");
                             tempUser.defaultProfileId = (int)res.GetObjectAt(i).GetNamedNumber("defaultProfile");
 
                             userList.Add(tempUser);
@@ -155,7 +155,7 @@ namespace EuphoricElephant.Services
 
                         if(res != null)
                         {
-                            user.userId = Convert.ToInt32(res.GetObjectAt(0).GetNamedNumber("userId"));
+                            user.id = Convert.ToInt32(res.GetObjectAt(0).GetNamedNumber("userId"));
                             user.firstName = res.GetObjectAt(0).GetNamedString("firstName");
                             user.lastName = res.GetObjectAt(0).GetNamedString("lastName");
                             user.password = res.GetObjectAt(0).GetNamedString("password");
@@ -187,11 +187,10 @@ namespace EuphoricElephant.Services
 
         
 
-        public static async Task<bool> SerializeDataToJson(String type, Object data)
+        public static async Task<bool> SerializeDataToJson(String url, Object data)
         {
             try
             {
-                var url = URL + type;
                 await RestService.Serialize(url, data);
             }
             catch (Exception e)

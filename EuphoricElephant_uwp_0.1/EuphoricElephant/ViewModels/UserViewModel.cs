@@ -159,7 +159,7 @@ namespace EuphoricElephant.ViewModels
             Profile newProfile = new Profile()
             {
                 profileName = "New Profile",
-                userId = currentUser.userId,
+                userId = currentUser.id,
                 pairings = "[]"
             };
 
@@ -174,7 +174,7 @@ namespace EuphoricElephant.ViewModels
 
             if(currentUser != null)
             {
-                Profiles = new ObservableCollection<Profile>(await JsonParseService<List<Profile>>.DeserializeDataFromJson("profile/user", currentUser.userId));
+                Profiles = new ObservableCollection<Profile>(await JsonParseService<List<Profile>>.DeserializeDataFromJson("profile/user", currentUser.id));
 
                 LoadUser();
             }
