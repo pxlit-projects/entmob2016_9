@@ -25,7 +25,7 @@ public class ProfileDataService {
 	public String addOrUpdateProfile(Profile profile) {
 		try {
 			Profile p = repo.save(profile);
-			if (repo.exists(p.getProfileId())){
+			if (repo.findByUserId(p.getUserId()).get(0).getProfileId() != 0){				
 				return "1";
 			} else {
 				return "2";

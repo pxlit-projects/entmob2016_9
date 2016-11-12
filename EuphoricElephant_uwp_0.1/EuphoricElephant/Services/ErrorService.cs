@@ -13,7 +13,7 @@ namespace EuphoricElephant.Services
         {
             var m = message;
 
-            if(m == null)
+            if(m == null || m == string.Empty)
             {
                 m = "Oops, something went wrong.";
             }

@@ -85,7 +85,7 @@ namespace EuphoricElephant.Data
 
         public object ToType(Type conversionType, IFormatProvider provider)
         {
-            throw new NotImplementedException();
+            return this;
         }
 
         public ushort ToUInt16(IFormatProvider provider)

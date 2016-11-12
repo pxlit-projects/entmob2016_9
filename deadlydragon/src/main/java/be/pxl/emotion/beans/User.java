@@ -21,10 +21,6 @@ public class User {
 	private String userName;
     @Column(name = "defaultProfileId")
     private int defaultProfileId;
-    @Column(name = "enabled")
-    private boolean enabled;
-    @Column(name = "role")
-    private String role;
 
     public int getUserId() {
         return userId;
@@ -72,21 +68,5 @@ public class User {
 
     public void setDefaultProfileId(int defaultProfileId) {
         this.defaultProfileId = defaultProfileId;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

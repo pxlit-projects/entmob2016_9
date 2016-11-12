@@ -2,7 +2,6 @@ package be.pxl.emotion.controllers;
 
 import java.util.List;
 
-import be.pxl.emotion.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -17,40 +16,34 @@ public class UserController {
 	
 	@Autowired
 	UserDataService userService;
-    @Autowired
-    TokenService tokenService;
 
 	//Lijst van alle users opvragen (json user)
 	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<User> getUsers(@RequestHeader("X-Auth") String auth) {
-        if (tokenSerivce.check(auth)){
-            List<User> listOfUsers = userService.getAllUsers();
-            return listOfUsers;
-        } else {
-
-        }
+	public List<User> getUsers() {
+		List<User> listOfUsers = userService.getAllUsers();
+        return listOfUsers;
 	}
 	
 	//Een user opvragen aan de hand van id (json user)
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public User getUserById(@PathVariable int id, @RequestHeader("X-Auth") String auth) {
+	public User getUserById(@PathVariable int id) {
 		return userService.getUserById(id);
 	}
 	
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<User> getUserById(@PathVariable String name, @RequestHeader("X-Auth") String auth) {
+	public List<User> getUserById(@PathVariable String name) {
 		return userService.getUserByName(name);
 	}
 	
 	//user toevoegen (json user)
 	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")  
-	 public String addUser(@RequestBody User user, @RequestHeader("X-Auth") String auth) {
+	 public String addUser(@RequestBody User user) {
 	  return userService.addOrUpdateUser(user);
 	}
 	
 	//user updaten adhv volledig user object (json user)
 	 @RequestMapping(value = "/update", method = RequestMethod.PUT, headers = "Accept=application/json")  
-	 public String updateUser(@RequestBody User user, @RequestHeader("X-Auth") String auth) {
+	 public String updateUser(@RequestBody User user) {
 	  return userService.addOrUpdateUser(user);
 	 }
 	 

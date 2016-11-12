@@ -127,12 +127,12 @@ namespace EuphoricElephant.Services
 
                                     if (succes.Equals("1"))
                                     {
-                                        var u = await JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, newUser.userName);
+                                        newUser = await JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, newUser.userName);
 
                                         Profile newProfile = new Profile()
                                         {
                                             profileName = "Default Profile",
-                                            userId = u.userId,
+                                            userId = newUser.userId,
                                             pairings = "[(1,2,3,4,5),(1,2,3,4,5)]" //TODO dynamic
                                         };
 
@@ -140,7 +140,7 @@ namespace EuphoricElephant.Services
 
                                         if (succes.Equals("1"))
                                         {
-                                            Profile profile = await JSonParseService2<Profile>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(u.userId));
+                                            Profile profile = await JSonParseService2<Profile>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(newUser.userId));
 
                                             newUser.defaultProfileId = profile.userId;
 
@@ -153,6 +153,10 @@ namespace EuphoricElephant.Services
 
                                                 showError(succes);
                                             }
+                                        }
+                                        else if (succes.Equals(""))
+                                        {
+                                            showError("Could not connect to the server.");
                                         }
                                         else
                                         {

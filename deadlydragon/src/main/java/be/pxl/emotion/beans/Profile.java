@@ -14,6 +14,8 @@ public class Profile {
     @Column(name="profileName")
 	private String profileName;
 
+    public Profile(){}
+    
     public int getProfileId() {
         return profileId;
     }
