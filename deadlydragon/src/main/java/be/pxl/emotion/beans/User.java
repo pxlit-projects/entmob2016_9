@@ -15,6 +15,7 @@ public class User {
 	private String lastName;
 	private String password;
 	private String userName;
+    private int defaultProfileId;
 
     public int getUserId() {
         return userId;
@@ -54,5 +55,13 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getDefaultProfileId() {
+        return defaultProfileId;
+    }
+
+    public void setDefaultProfileId(int defaultProfileId) {
+        this.defaultProfileId = defaultProfileId;
     }
 }

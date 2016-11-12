@@ -8,10 +8,9 @@ public class Profile {
 	@Column(name = "Id")
 	private int profileId;
 	private int userId;
-	@Column(name="commandid")
-	private int commands;
-	@Column(name="actionid")
-	private int actions;
+	@Column(name="pairings")
+    private String pairings;
+
 	private String profileName;
 
     public int getProfileId() {
@@ -30,20 +29,12 @@ public class Profile {
         this.userId = userId;
     }
 
-    public int getCommands() {
-        return commands;
+    public String getPairings() {
+        return pairings;
     }
 
-    public void setCommands(int commands) {
-        this.commands = commands;
-    }
-
-    public int getActions() {
-        return actions;
-    }
-
-    public void setActions(int actions) {
-        this.actions = actions;
+    public void setPairings(String pairings) {
+        this.pairings = pairings;
     }
 
     public String getProfileName() {
