@@ -1,0 +1,13 @@
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\FlippityFloppityFloop.dll
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\FlippityFloppityFloop.pdb
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\Xamarin.Forms.Core.dll
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\Xamarin.Forms.Platform.dll
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\Xamarin.Forms.Xaml.dll
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\Xamarin.Forms.Core.xml
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\Xamarin.Forms.Xaml.xml
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\obj\Debug\FlippityFloppityFloop.csprojResolveAssemblyReference.cache
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\obj\Debug\FlippityFloppityFloop.Login.xaml.g.cs
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\obj\Debug\FlippityFloppityFloop.dll
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\obj\Debug\FlippityFloppityFloop.pdb
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\obj\Debug\FlippityFloppityFloop.dll.mdb
+c:\users\djuke\documents\visual studio 2015\Projects\FlippityFloppityFloop\FlippityFloppityFloop\FlippityFloppityFloop\bin\Debug\FlippityFloppityFloop.dll.mdb
