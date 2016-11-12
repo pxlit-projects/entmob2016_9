@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace EuphoricElephant.Data
     public class User : IConvertible
     {
         [Key]
-        public int userId { get; set; }
+        public int id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string password { get; set; }

@@ -27,7 +27,7 @@ namespace EuphoricElephant.ViewModels
 
         public string LogButtonText
         {
-            get { return logButtonText; }
+            get { return logButtonText;}
             set { SetProperty(ref logButtonText, value); }
         }
 
@@ -80,10 +80,10 @@ namespace EuphoricElephant.ViewModels
             Init();
         }
 
-        private void Init()
+        private async void Init()
         {
             HubPoints = Constants.HUB_POINTS;
-
+            var v = await JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_ID_URL, "1");
             LoadCommands();
         }
 
@@ -136,7 +136,7 @@ namespace EuphoricElephant.ViewModels
 
                         if (v.userName != null)
                         {
-                            User u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", v.userId);
+                            User u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", v.id);
 
                             if (u.password.Equals(CustomPasswordIncriptor.sha256_hash(PassWord, UserName)))
                             {
@@ -288,12 +288,12 @@ namespace EuphoricElephant.ViewModels
                                 {
                                     var u = await Services.JsonParseService<User>.DeserializeDataFromJson("user", newUser.userName);
 
-                                    Debug.WriteLine("id= " + u.userId);
+                                    Debug.WriteLine("id= " + u.id);
 
                                     Profile newProfile = new Profile()
                                     {
                                         profileName = "Default Profile",
-                                        userId = u.userId,
+                                        userId = u.id,
                                         pairings = "[(1,2,3,4,5),(1,2,3,4,5)]" //TODO dynamic
                                     };
 

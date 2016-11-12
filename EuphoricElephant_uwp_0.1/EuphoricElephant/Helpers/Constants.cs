@@ -19,6 +19,15 @@ namespace EuphoricElephant.Helpers
 
         public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, DRONE_TEXT, USER_TEXT };
 
-        public const string BASE_URL = "http://localhost:8080/DynasticDinosaur/";
+        public const string BASE_URL = "http://localhost:8080/";
+
+        public const string USER_BY_ID_URL = BASE_URL + "user/id/";
+        public const string USER_UPDATE_URL = BASE_URL + "user/update";
+        public const string USER_ADD_URL = BASE_URL + "user/add";
+        public const string USER_DELETE_URL = BASE_URL + "user/delete/";
+        public const string USER_ALL_URL = BASE_URL + "user/all";
+        public const string USER_BY_USERNAME_URL = BASE_URL + "user/name/";
+
+        public const string PROFILE_BY_USERID_URL = BASE_URL + "user/userid/";
     }
 }
