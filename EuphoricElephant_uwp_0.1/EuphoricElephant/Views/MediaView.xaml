@@ -29,7 +29,7 @@
                 </Slider>
 
                 <StackPanel Orientation="Vertical">
-                    <Button x:Name="PlayButton" Content="{Binding PlayButtonText}" Command="{Binding PlayTrackCommand}"/>
+                    <Button x:Name="PlayButton" Content="{Binding PlayButtonText}" Command="{Binding PlayTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
                     <TextBlock Text="{Binding CurrentTrackTime, Converter={StaticResource secondsToTimeConverter}, Mode=OneWay}"/>
                 </StackPanel>
 
@@ -39,26 +39,26 @@
             </StackPanel>
 
             <StackPanel x:Name="ControlPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="PreviousButton" Content="Previous" Command="{Binding PreviousTrackCommand}"/>
-                <Button x:Name="StopButton" Content="Stop" Command="{Binding StopTrackCommand}"/>
-                <Button x:Name="NextButton" Content="Next" Command="{Binding NextTrackCommand}"/>
+                <Button x:Name="PreviousButton" Content="Previous" Command="{Binding PreviousTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                <Button x:Name="StopButton" Content="Stop" Command="{Binding StopTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                <Button x:Name="NextButton" Content="Next" Command="{Binding NextTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
             </StackPanel>
 
             <StackPanel x:Name="SettingsPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}"/>
-                <Button x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}"/>
-                <Button x:Name="FolderButton"  Content="Select Folder"/>
+                <Button x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                <Button x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                <Button x:Name="FolderButton"  Content="Select Folder" Command="{Binding OpenFolderCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
             </StackPanel>
         </RelativePanel>
 
         <StackPanel x:Name="TrackPanel" Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"  MaxWidth="250" TextWrapping="WrapWholeWords"/>
 
             <ScrollViewer x:Name="TrackListBox">
                 <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}"/>
+                            <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWholeWords"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

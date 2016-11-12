@@ -1,0 +1,29 @@
+Verbindingen kunnen nu rechtstreeks op localhost gemaakt worden: localhost:8080/...
+
+Controllers hebben nu base-urls
+/user
+/profile
+/command
+/action
+
+functies binnen controllers zijn nu standaard
+/id/{int} : selecteer 1 element op id
+/update : update een element
+/add : voeg element toe
+/delete/{int} delete element op id (!speciale return, zie return types)
+
+speciale urls per controller als volgt
+/user
+    /all : selecteer alle users
+    /name/{string} : selecteer users op username (!geeft jsonlijst terug)
+/profile
+    /userid/{int} : selecteer alle profiles van user
+
+return types zijn altijd json en van verwachte type:
+    json-object voor enkele objecten
+    json-lijst voor meerdere objecten
+
+/delete heeft speciale return
+    1 : deleted zoals verwacht
+    2 : object bestond niet
+    message : bepaalde error tegengekomen, message wordt teruggegeven

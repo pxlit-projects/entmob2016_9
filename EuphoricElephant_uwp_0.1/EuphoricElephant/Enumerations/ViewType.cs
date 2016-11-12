@@ -12,6 +12,7 @@ namespace EuphoricElephant.Enumerations
         MediaPlayerViewType = 1,
         DroneViewType = 2,
         SettingsViewType = 3,
-        UserViewType = 4
+        UserViewType = 4,
+        DeviceViewType = 5
     }
 }
