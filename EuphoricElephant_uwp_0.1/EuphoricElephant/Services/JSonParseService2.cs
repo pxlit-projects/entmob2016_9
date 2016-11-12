@@ -1,4 +1,5 @@
 ﻿using EuphoricElephant.Data;
+using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -14,11 +15,11 @@ namespace EuphoricElephant.Services
 {
     public class JSonParseService2<T>
     {
-        public static async Task<bool> SerializeDataToJson(String url, Object data)
+        public static async Task<bool> SerializeDataToJson(String url, Object data, SerializeType type)
         {
             try
             {
-                await RestService.Serialize(url, data);
+                await RestService.Serialize(url, data, type);
             }
             catch (Exception e)
             {
@@ -42,7 +43,7 @@ namespace EuphoricElephant.Services
 
                 var formattedUrl = url + param;
 
-                JToken res = res = await RestService.foo(formattedUrl); ;
+                JToken res = res = await RestService.Deserialize(formattedUrl); ;
                 object obj = null;
 
                 switch (url){

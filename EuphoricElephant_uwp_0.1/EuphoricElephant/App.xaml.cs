@@ -3,11 +3,13 @@ using EuphoricElephant.Services;
 using EuphoricElephant.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -92,10 +94,7 @@ namespace EuphoricElephant
                 Window.Current.Activate();
             }
 
-            if (ApplicationSettings.Contains("CurrentUser"))
-            {
-                //RestService.Login(ApplicationSettings.GetItem("CurrentUser"));
-            }
+
         }
 
         /// <summary>
@@ -117,11 +116,6 @@ namespace EuphoricElephant
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            if (ApplicationSettings.Contains("CurrentUser"))
-            {
-                //RestService.Logout(ApplicationSettings.GetItem("CurrentUser"));
-            }
-
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();

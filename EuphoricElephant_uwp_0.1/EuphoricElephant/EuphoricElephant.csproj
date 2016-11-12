@@ -113,6 +113,7 @@
     <Compile Include="Data\User.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\BindState.cs" />
+    <Compile Include="Enumerations\SerializeType.cs" />
     <Compile Include="Enumerations\ViewType.cs" />
     <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\Constants.cs" />
@@ -129,8 +130,9 @@
     <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioShuffleService.cs" />
     <Compile Include="Services\AudioVisualizationService.cs" />
-    <Compile Include="Services\JsonParseService.cs" />
+    <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\JSonParseService2.cs" />
+    <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />
     <Compile Include="Services\SensorTagDataStabilizer.cs" />

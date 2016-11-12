@@ -133,20 +133,29 @@ namespace EuphoricElephant.ViewModels
             Profile p = SelectedProfile;
             p.profileName = DefaultProfileName;
 
-            await JsonParseService<Profile>.SerializeDataToJson("profile/name", p);
+            var v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, p, Enumerations.SerializeType.Put);
 
-            User u = currentUser;
+            if(v.Equals("1"))
+            {
+                User u = currentUser;
 
-            u.firstName = FirstName;
-            u.lastName = LastName;
-            u.userName = UserName;
-            u.defaultProfileId = GetProfileId();    
+                u.firstName = FirstName;
+                u.lastName = LastName;
+                u.userName = UserName;
+                u.defaultProfileId = GetProfileId();
 
-            await JsonParseService<User>.SerializeDataToJson("user/new", u);
+                v = await JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, u, Enumerations.SerializeType.Put);
 
-            EditAction(null);
+                if (v.Equals("1"))
+                {
 
-            LoadUser();
+                }
+
+                EditAction(null);
+
+                LoadUser();
+            }
+            
         }
 
         private int GetProfileId()
@@ -159,11 +168,11 @@ namespace EuphoricElephant.ViewModels
             Profile newProfile = new Profile()
             {
                 profileName = "New Profile",
-                userId = currentUser.id,
+                userId = currentUser.userId,
                 pairings = "[]"
             };
 
-            await JsonParseService<Profile>.SerializeDataToJson("profile", newProfile);
+            await JSonParseService2<Profile>.SerializeDataToJson("profile", newProfile, Enumerations.SerializeType.Put);
         }
 
         private async void Init()
@@ -174,7 +183,7 @@ namespace EuphoricElephant.ViewModels
 
             if(currentUser != null)
             {
-                Profiles = new ObservableCollection<Profile>(await JsonParseService<List<Profile>>.DeserializeDataFromJson("profile/user", currentUser.id));
+                Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson("profile/user", ""));
 
                 LoadUser();
             }

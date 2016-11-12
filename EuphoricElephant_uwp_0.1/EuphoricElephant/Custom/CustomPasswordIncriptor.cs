@@ -23,7 +23,7 @@ namespace EuphoricElephant.Custom
             IBuffer hashed = hasher.HashData(input);
 
             // format it...
-            return CryptographicBuffer.EncodeToBase64String(hashed);
+            return CryptographicBuffer.EncodeToHexString(hashed);
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EuphoricElephant.Enumerations;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,7 @@ namespace EuphoricElephant.Services
 {
     public static class RestService
     {
-        public static async Task<JsonArray> Deserialize(String url)
-        {
-            JsonArray res;
-            var client = new HttpClient();
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            var data = await response.Content.ReadAsStringAsync();
-            res = JsonValue.Parse(data).GetArray();
-
-            return res;
-        }
-
-        public static async Task<JToken> foo(string url)
+        public static async Task<JToken> Deserialize(string url)
         {
             var client = new HttpClient();
 
@@ -37,45 +26,44 @@ namespace EuphoricElephant.Services
             return token;
         }
 
-        public static async Task<JsonArray> DeserializeSingle(String url)
+        public static async Task<string> Serialize(String url, Object data, SerializeType serialize)
         {
-            JsonArray res;
-            var client = new HttpClient();
+            string reply = "";
+            var response = new HttpResponseMessage();
 
-            HttpResponseMessage response = await client.GetAsync(url);
-            var data = await response.Content.ReadAsStringAsync();
-
-            if (data == string.Empty)
-            {
-                res = null;
-            }
-            else
-            {
-                res = new JsonArray() { JsonValue.Parse(data) };
-            }
-
-            return res;
-        }
-
-        public static async Task<JsonObject> Serialize(String url, Object data)
-        {
             try
             {
                 var client = new HttpClient();
                 var serealizedfile = JsonConvert.SerializeObject(data);
-                var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(url, content);
+                var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");             
+
+                switch (serialize)
+                {
+                    case SerializeType.Post:
+                        response = await client.PostAsync(url, content);
+                        break;
+                    case SerializeType.Put:
+                        response = await client.PutAsync(url, content);
+                        break;
+                    case SerializeType.Delete:
+                        response = await client.DeleteAsync(url + data);
+                        break;
+                }
+
                 response.EnsureSuccessStatusCode();
-                Debug.WriteLine("iets dom "+ response.StatusCode);
-                string reply = await response.Content.ReadAsStringAsync();
-                return await Task.Run(()=> JsonObject.Parse(reply));
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return null;
             }
-            
+            finally
+            {
+                reply = await response.Content.ReadAsStringAsync();
+            }
+
+            return reply;
+
+
         }
     }
 }
