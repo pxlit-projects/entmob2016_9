@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Command {
 	@Id
-	@Column(name = "Id")
+	@Column(name = "id")
 	private int commandId;
     @Column(name = "command")
 	private String command;

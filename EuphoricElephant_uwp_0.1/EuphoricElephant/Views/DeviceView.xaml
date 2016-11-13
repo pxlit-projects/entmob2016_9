@@ -9,13 +9,14 @@
     x:Name="Page"
     mc:Ignorable="d">
 
-    <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Top" >
-        <StackPanel x:Name="Title" Orientation="Vertical" HorizontalAlignment="Center" RelativePanel.AlignHorizontalCenterWithPanel="True">
-            <TextBlock Text="Paired Devices" Foreground="Black" TextAlignment="Center" Margin="0, 100, 0, 50"/>
-        </StackPanel>
-        <StackPanel x:Name="Sensors" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
+    <ScrollViewer ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Top" >
+            <StackPanel x:Name="Title" Orientation="Vertical" HorizontalAlignment="Center" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="Paired Devices" Foreground="Black" TextAlignment="Center" Margin="0, 100, 0, 50"/>
+            </StackPanel>
+            <StackPanel x:Name="Sensors" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <TextBlock Text="Select SensorTag" Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center"/>
-                <ListBox ItemsSource="{Binding Sensors, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" HorizontalAlignment="Center" Width="300">
+                <ListBox MaxHeight="200" ItemsSource="{Binding Sensors, Mode=OneWay}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" HorizontalAlignment="Center" Width="300">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -28,22 +29,23 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
-        <StackPanel x:Name="Drones" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
-            <TextBlock Text="Select Drone" Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Drones, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}" HorizontalAlignment="Left" Width="300">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock TextAlignment="Center" Text="{Binding Path=Name}" Width="150"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <Button x:Name="PairButton" HorizontalAlignment="Center" Width="300" Margin="15,0,15,15" Command="{Binding UnpairCommand}" RelativePanel.AlignHorizontalCenterWithPanel="True">Unpair</Button>
+            <StackPanel x:Name="Drones" Orientation="Vertical" HorizontalAlignment="Center" Margin="15, 0, 15, 50" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="Select Drone" Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center"/>
+                <ListBox MaxHeight="200" ItemsSource="{Binding Drones, Mode=OneWay}" SelectedItem="{Binding SelectedDrone, Mode=TwoWay}" HorizontalAlignment="Left" Width="300">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextAlignment="Center" Text="{Binding Path=Name}" Width="150"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <Button x:Name="PairButton" HorizontalAlignment="Center" Width="300" Margin="15,0,15,15" Command="{Binding UnpairCommand}" RelativePanel.AlignHorizontalCenterWithPanel="True">Unpair</Button>
+        </RelativePanel>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -72,12 +74,12 @@
                         <Setter Target="Sensors.(RelativePanel.Below)" Value="Title"/>
                         <Setter Target="Drones.(RelativePanel.Below)" Value="Sensors"/>
                         <Setter Target="PairButton.Width" Value="300"/>
-                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Drones"/>                        
+                        <Setter Target="PairButton.(RelativePanel.Below)" Value="Drones"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-    </RelativePanel>
+    </ScrollViewer>
 </Page>
     
     

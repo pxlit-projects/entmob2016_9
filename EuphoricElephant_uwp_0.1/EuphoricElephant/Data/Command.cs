@@ -12,7 +12,7 @@ namespace EuphoricElephant.Data
     public class Command : IConvertible
     {
         [Key]
-        public int CommandId { get; set; }
+        public int commandId { get; set; }
         public String command { get; set; }
 
         public virtual ICollection<Profile> profiles { get; set; }

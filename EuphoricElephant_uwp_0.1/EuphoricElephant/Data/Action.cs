@@ -12,7 +12,7 @@ namespace EuphoricElephant.Data
     public class Action : IConvertible
     {
         [Key]
-        public int ActId { get; set; }
+        public int actId { get; set; }
         public string action { get; set; }
         public virtual Profile profile { get; set; }
 

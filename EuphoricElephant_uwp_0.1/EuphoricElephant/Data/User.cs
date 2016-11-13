@@ -19,6 +19,10 @@ namespace EuphoricElephant.Data
         public string password { get; set; }
         public string userName { get; set; }
         public int defaultProfileId { get; set; }
+        public string email { get; set; }
+        public string joinedOn { get; set; }
+        public string country { get; set; }
+        public string phone { get; set; }
 
         public virtual ICollection<Profile> profiles { get; set; }
 

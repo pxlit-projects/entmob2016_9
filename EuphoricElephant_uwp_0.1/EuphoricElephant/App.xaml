@@ -13,6 +13,7 @@
             <converter:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></converter:BooleanToVisibilityConverter>
             <converter:BooleanToOpacityConverter x:Key="booleanToOpacityConverter"></converter:BooleanToOpacityConverter>
             <converter:BooleanInverter x:Key="booleanInverter"></converter:BooleanInverter>
+            <converter:StringToDateTimeConverter x:Key="stringToDateTimeConverter"></converter:StringToDateTimeConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

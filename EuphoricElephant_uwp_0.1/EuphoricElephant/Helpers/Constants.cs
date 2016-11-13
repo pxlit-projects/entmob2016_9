@@ -17,7 +17,9 @@ namespace EuphoricElephant.Helpers
         public const string DRONE_TEXT = "/Assets/drone.png";
         public const string USER_TEXT = "/Assets/user.png";
 
-        public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, DRONE_TEXT, USER_TEXT };
+        //public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, DRONE_TEXT, USER_TEXT };
+        public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, USER_TEXT };
+
 
         public const string BASE_URL = "http://localhost:8080/";
 
@@ -30,7 +32,7 @@ namespace EuphoricElephant.Helpers
         public const string PROFILE_BY_ID_URL = BASE_URL + "profile/id/";
         public const string PROFILE_UPDATE_URL = BASE_URL + "profile/update";
         public const string PROFILE_ADD_URL = BASE_URL + "profile/add";
-        public const string PROFILE_DELETE_URL = BASE_URL + "user/delete/";
+        public const string PROFILE_DELETE_URL = BASE_URL + "profile/delete/";
         public const string PROFILE_BY_USERID_URL = BASE_URL + "profile/userid/";
         public const string ACTION_BY_ID_URL = BASE_URL + "action/id/";
         public const string ACTION_UPDATE_URL = BASE_URL + "action/update";
@@ -44,6 +46,6 @@ namespace EuphoricElephant.Helpers
         public const string COMMAND_ALL_URL = BASE_URL + "command/all";
         public const string CHECK_PASSWORD = BASE_URL + "user/pass/";
 
-
+        public const string DATE_FORMAT = "dd-MM-yyyy";
     }
 }

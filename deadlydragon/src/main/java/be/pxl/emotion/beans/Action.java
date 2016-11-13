@@ -5,10 +5,10 @@ import javax.persistence.*;
 @Entity
 public class Action {
 	@Id
-	@Column(name = "Id")
+	@Column(name = "id")
 	private int actId;
 	@Column(name = "action")
-	private int action;
+	private String action;
 
 	public int getActId() {
 		return actId;
@@ -18,11 +18,11 @@ public class Action {
 		this.actId = actId;
 	}
 
-	public int getAction() {
+	public String getAction() {
 		return action;
 	}
 
-	public void setAction(int action) {
+	public void setAction(String action) {
 		this.action = action;
 	}
 }

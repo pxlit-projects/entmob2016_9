@@ -101,6 +101,7 @@
     <Compile Include="Converters\BooleanToOpacityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\SecondsToTimeConverter.cs" />
+    <Compile Include="Converters\StringToDateTimeConverter.cs" />
     <Compile Include="Custom\CustomAccelerometer.cs" />
     <Compile Include="Custom\CustomCommand.cs" />
     <Compile Include="Custom\CustomPasswordIncriptor.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Data\Action.cs" />
     <Compile Include="Data\Command.cs" />
     <Compile Include="Data\Profile.cs" />
+    <Compile Include="Data\ProfileItem.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Enumerations\BindState.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Services\AudioVisualizationService.cs" />
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\JSonParseService2.cs" />
+    <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\SensorTagDataCheck.cs" />

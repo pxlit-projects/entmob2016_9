@@ -76,13 +76,13 @@ namespace EuphoricElephant.Services
 
             Grid.SetColumn(fnT, 0);
             Grid.SetColumn(fnTB, 1);
-            Grid.SetRow(fnT, 2);
-            Grid.SetRow(fnTB, 2);
+            Grid.SetRow(fnT, 1);
+            Grid.SetRow(fnTB, 1);
 
             Grid.SetColumn(lnT, 0);
             Grid.SetColumn(lnTB, 1);
-            Grid.SetRow(lnT, 1);
-            Grid.SetRow(lnTB, 1);
+            Grid.SetRow(lnT, 2);
+            Grid.SetRow(lnTB, 2);
 
             Grid.SetColumn(pwT, 0);
             Grid.SetColumn(passWordTB, 1);
@@ -121,7 +121,8 @@ namespace EuphoricElephant.Services
                                         lastName = lnTB.Text,
                                         firstName = fnTB.Text,
                                         password = CustomPasswordIncriptor.sha256_hash(passWordTB.Password.ToString(), userNameTB.Text),
-                                        defaultProfileId = 0
+                                        defaultProfileId = 0,
+                                        joinedOn = DateTime.UtcNow.ToBinary().ToString()
                                     };
                                     string succes = await JSonParseService2<string>.SerializeDataToJson(Constants.USER_ADD_URL, newUser, SerializeType.Post);
 
@@ -133,7 +134,7 @@ namespace EuphoricElephant.Services
                                         {
                                             profileName = "Default Profile",
                                             userId = newUser.userId,
-                                            pairings = "[(1,2,3,4,5),(1,2,3,4,5)]" //TODO dynamic
+                                            pairings = await ProfileService.GetPairings(null)
                                         };
 
                                         succes = await JSonParseService2<string>.SerializeDataToJson(Constants.PROFILE_ADD_URL, newProfile, SerializeType.Post);
@@ -154,10 +155,6 @@ namespace EuphoricElephant.Services
                                                 showError(succes);
                                             }
                                         }
-                                        else if (succes.Equals(""))
-                                        {
-                                            showError("Could not connect to the server.");
-                                        }
                                         else
                                         {
                                             await JSonParseService2<string>.SerializeDataToJson(Constants.USER_DELETE_URL, newUser, SerializeType.Delete);
@@ -172,8 +169,16 @@ namespace EuphoricElephant.Services
                                 }
                                 catch (Exception e)
                                 {
-                                    showError(e.Message);
+                                    if (e.Equals(""))
+                                    {
+                                        showError("Could not connect to the server.");
+                                    }
+                                    else
+                                    {
+                                        showError(e.Message);
+                                    }
                                 }
+                                    
                             }
                             else
                             {

@@ -21,6 +21,14 @@ public class User {
 	private String userName;
     @Column(name = "defaultProfileId")
     private int defaultProfileId;
+    @Column(name="email")
+    private String email;
+    @Column(name="joinedOn")
+    private String joinedOn;
+    @Column(name="country")
+    private String country;
+    @Column(name="phone")
+    private String phone;
 
     public int getUserId() {
         return userId;
@@ -69,4 +77,37 @@ public class User {
     public void setDefaultProfileId(int defaultProfileId) {
         this.defaultProfileId = defaultProfileId;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getJoinedOn() {
+		return joinedOn;
+	}
+
+	public void setJoinedOn(String joinedOn) {
+		this.joinedOn = joinedOn;
+	}
+
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

@@ -49,7 +49,7 @@ namespace EuphoricElephant.Services
                         response = await client.PutAsync(url, content);
                         break;
                     case SerializeType.Delete:
-                        response = await client.DeleteAsync(url + data);
+                        response = await client.DeleteAsync(url + Convert.ToString(data));
                         break;
                 }
 

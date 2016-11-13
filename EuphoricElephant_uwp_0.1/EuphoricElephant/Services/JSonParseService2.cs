@@ -75,7 +75,7 @@ namespace EuphoricElephant.Services
                         obj = res.ToObject<Command>();
                         break;
                     case Constants.COMMAND_ALL_URL:
-                        obj = res.ToObject<Command>();
+                        obj = res.ToObject<List<Command>>();
                         break;
                 }
             }
