@@ -1,4 +1,5 @@
 ﻿using EuphoricElephant.Data;
+using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using System;
 using System.Collections.Generic;
@@ -261,6 +262,34 @@ namespace EuphoricElephant.Services
             {
                 await CreateNewProfileDialog(_user);
             }
+        }
+
+        public static CommandType getCommandType(Profile profile, ActionType action)
+        {
+            CommandType command = CommandType.NoCommand;
+
+            var pairingsString = profile.pairings.Split(';')[1].Split(',');
+
+            switch (action)
+            {
+                case ActionType.DOWN:
+                    command = (CommandType)Convert.ToInt32(pairingsString[0]);
+                    break;
+                case ActionType.UP:
+                    command = (CommandType)Convert.ToInt32(pairingsString[1]);
+                    break;
+                case ActionType.LEFT:
+                    command = (CommandType)Convert.ToInt32(pairingsString[2]);
+                    break;
+                case ActionType.RIGHT:
+                    command = (CommandType)Convert.ToInt32(pairingsString[3]);
+                    break;
+                case ActionType.SHAKE:
+                    command = (CommandType)Convert.ToInt32(pairingsString[4]);
+                    break;
+            }
+
+            return command;
         }
     }
 }

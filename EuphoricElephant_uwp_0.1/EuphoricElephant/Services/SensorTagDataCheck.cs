@@ -23,13 +23,13 @@ namespace EuphoricElephant.Services
                 if (Math.Abs(stabilizer.GyroscopeStabilizer(data).XGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).ZGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).YGyr) >= 200)
                 {
                     b = false;
-                    return ActionType.Shake;
+                    return ActionType.SHAKE;
                 }
 
                 if (stabilizer.AccellerometerStabilizer(data).YAcc > 5)
                 {
                     //    Debug.WriteLine("Volume up!");
-                    return ActionType.Up;
+                    return ActionType.UP;
                 }
                 else if (stabilizer.AccellerometerStabilizer(data).YAcc < 5 && stabilizer.AccellerometerStabilizer(data).YAcc > -5)
                 {
@@ -38,7 +38,7 @@ namespace EuphoricElephant.Services
                 else if (stabilizer.AccellerometerStabilizer(data).YAcc < -5)
                 {
                     //   Debug.WriteLine("Volume down!");
-                    return ActionType.Down;
+                    return ActionType.DOWN;
                 }
             }
 
@@ -49,7 +49,7 @@ namespace EuphoricElephant.Services
                     //      Debug.WriteLine("Previous song!");
 
                     b = false;
-                    return ActionType.Left;
+                    return ActionType.LEFT;
                     
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }
@@ -66,7 +66,7 @@ namespace EuphoricElephant.Services
                     //      Debug.WriteLine("Next Song!");
 
                     b = false;
-                    return ActionType.Right;
+                    return ActionType.RIGHT;
                     
                     //Debug.WriteLine("Current: " + player.getTitle());
                 }

@@ -26,5 +26,11 @@ namespace EuphoricElephant.Services
 
             return result;
         }
+
+        public async static Task<IUICommand> showError()
+        {
+            var result = await showError("Oops, something went wrong.");
+            return result;
+        }
     }
 }

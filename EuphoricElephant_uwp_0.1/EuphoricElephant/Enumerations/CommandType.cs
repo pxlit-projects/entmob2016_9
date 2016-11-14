@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace EuphoricElephant.Enumerations
 {
-    public enum ActionType
+    public enum CommandType
     {
-        NoAction = 1,
-        UP = 1,
-        DOWN = 2,
-        LEFT = 3,
-        RIGHT = 4,
-        SHAKE = 5
+        NoCommand = 0,
+        VolumeUp = 1,
+        VolumeDown = 2,
+        NextTrack = 3,
+        PreviousTrack = 4,
+        Shuffle = 5
     }
 }

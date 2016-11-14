@@ -231,6 +231,8 @@ namespace EuphoricElephant.ViewModels
                 u.phone = Phone;
                 u.joinedOn = JoinedOn;
 
+                ApplicationSettings.Edit("CurrentUser", currentUser);
+
                 v = await JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, u, Enumerations.SerializeType.Put);
 
                 if (!v.Equals("1"))

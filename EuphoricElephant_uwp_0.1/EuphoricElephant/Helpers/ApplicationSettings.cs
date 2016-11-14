@@ -29,5 +29,11 @@ namespace EuphoricElephant.Helpers
         {
             _settingsCache.Remove(itemKey);
         }
+
+        public static void Edit(string itemKey, object itemValue)
+        {
+            Remove(itemKey);
+            AddItem(itemKey, itemValue);
+        }
     }
 }

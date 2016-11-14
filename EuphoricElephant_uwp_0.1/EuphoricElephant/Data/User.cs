@@ -24,8 +24,6 @@ namespace EuphoricElephant.Data
         public string country { get; set; }
         public string phone { get; set; }
 
-        public virtual ICollection<Profile> profiles { get; set; }
-
         public TypeCode GetTypeCode()
         {
             throw new NotImplementedException();

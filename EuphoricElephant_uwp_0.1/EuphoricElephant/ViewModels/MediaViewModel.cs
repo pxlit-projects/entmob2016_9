@@ -1,5 +1,5 @@
 ﻿using EuphoricElephant.Custom;
-
+using EuphoricElephant.Data;
 using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using EuphoricElephant.Messaging;
@@ -45,6 +45,9 @@ namespace EuphoricElephant.ViewModels
         private int TrackIndex;
         private SensorTagDataCheck checker = new SensorTagDataCheck();
         private SensorTag activeSensor;
+
+        private User currentUser;
+        private Profile userProfile;
 
         private DispatcherTimer dispatcherTimer;
 
@@ -125,11 +128,30 @@ namespace EuphoricElephant.ViewModels
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
         }
 
-        private void OnNavigationMessageRecieved(NavigationMessage m)
+        private async void OnNavigationMessageRecieved(NavigationMessage m)
         {
             if (m.Type == Enumerations.ViewType.MediaPlayerViewType)
             {
-                Init();
+                if (ApplicationSettings.Contains("CurrentUser"))
+                {
+                    currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+
+                    userProfile = await JSonParseService2<Profile>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString());
+                    
+                    if(userProfile != null)
+                    {
+                        Init();
+                    }
+                    else
+                    {
+                        await ErrorService.showError();
+                    }
+                    
+                }
+                else
+                {
+                    await ErrorService.showError("No user selected.");
+                }
             }
         }
 
@@ -285,23 +307,25 @@ namespace EuphoricElephant.ViewModels
 
                             lasthope.MixerInfo mi = lasthope.GetMixerControls();
 
-                            switch (accAction)
+                            
+
+                            switch (ProfileService.getCommandType(userProfile, accAction))
                             {
-                                case ActionType.Left:
+                                case CommandType.PreviousTrack:
                                     PreviousTrackAction(null);
                                     break;
-                                case ActionType.Right:
+                                case CommandType.NextTrack:
                                     NextTrackAction(null);
                                     break;
-                                case ActionType.Up:
+                                case CommandType.VolumeUp:
                                     lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
                                     //player.changeVolume(0.1);
                                     break;
-                                case ActionType.Down:
+                                case CommandType.VolumeDown:
                                     //player.changeVolume(-0.1);
                                     lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
                                     break;
-                                case ActionType.Shake:
+                                case CommandType.Shuffle:
                                     ShuffleAction(null);
                                     break;
                                 default:

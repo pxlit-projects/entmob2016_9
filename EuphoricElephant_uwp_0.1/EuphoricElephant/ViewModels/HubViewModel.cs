@@ -116,7 +116,7 @@ namespace EuphoricElephant.ViewModels
                     Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType, frame));
                     break;
                 default:
-                    await ErrorService.showError(null);
+                    await ErrorService.showError();
                     break;
             }
         }
