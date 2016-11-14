@@ -1,2 +1,0 @@
-C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion_xamerin\eMotion_xamerin.Windows\eMotion_xamarin.Windows.csproj;neutral
-C:\Users\Jafar\Documents\GitHub\entmob2016_9\eMotion_xamarin\eMotion_xamerin\eMotion_xamerin\eMotion_xamarin.csproj;neutral
