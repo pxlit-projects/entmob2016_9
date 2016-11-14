@@ -9,94 +9,90 @@
     DataContext="{Binding Source={StaticResource viewModelLocator}, Path=MediaViewModel}"
     mc:Ignorable="d">
 
-    <ScrollViewer ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-        <Grid x:Name="DataPanel">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <RelativePanel Grid.Column="0" Grid.Row="1" x:Name="LayoutRoot"  HorizontalAlignment="Center">
+        <ScrollViewer x:Name="PlayerPanel" VerticalScrollBarVisibility="Auto">
+            <Grid  HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-            <Canvas x:Name="AudioCanvas" Grid.Row="0" Grid.Column="0"/>
+                <StackPanel x:Name="Timer" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <TextBlock Text="{Binding CurrentTrackTime, Converter={StaticResource secondsToTimeConverter}, Mode=OneWay}" FontSize="48"/>
+                </StackPanel>
 
-            <RelativePanel x:Name="LayoutRoot" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
-                <StackPanel x:Name="PlayerPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Slider Orientation="Vertical" Minimum="0" Maximum="180" Height="40">
-
-                    </Slider>
-
-                    <StackPanel Orientation="Vertical">
-                        <Button x:Name="PlayButton" Content="{Binding PlayButtonText}" Command="{Binding PlayTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                        <TextBlock Text="{Binding CurrentTrackTime, Converter={StaticResource secondsToTimeConverter}, Mode=OneWay}"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+                    <StackPanel x:Name="StartPanel" Orientation="Vertical" HorizontalAlignment="Center">
+                        <Button Width="150" x:Name="PlayButton" Content="{Binding PlayButtonText}" Command="{Binding PlayTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
                     </StackPanel>
 
-                    <Slider Orientation="Vertical" Minimum="0" Maximum="100" Height="40">
+                    <StackPanel x:Name="ControlPanel" Orientation="Vertical" HorizontalAlignment="Center">
+                        <Button Width="150" x:Name="PreviousButton" Content="Previous" Command="{Binding PreviousTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                        <Button Width="150" x:Name="StopButton" Content="Stop" Command="{Binding StopTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                        <Button Width="150" x:Name="NextButton" Content="Next" Command="{Binding NextTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                    </StackPanel>
 
-                    </Slider>
+                    <StackPanel x:Name="SettingsPanel" Orientation="Vertical" HorizontalAlignment="Center">
+                        <Button Width="150" x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                        <Button Width="150" x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                        <Button Width="150" x:Name="FolderButton"  Content="Select Folder" Command="{Binding OpenFolderCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                    </StackPanel>
                 </StackPanel>
-
-                <StackPanel x:Name="ControlPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="PreviousButton" Content="Previous" Command="{Binding PreviousTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                    <Button x:Name="StopButton" Content="Stop" Command="{Binding StopTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                    <Button x:Name="NextButton" Content="Next" Command="{Binding NextTrackCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                </StackPanel>
-
-                <StackPanel x:Name="SettingsPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                    <Button x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                    <Button x:Name="FolderButton"  Content="Select Folder" Command="{Binding OpenFolderCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
-                </StackPanel>
-            </RelativePanel>
-
-            <StackPanel x:Name="TrackPanel" Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
+            </Grid>
+        </ScrollViewer>
+            
+        <ScrollViewer x:Name="TrackPanel">
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"  MaxWidth="250" TextWrapping="WrapWholeWords"/>
-
-                <ScrollViewer x:Name="TrackListBox">
-                    <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWholeWords"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
-
+                <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWholeWords"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
+        </ScrollViewer>
 
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <!-- Trigger when window width is larger than 720 ep-->
-                            <AdaptiveTrigger MinWindowWidth="720" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="ControlPanel.(RelativePanel.RightOf)" Value="PlayerPanel"/>
-                            <Setter Target="SettingsPanel.(RelativePanel.RightOf)" Value="ControlPanel"/>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!-- Trigger when window width is larger than 720 ep-->
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TrackPanel.(RelativePanel.RightOf)" Value="PlayerPanel"/>
 
-                            <Setter Target="TrackPanel.(Grid.Row)" Value="0"/>
-                            <Setter Target="TrackPanel.(Grid.Column)" Value="1"/>
-                            <Setter Target="TrackPanel.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="TrackPanel.Width" Value="250"/>
 
-                            <Setter Target="TrackListBox.Width" Value="250"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <!-- Trigger when window width is larger than 0 ep -->
-                            <AdaptiveTrigger MinWindowWidth="0" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="ControlPanel.(RelativePanel.Below)" Value="PlayerPanel"/>
-                            <Setter Target="SettingsPanel.(RelativePanel.Below)" Value="ControlPanel"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </Grid>
-    </ScrollViewer>
+                        <Setter Target="Timer.Margin" Value="0,100,0,100"/>
+                        <Setter Target="StartPanel.Margin" Value="0,50,0,0"/>
+                        <Setter Target="ControlPanel.Margin" Value="0,20,0,0"/>
+                        <Setter Target="SettingsPanel.Margin" Value="0,20,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!-- Trigger when window width is larger than 0 ep -->
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TrackPanel.(RelativePanel.Below)" Value="PlayerPanel"/>
+
+                        <Setter Target="Timer.Margin" Value="0,20,0,50"/>
+                        <Setter Target="StartPanel.Margin" Value="0,20,0,0"/>
+                        <Setter Target="ControlPanel.Margin" Value="0,5,0,0"/>
+                        <Setter Target="SettingsPanel.Margin" Value="0,5,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
+
+    
 </Page>

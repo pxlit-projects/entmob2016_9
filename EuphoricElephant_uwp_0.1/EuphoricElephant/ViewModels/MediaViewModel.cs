@@ -2,7 +2,6 @@
 
 using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
-using EuphoricElephant.Interfaces;
 using EuphoricElephant.Messaging;
 using EuphoricElephant.Model;
 using EuphoricElephant.Models;
@@ -47,10 +46,11 @@ namespace EuphoricElephant.ViewModels
         private SensorTagDataCheck checker = new SensorTagDataCheck();
         private SensorTag activeSensor;
 
+        private DispatcherTimer dispatcherTimer;
+
         #endregion
 
         #region Public Members  
-        public IMediaView View { get; set; }
 
         public string PlayButtonText
         {
@@ -332,6 +332,11 @@ namespace EuphoricElephant.ViewModels
                 isPlaying = true;
 
                 SetTrackProperties(data);
+
+                dispatcherTimer = new DispatcherTimer();
+                dispatcherTimer.Tick += dispatcherTimer_Tick;
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+                dispatcherTimer.Start();
             }
             else if (!isPaused && isPlaying)
             {
@@ -339,6 +344,8 @@ namespace EuphoricElephant.ViewModels
                 isPaused = true;
                 player.Pause();
                 PlayButtonText = "Play";
+                
+                dispatcherTimer.Stop();
             }
             else if (isPaused && !isPlaying)
             {
@@ -346,13 +353,27 @@ namespace EuphoricElephant.ViewModels
                 PlayButtonText = "Pause";
                 isPlaying = true;
                 isPaused = false;
+
+                dispatcherTimer = new DispatcherTimer();
+                dispatcherTimer.Tick += dispatcherTimer_Tick;
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+                dispatcherTimer.Start();
             }
 
             isStopped = false;
         }
 
+        private void dispatcherTimer_Tick(object sender, object e)
+        {
+            if(CurrentTrackTime != 0)
+            {
+                CurrentTrackTime--;
+            }
+        }
+
         private void StopTrackAction(object param)
         {
+            dispatcherTimer.Stop();
             player.Stop();
 
             isPlaying = false;
@@ -376,12 +397,6 @@ namespace EuphoricElephant.ViewModels
                 {
                     TrackIndex--;
                 }
-
-                isPaused = false;
-                isPlaying = false;
-                isStopped = false;
-
-                PlayButtonText = "Pause";
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
                 byte[] data = await player.LoadNewTrack(SelectedTrack);
@@ -427,14 +442,6 @@ namespace EuphoricElephant.ViewModels
             {
                 CurrentTrackTime = 0;
             }
-
-            CreateAudioImage(data);
-        }
-
-        private void CreateAudioImage(byte[] data)
-        {
-            if (View == null) return;
-            View.DrawOnCanvas(data);
         }
 
         private void ToggleLoopAction(object param)

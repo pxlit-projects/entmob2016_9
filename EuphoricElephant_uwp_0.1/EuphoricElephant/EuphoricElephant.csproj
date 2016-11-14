@@ -121,7 +121,6 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\lasthope.cs" />
     <Compile Include="Helpers\MovementData.cs" />
-    <Compile Include="Interfaces\IMediaView.cs" />
     <Compile Include="Messaging\Messenger.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
     <Compile Include="Helpers\MusicPlayer.cs" />
@@ -131,7 +130,6 @@
     <Compile Include="Model\SensorTag.cs" />
     <Compile Include="Services\AudioFilterService.cs" />
     <Compile Include="Services\AudioShuffleService.cs" />
-    <Compile Include="Services\AudioVisualizationService.cs" />
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\JSonParseService2.cs" />
     <Compile Include="Services\ProfileService.cs" />
