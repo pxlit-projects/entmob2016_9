@@ -23,7 +23,19 @@ namespace EuphoricElephant.Views
     {
         public MediaView()
         {
-            this.InitializeComponent();     
+            Window.Current.SizeChanged += Current_SizeChanged;
+            Init();
+        }
+
+        private void Init()
+        {
+            this.InitializeComponent();
+            TrackScrollView.Height = Window.Current.Bounds.Height - 73;
+        }
+
+        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            TrackScrollView.Height = Window.Current.Bounds.Height - 73;
         }
     }
 }

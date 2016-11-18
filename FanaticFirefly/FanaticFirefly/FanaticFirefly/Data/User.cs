@@ -15,7 +15,7 @@ namespace FanaticFirefly.Data
         public string userName { get; set; }
         public int defaultProfileId { get; set; }
 
-        public User(int id, string firstName, string lastName, string password, string userName, int defaultProfileId)
+       /* public User(int id, string firstName, string lastName, string password, string userName, int defaultProfileId)
         {
             this.id = id;
             this.firstName = firstName;
@@ -23,6 +23,6 @@ namespace FanaticFirefly.Data
             this.password = password;
             this.userName = userName;
             this.defaultProfileId = defaultProfileId;
-        }
+        }*/
     }
 }

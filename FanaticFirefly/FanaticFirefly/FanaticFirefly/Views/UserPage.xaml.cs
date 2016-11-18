@@ -9,11 +9,11 @@ using Xamarin.Forms;
 
 namespace FanaticFirefly.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class UserPage : ContentPage
     {
-        public LoginPage()
+        public UserPage()
         {
-            BindingContext = new LoginViewmodel();
+            BindingContext = new UserViewModel();
             InitializeComponent();
         }
     }

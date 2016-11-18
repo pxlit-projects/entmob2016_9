@@ -12,14 +12,14 @@
     <RelativePanel Grid.Column="0" Grid.Row="1" x:Name="LayoutRoot"  HorizontalAlignment="Center">
         <ScrollViewer x:Name="PlayerPanel" VerticalScrollBarVisibility="Auto">
             <Grid  HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
                 <StackPanel x:Name="Timer" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <TextBlock Text="{Binding CurrentTrackTime, Converter={StaticResource secondsToTimeConverter}, Mode=OneWay}" FontSize="48"/>
@@ -44,19 +44,21 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-            
-        <ScrollViewer x:Name="TrackPanel">
+
+        <StackPanel x:Name="TrackPanel">
             <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"  MaxWidth="250" TextWrapping="WrapWholeWords"/>
-                <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWholeWords"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <ScrollViewer x:Name="TrackScrollView">
+                    <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWholeWords"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
             </StackPanel>
-        </ScrollViewer>
+        </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -94,5 +96,5 @@
         </VisualStateManager.VisualStateGroups>
     </RelativePanel>
 
-    
+
 </Page>

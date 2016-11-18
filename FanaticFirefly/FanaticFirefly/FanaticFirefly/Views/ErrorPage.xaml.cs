@@ -1,5 +1,4 @@
-﻿using FanaticFirefly.Helpers;
-using FanaticFirefly.ViewModels;
+﻿using FanaticFirefly.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +13,10 @@ namespace FanaticFirefly.Views
     {
         public ErrorPage()
         {
-            InitializeComponent();
 
             BindingContext = new ErrorViewModel();
+            InitializeComponent();
+            
         }
     }
 }

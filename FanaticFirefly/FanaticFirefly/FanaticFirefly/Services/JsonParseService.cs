@@ -28,7 +28,7 @@ namespace FanaticFirefly.Services
             return reply;
         }
 
-        public static async Task<T> DeserializeJson(string url, string param)
+        public static async Task<T> DeserializeDataFromJson(string url, string param)
         {
             object obj = null;
 

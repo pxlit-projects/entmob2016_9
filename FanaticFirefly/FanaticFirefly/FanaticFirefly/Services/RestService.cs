@@ -38,14 +38,16 @@ namespace FanaticFirefly.Data
 
             try
             {
-                var client = new HttpClient();
+                HttpClient client = new HttpClient();
+                client.MaxResponseContentBufferSize = 256000;
+
                 var serealizedfile = JsonConvert.SerializeObject(data);
                 var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
 
                 switch (serialize)
                 {
                     case SerializeType.Post:
-                        response = await client.PostAsync(url, content);
+                        response = await client.PostAsync(url, content).ConfigureAwait(continueOnCapturedContext: false); 
                         break;
                     case SerializeType.Put:
                         response = await client.PutAsync(url, content);

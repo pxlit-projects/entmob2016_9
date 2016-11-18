@@ -1,5 +1,4 @@
-﻿using FanaticFirefly.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +8,10 @@ using Xamarin.Forms;
 
 namespace FanaticFirefly.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class UsersPage : ContentPage
     {
-        public LoginPage()
+        public UsersPage()
         {
-            BindingContext = new LoginViewmodel();
             InitializeComponent();
         }
     }
