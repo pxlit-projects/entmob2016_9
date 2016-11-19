@@ -17,8 +17,6 @@ namespace FanaticFirefly.ViewModels
     {
         private User myUser = null;
 
-        private INavigation Navigation;
-
         private string userName = string.Empty;
         public string UserName
         {
@@ -62,65 +60,74 @@ namespace FanaticFirefly.ViewModels
 
         private async void LoginAction(object obj)
         {
-            var main = (NavigationPage)Application.Current.MainPage;
-          /*  ApplicationSettings.AddItem("ErrorMessage", "Error");
-            NavigationService.Navigate(main, new ErrorPage());*/
-
-            if (!IsLoggedIn)
+            try
             {
-                if (!UserName.Equals(""))
+                var main = (NavigationPage)Application.Current.MainPage;
+                /*  ApplicationSettings.AddItem("ErrorMessage", "Error");
+                  NavigationService.Navigate(main, new ErrorPage());*/
+
+                if (!IsLoggedIn)
                 {
-                    if (myUser == null)
+                    if (!UserName.Equals(""))
                     {
-                        IsNotBusy = false;
-
-                        User u = new User
+                        if (myUser == null)
                         {
-                            userName = UserName,
-                            password = EasyEncryption.SHA.ComputeSHA256Hash(PassWord + UserName)
-                        };
+                            IsNotBusy = false;
 
-                        string b = await Services.JsonParseService<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
+                            User u = new User
+                            {
+                                userName = UserName,
+                                password = EasyEncryption.SHA.ComputeSHA256Hash(PassWord + UserName)
+                            };
 
-                        if (b.Equals("1"))
-                        {
-                            myUser = await Services.JsonParseService<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
-                            IsLoggedIn = true;
+                            string b = await Services.JsonParseService<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
 
-                            UserName = string.Empty;
-                            PassWord = string.Empty;
+                            if (b.Equals("1"))
+                            {
+                                myUser = await Services.JsonParseService<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
+                                IsLoggedIn = true;
 
-                            Debug.WriteLine("Success");
-                            ApplicationSettings.AddItem("CurrentUser", myUser);;
+                                UserName = string.Empty;
+                                PassWord = string.Empty;
 
-                            await Navigation.PushAsync(new UserPage());
+                                Debug.WriteLine("Success");
+                                ApplicationSettings.AddItem("CurrentUser", myUser);
+
+                                var v = (NavigationPage)App.Current.MainPage;
+                                await v.PushAsync(new UserPage());
+                            }
+                            else if (b.Equals("2"))
+                            {
+                                ErrorService.ShowError("Username and password did not match.");
+                            }
+                            else
+                            {
+                                ErrorService.ShowError(b);
+                            }
+
+                            IsNotBusy = true;
                         }
-                        else if (b.Equals("2"))
-                        {
-                             ErrorService.ShowError("Username and password did not match.");
-                        }
-                        else
-                        {
-                             ErrorService.ShowError(b);
-                        }
-
-                        IsNotBusy = true;
                     }
                 }
+                else
+                {
+                    myUser = null;
+                    IsLoggedIn = false;
+
+                    ApplicationSettings.Remove("CurrentUser");
+
+                    UserName = string.Empty;
+                    PassWord = string.Empty;
+
+                }
+
+                //ErrorService.ShowError();
             }
-            else
+            catch (Exception e)
             {
-                myUser = null;
-                IsLoggedIn = false;
-
-                ApplicationSettings.Remove("CurrentUser");
-
-                UserName = string.Empty;
-                PassWord = string.Empty;
-
+                Debug.WriteLine(e.Message);
             }
-
-            //ErrorService.ShowError();
         }
+
     }
 }
