@@ -27,7 +27,10 @@ namespace EuphoricElephant.Helpers
         
         public static void Remove(string itemKey)
         {
-            _settingsCache.Remove(itemKey);
+            if (ApplicationSettings.Contains(itemKey))
+            {
+                _settingsCache.Remove(itemKey);
+            }
         }
 
         public static void Edit(string itemKey, object itemValue)

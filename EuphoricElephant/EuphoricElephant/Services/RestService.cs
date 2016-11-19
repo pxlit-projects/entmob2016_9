@@ -17,16 +17,32 @@ namespace EuphoricElephant.Services
     {
         public static async Task<JToken> Deserialize(string url)
         {
-            var client = new HttpClient();
+            HttpResponseMessage response = null;
+            JToken token = null;
 
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+            try
+            {
+                var client = new HttpClient();
 
-            HttpResponseMessage response = await client.GetAsync(url);
-            var data = await response.Content.ReadAsStringAsync();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
 
-            var token = JsonConvert.DeserializeObject<JToken>(data);
+                response = await client.GetAsync(url);
+                var data = await response.Content.ReadAsStringAsync();
 
-            return token;
+                token = JsonConvert.DeserializeObject<JToken>(data);
+
+                return token;
+            }
+            catch (Exception e)
+            {
+                await ErrorService.showError(e.Message);
+                return token;
+            }
+            finally
+            {
+                response.Dispose();
+            }
+            
         }
 
         public static async Task<string> Serialize(String url, Object data, SerializeType serialize)
@@ -62,6 +78,7 @@ namespace EuphoricElephant.Services
             finally
             {
                 reply = await response.Content.ReadAsStringAsync();
+                response.Dispose();
             }
 
             return reply;

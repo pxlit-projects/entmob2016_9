@@ -1,4 +1,5 @@
 ﻿using EuphoricElephant.Helpers;
+using EuphoricElephant.Messaging;
 using EuphoricElephant.Services;
 using EuphoricElephant.Views;
 using System;

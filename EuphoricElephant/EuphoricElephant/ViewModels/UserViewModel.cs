@@ -168,6 +168,7 @@ namespace EuphoricElephant.ViewModels
             if (v.Equals("1"))
             {
                 Profiles.Remove(SelectedProfile);
+                DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
             }
             else
             {

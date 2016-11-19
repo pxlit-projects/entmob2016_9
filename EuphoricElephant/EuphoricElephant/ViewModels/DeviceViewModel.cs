@@ -74,7 +74,17 @@ namespace EuphoricElephant.ViewModels
                     {
                         Info = value
                     };
-                    ApplicationSettings.AddItem("ActiveSensor", activeSensor);
+
+                    if (!ApplicationSettings.Contains("ActiveSensor"))
+                    {
+                        ApplicationSettings.AddItem("ActiveSensor", activeSensor);
+                        showError("SensorTag succesfully paired.");
+                    }
+                    else
+                    {
+                        showMessage("SensorTag was already paired, unpair to select another");
+                    }
+                    
                 }
                 else
                 {
@@ -116,6 +126,7 @@ namespace EuphoricElephant.ViewModels
 
         private async void Init()
         {
+
             LoadCommands();
 
 
@@ -125,14 +136,13 @@ namespace EuphoricElephant.ViewModels
 
             foreach (DeviceInformation d in (await SensorTagService.FindAllTagNames()))
             {
-                switch (d.Name)
+                if (d.Name.ToLower().Contains("sensortag"))
                 {
-                    case "CC2650 SensorTag":
-                        Sensors.Add(d);
-                        break;
-                    case "MX Master":
-                        Drones.Add(d);
-                        break;
+                    Sensors.Add(d);
+                }
+                else if (d.Name.ToLower().Contains("drone"))
+                {
+                    Drones.Add(d);
                 }
             }
 
@@ -154,6 +164,11 @@ namespace EuphoricElephant.ViewModels
             {
                 frame.GoBack();
             }
+        }
+
+        private async void showMessage(string message)
+        {
+            await ErrorService.showError(message);
         }
     }
 }

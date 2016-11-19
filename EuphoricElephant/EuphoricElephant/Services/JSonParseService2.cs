@@ -1,4 +1,5 @@
-﻿using EuphoricElephant.Data;
+﻿using EuphoricElephant.Custom;
+using EuphoricElephant.Data;
 using EuphoricElephant.Enumerations;
 using EuphoricElephant.Helpers;
 using Newtonsoft.Json;
@@ -51,13 +52,13 @@ namespace EuphoricElephant.Services
 
                 switch (url){
                     case Constants.USER_ALL_URL:
-                        obj = res.ToObject<List<User>>();
+                        obj = res.ToObject<CustomList<User>>();
                         break;
                     case Constants.USER_BY_ID_URL:
                         obj = res.ToObject<User>();
                         break;
                     case Constants.PROFILE_BY_USERID_URL:
-                        obj = res.ToObject<List<Profile>>()[0];
+                        obj = res.ToObject<CustomList<Profile>>();
                         break;
                     case Constants.USER_BY_USERNAME_URL:
                         obj = res.ToObject<List<User>>()[0];
@@ -69,13 +70,13 @@ namespace EuphoricElephant.Services
                         obj = res.ToObject<Data.Action>();
                         break;
                     case Constants.ACTION_ALL_URL:
-                        obj = res.ToObject<List<Data.Action>>();
+                        obj = res.ToObject<CustomList<Data.Action>>();
                         break;
                     case Constants.COMMAND_BY_ID_URL:
                         obj = res.ToObject<Command>();
                         break;
                     case Constants.COMMAND_ALL_URL:
-                        obj = res.ToObject<List<Command>>();
+                        obj = res.ToObject<CustomList<Command>>();
                         break;
                 }
             }

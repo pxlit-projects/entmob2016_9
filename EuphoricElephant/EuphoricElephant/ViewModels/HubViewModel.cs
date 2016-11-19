@@ -84,6 +84,11 @@ namespace EuphoricElephant.ViewModels
         {
             HubPoints = Constants.HUB_POINTS;
             LoadCommands();
+
+            if (ApplicationSettings.Contains("ActiveSensor"))
+            {
+
+            }
         }
 
         private void LoadCommands()
@@ -105,7 +110,7 @@ namespace EuphoricElephant.ViewModels
                     break;
                 case Constants.MEDIA_TEXT:
                     frame.Navigate(typeof(MediaView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, frame));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, null));
                     break;
                 case Constants.DRONE_TEXT:
                     frame.Navigate(typeof(DroneView));
@@ -175,6 +180,15 @@ namespace EuphoricElephant.ViewModels
                 PassWord = string.Empty;
 
                 LogButtonText = "Log in";
+
+                if (ApplicationSettings.Contains("MediaPlayer"))
+                {
+                    MusicPlayer player = (MusicPlayer)ApplicationSettings.GetItem("MediaPlayer");
+                    player.Stop();
+                    ApplicationSettings.Remove("MediaPlayer");
+                }
+
+                ApplicationSettings.Remove("ActiveSensor");
             }
         }
 

@@ -104,6 +104,7 @@
     <Compile Include="Converters\StringToDateTimeConverter.cs" />
     <Compile Include="Custom\CustomAccelerometer.cs" />
     <Compile Include="Custom\CustomCommand.cs" />
+    <Compile Include="Custom\CustomList.cs" />
     <Compile Include="Custom\CustomPasswordIncriptor.cs" />
     <Compile Include="Custom\CustomSimpleKey.cs" />
     <Compile Include="Custom\CustomValidator.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\lasthope.cs" />
     <Compile Include="Helpers\MovementData.cs" />
+    <Compile Include="Messaging\BackRequestedMessage.cs" />
     <Compile Include="Messaging\Messenger.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
     <Compile Include="Helpers\MusicPlayer.cs" />

@@ -19,6 +19,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel x:Name="Timer" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -42,11 +43,13 @@
                         <Button Width="150" x:Name="FolderButton"  Content="Select Folder" Command="{Binding OpenFolderCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
                     </StackPanel>
                 </StackPanel>
+
+                <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Load Profiles To USe SensorTag" Command="{Binding LoadProfilesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
             </Grid>
         </ScrollViewer>
 
         <StackPanel x:Name="TrackPanel">
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding CurrentFolderName}" HorizontalAlignment="Center"  MaxWidth="250" TextWrapping="WrapWholeWords"/>
                 <ScrollViewer x:Name="TrackScrollView">
                     <ListBox ItemsSource="{Binding Tracks, Mode=OneWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" MinWidth="250">

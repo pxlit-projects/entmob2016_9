@@ -7,6 +7,7 @@ using EuphoricElephant.Model;
 using EuphoricElephant.Models;
 using EuphoricElephant.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -113,6 +114,8 @@ namespace EuphoricElephant.ViewModels
         public ICommand ToggleLoopCommand { get; set; }
         public ICommand ShuffleCommand { get; set; }
         public ICommand OpenFolderCommand { get; set; }
+
+        public ICommand LoadProfilesCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -126,47 +129,46 @@ namespace EuphoricElephant.ViewModels
         private void RegisterMessages()
         {
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
+            Messenger.Default.Register<BackRequestedMessage>(this, OnBackRequestedMessageRecieved);
         }
 
-        private async void OnNavigationMessageRecieved(NavigationMessage m)
+        private void OnBackRequestedMessageRecieved(BackRequestedMessage obj)
+        {
+            StopTrackAction(null);
+        }
+
+        private void OnNavigationMessageRecieved(NavigationMessage m)
         {
             if (m.Type == Enumerations.ViewType.MediaPlayerViewType)
             {
-                if (ApplicationSettings.Contains("CurrentUser"))
-                {
-                    currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
-
-                    userProfile = await JSonParseService2<Profile>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString());
-                    
-                    if(userProfile != null)
-                    {
-                        Init();
-                    }
-                    else
-                    {
-                        await ErrorService.showError();
-                    }
-                    
-                }
-                else
-                {
-                    await ErrorService.showError("No user selected.");
-                }
+                Init();
             }
         }
 
         private void Init()
         {
-            LoadTagListener();
+            if (ApplicationSettings.Contains("MediaPlayer"))
+            {
+                player = (MusicPlayer)ApplicationSettings.GetItem("MediaPlayer");
 
-            CurrentFolder = KnownFolders.MusicLibrary;
-            LoadMusic("init");
-            LoadCommands();
+                LoadTagListener();
+            }
+            else
+            {
+                PlayButtonText = "Play";
+                player = new MusicPlayer();
+                ApplicationSettings.AddItem("MediaPlayer", player);
 
-            player = new MusicPlayer();
-            PlayButtonText = "Play";
+                LoadTagListener();
 
-            SetTrackProperties(null);
+                CurrentFolder = KnownFolders.MusicLibrary;
+                LoadMusic("init");
+                LoadCommands();
+
+                SetTrackProperties(null);
+            }
+            
+            IsLoading = false;
         }
 
         private void LoadCommands()
@@ -179,11 +181,13 @@ namespace EuphoricElephant.ViewModels
             ToggleLoopCommand = new CustomCommand(ToggleLoopAction);
             ShuffleCommand = new CustomCommand(ShuffleAction);
             OpenFolderCommand = new CustomCommand(OpenFolder);
+
+            LoadProfilesCommand = new CustomCommand(LoadProfilesAction);
         }
 
         private async void LoadMusic(String instance)
         {
-            IsLoading = true;
+            
             switch (instance)
             {
                 case "init":
@@ -203,7 +207,6 @@ namespace EuphoricElephant.ViewModels
                 TrackIndex = 0;
                 CurrentTrackTime = 0;
             }
-            IsLoading = false;
         }
 
         private async void LoadTagListener()
@@ -216,37 +219,37 @@ namespace EuphoricElephant.ViewModels
 
                     activeSensor.Accelerometer = new CustomAccelerometer();
                     activeSensor.SimpleKey = new CustomSimpleKey();
-                }
 
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    Task t = sk_elementValueChanged();
-
-                    try
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    async () =>
                     {
-                        if (activeSensor != null)
+                        Task t = sk_elementValueChanged();
+
+                        try
                         {
-                            var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
+                            if (activeSensor != null)
+                            {
+                                var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
 
-                            await activeSensor.Accelerometer.Initialize(c[0]);
-                            await activeSensor.Accelerometer.CustomEnableSensor();
+                                await activeSensor.Accelerometer.Initialize(c[0]);
+                                await activeSensor.Accelerometer.CustomEnableSensor();
 
-                            CustomSimpleKey SimpleKey = new CustomSimpleKey();
+                                CustomSimpleKey SimpleKey = new CustomSimpleKey();
 
-                            SimpleKey.SensorValueChanged += sk_sensorValueChanged;
+                                SimpleKey.SensorValueChanged += sk_sensorValueChanged;
 
-                            var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
+                                var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
 
-                            await SimpleKey.Initialize(k[0]);
-                            await SimpleKey.EnableNotifications();
+                                await SimpleKey.Initialize(k[0]);
+                                await SimpleKey.EnableNotifications();
+                            }
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.Message);
-                    }
-                });
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message);
+                        }
+                    });
+                }
             }
             catch (Exception e)
             {
@@ -343,7 +346,7 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Private Methods
-        private async void PlayTrackAction(object param)
+        public async void PlayTrackAction(object param)
         {
             if (!isPaused && !isPlaying)
             {
@@ -389,13 +392,17 @@ namespace EuphoricElephant.ViewModels
 
         private void dispatcherTimer_Tick(object sender, object e)
         {
-            if(CurrentTrackTime != 0)
+            if(CurrentTrackTime > 0)
             {
                 CurrentTrackTime--;
             }
+            else
+            {
+                StopTrackAction(null);
+            }
         }
 
-        private void StopTrackAction(object param)
+        public void StopTrackAction(object param)
         {
             dispatcherTimer.Stop();
             player.Stop();
@@ -409,7 +416,7 @@ namespace EuphoricElephant.ViewModels
             SetTrackProperties(null);
         }
 
-        private async void PreviousTrackAction(object param)
+        public async void PreviousTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -429,7 +436,7 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private async void NextTrackAction(object param)
+        public async void NextTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -468,12 +475,12 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private void ToggleLoopAction(object param)
+        public void ToggleLoopAction(object param)
         {
             IsLooped = !IsLooped;
         }
 
-        private void ShuffleAction(object param)
+        public void ShuffleAction(object param)
         {
             StorageFile track = SelectedTrack;
 
@@ -491,7 +498,7 @@ namespace EuphoricElephant.ViewModels
 
         }
 
-        private async void OpenFolder(object param)
+        public async void OpenFolder(object param)
         {
             FolderPicker fp = new FolderPicker();
             fp.SuggestedStartLocation = PickerLocationId.Desktop;
@@ -511,6 +518,25 @@ namespace EuphoricElephant.ViewModels
                 LoadMusic("folder");
             }
         }
+
+        private async void LoadProfilesAction(object param)
+        {
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                IsLoading = true;
+                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+
+                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString()));
+
+                userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
+
+                IsLoading = false;
+            }
+            else
+            {
+                await ErrorService.showError("No user selected.");
+            }
+        } 
         #endregion
     }
 }
