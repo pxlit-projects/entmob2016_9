@@ -2,20 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FanaticFirefly.Views.UserPage">
-          <Grid>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+  <ContentView>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <Label Grid.Column="0" Grid.Row="0" Text="{Binding UserName}" FontAttributes="Bold" />
-            <Label Grid.Column="0" Grid.Row="1" Text="{Binding FirstName}" />
-            <Label Grid.Column="0" Grid.Row="2" Text="{Binding LastName}"/>
-            <Button Grid.Column="0" Grid.Row="3" Text="Edit" Command="{Binding EditCommand}"></Button>
-          </Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <Label Grid.Column="0" Grid.Row="0" Text="{Binding UserName}" FontAttributes="Bold" />
+      <Label Grid.Column="0" Grid.Row="1" Text="{Binding FirstName}" />
+      <Label Grid.Column="0" Grid.Row="2" Text="{Binding LastName}"/>
+      <Button Grid.Column="0" Grid.Row="3" Text="Edit" Command="{Binding EditCommand}"></Button>
+    </Grid>
+  </ContentView>
 </ContentPage>

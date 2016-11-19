@@ -9,26 +9,28 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <ListView x:Name="listView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-              </Grid.RowDefinitions>
+    <ScrollView>
+      <ListView x:Name="listView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-              </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-              <Label Grid.Column="0" Grid.Row="0" Text="{Binding userName}"/>
-              <Label Grid.Column="1" Grid.Row="0" Text="{Binding joinedOn, Converter={StaticResource stringToDateTimeConverter}}"/>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding userName}"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding joinedOn, Converter={StaticResource stringToDateTimeConverter}}"/>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </ScrollView>
   </ContentPage.Content>
 </ContentPage>
