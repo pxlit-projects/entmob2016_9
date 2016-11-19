@@ -36,7 +36,7 @@ namespace FanaticFirefly.ViewModels
 
         public UserViewModel()
         {
-            var user = (User)ApplicationSettings.GetItem("CurrentUser");
+            var user = (User)ApplicationSettings.GetItem("SelectedUser");
             UserName = user.userName;
             FirstName = user.firstName;
             LastName = user.lastName;

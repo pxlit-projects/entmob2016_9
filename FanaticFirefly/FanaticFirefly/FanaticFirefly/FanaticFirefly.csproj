@@ -44,6 +44,7 @@
     <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\CustomCommand.cs" />
+    <Compile Include="Helpers\StringToDateTimeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\JsonParseService.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\LoginViewmodel.cs" />
+    <Compile Include="ViewModels\UsersViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>

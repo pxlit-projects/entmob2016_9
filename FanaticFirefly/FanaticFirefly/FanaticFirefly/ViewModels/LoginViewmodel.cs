@@ -94,7 +94,7 @@ namespace FanaticFirefly.ViewModels
                                 ApplicationSettings.AddItem("CurrentUser", myUser);
 
                                 var v = (NavigationPage)App.Current.MainPage;
-                                await v.PushAsync(new UserPage());
+                                await v.PushAsync(new UsersPage());
                             }
                             else if (b.Equals("2"))
                             {

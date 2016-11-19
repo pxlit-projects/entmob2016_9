@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FanaticFirefly.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace FanaticFirefly.Views
     {
         public UsersPage()
         {
+            BindingContext = new UsersViewModel();
             InitializeComponent();
         }
     }
