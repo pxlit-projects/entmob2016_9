@@ -110,7 +110,7 @@ namespace EuphoricElephant.ViewModels
                     break;
                 case Constants.MEDIA_TEXT:
                     frame.Navigate(typeof(MediaView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, null));
+                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, frame));
                     break;
                 case Constants.DRONE_TEXT:
                     frame.Navigate(typeof(DroneView));

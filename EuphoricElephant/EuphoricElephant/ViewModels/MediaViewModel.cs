@@ -20,13 +20,17 @@ using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using X2CodingLab.SensorTag;
+using static EuphoricElephant.Helpers.lasthope;
 
 namespace EuphoricElephant.ViewModels
 {
     public class MediaViewModel : BaseModel
     {
         #region Private Members
+        lasthope last = new lasthope();
+
         private StorageFile selectedTrack;
         private ObservableCollection<StorageFile> tracks;
         private double currentTrackTime = 0;
@@ -37,6 +41,7 @@ namespace EuphoricElephant.ViewModels
         private string playButtonText = string.Empty;
 
         private MusicPlayer player;
+        private bool isTagListenerLoaded = false;
         private bool isPlaying = false;
         private bool isPaused = false;
         private bool isLoading = false;
@@ -151,7 +156,10 @@ namespace EuphoricElephant.ViewModels
             {
                 player = (MusicPlayer)ApplicationSettings.GetItem("MediaPlayer");
 
-                LoadTagListener();
+                if (!isTagListenerLoaded)
+                {
+                    LoadTagListener();
+                }
             }
             else
             {
@@ -159,7 +167,10 @@ namespace EuphoricElephant.ViewModels
                 player = new MusicPlayer();
                 ApplicationSettings.AddItem("MediaPlayer", player);
 
-                LoadTagListener();
+                if (!isTagListenerLoaded)
+                {
+                    LoadTagListener();
+                }
 
                 CurrentFolder = KnownFolders.MusicLibrary;
                 LoadMusic("init");
@@ -167,7 +178,7 @@ namespace EuphoricElephant.ViewModels
 
                 SetTrackProperties(null);
             }
-            
+
             IsLoading = false;
         }
 
@@ -187,7 +198,6 @@ namespace EuphoricElephant.ViewModels
 
         private async void LoadMusic(String instance)
         {
-            
             switch (instance)
             {
                 case "init":
@@ -213,7 +223,7 @@ namespace EuphoricElephant.ViewModels
         {
             try
             {
-                if (ApplicationSettings.Contains("ActiveSensor"))
+                if (ApplicationSettings.Contains("ActiveSensor") && userProfile != null)
                 {
                     activeSensor = (SensorTag)ApplicationSettings.GetItem("ActiveSensor");
 
@@ -223,8 +233,6 @@ namespace EuphoricElephant.ViewModels
                     await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     async () =>
                     {
-                        Task t = sk_elementValueChanged();
-
                         try
                         {
                             if (activeSensor != null)
@@ -242,6 +250,8 @@ namespace EuphoricElephant.ViewModels
 
                                 await SimpleKey.Initialize(k[0]);
                                 await SimpleKey.EnableNotifications();
+
+                                isTagListenerLoaded = true;
                             }
                         }
                         catch (Exception e)
@@ -249,43 +259,15 @@ namespace EuphoricElephant.ViewModels
                             Debug.WriteLine(e.Message);
                         }
                     });
+                }else
+                {
+                    isTagListenerLoaded = false;
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
-        }
-
-        private async Task sk_elementValueChanged()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    while (true)
-                    {
-                        var e = player.GetElement();
-
-                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
-
-                        if (e.CurrentState.ToString().Equals("Paused"))
-                        {
-                            if (!isPaused && isPlaying)
-                            {
-                                if (!IsLooped)
-                                {
-                                    NextTrackAction(null);
-                                }
-                                else
-                                {
-                                    isPlaying = false;
-                                    PlayTrackAction(null);
-                                }
-                            }
-                        }
-                    }
-                }
-            );
         }
 
 
@@ -300,46 +282,38 @@ namespace EuphoricElephant.ViewModels
 
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
-
-                        if (!isLoading) //change true to pressed
-                        {
-                            byte[] accData = await activeSensor.Accelerometer.ReadValue();
-                            //byte[] gyrData = await activeSensor.Accelerometer.ReadValue();
-                            ActionType accAction = checker.MovementCheck(accData, player);
-                            //ActionType gyrAction = checker.MovementCheck(accData, player);
-
-                            lasthope.MixerInfo mi = lasthope.GetMixerControls();
-
-                            
-
-                            switch (ProfileService.getCommandType(userProfile, accAction))
+                            if (!isLoading) //change true to pressed
                             {
-                                case CommandType.PreviousTrack:
-                                    PreviousTrackAction(null);
-                                    break;
-                                case CommandType.NextTrack:
-                                    NextTrackAction(null);
-                                    break;
-                                case CommandType.VolumeUp:
-                                    lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
-                                    //player.changeVolume(0.1);
-                                    break;
-                                case CommandType.VolumeDown:
-                                    //player.changeVolume(-0.1);
-                                    lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
-                                    break;
-                                case CommandType.Shuffle:
-                                    ShuffleAction(null);
-                                    break;
-                                default:
-                                    break;
+                                byte[] accData = await activeSensor.Accelerometer.ReadValue();
+                                ActionType accAction = checker.MovementCheck(accData, player);
+
+                                switch (ProfileService.getCommandType(userProfile, accAction))
+                                {
+                                    case CommandType.PreviousTrack:
+                                        PreviousTrackAction(null);
+                                        break;
+                                    case CommandType.NextTrack:
+                                        NextTrackAction(null);
+                                        break;
+                                    case CommandType.VolumeUp:
+                                        player.SetVolume(0.05);
+                                        break;
+                                    case CommandType.VolumeDown:
+                                        player.SetVolume(-0.05);   
+                                        break;
+                                    case CommandType.Shuffle:
+                                        ShuffleAction(null);
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
-                        }
-                        else
-                        {
-                            pressed = false;
-                            //  c = false;
-                        }
+                            else
+                            {
+                                pressed = false;
+                                //  c = false;
+                            }
+                        
                     }
                 });
         }
@@ -528,9 +502,14 @@ namespace EuphoricElephant.ViewModels
 
                 ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString()));
 
-                userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
+                userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();       
 
                 IsLoading = false;
+
+                if (!isTagListenerLoaded)
+                {
+                    LoadTagListener();
+                }
             }
             else
             {

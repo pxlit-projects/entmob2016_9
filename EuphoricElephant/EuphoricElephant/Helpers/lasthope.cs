@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EuphoricElephant.Helpers
 {
-    public static class lasthope
+    public class lasthope
     {
         const int MAXPNAMELEN = 32;
         const int MIXER_SHORT_NAME_CHARS = 16;
@@ -255,7 +255,7 @@ namespace EuphoricElephant.Helpers
         [DllImport("WinMM.dll", CharSet = CharSet.Unicode)]
         public static extern uint mixerSetControlDetails(IntPtr hmxobj, ref MIXERCONTROLDETAILS pmxcd, MIXER flags);
 
-        public static MixerInfo GetMixerControls()
+        public MixerInfo GetMixerControls()
         {
             MIXERLINE mxl = new MIXERLINE();
             MIXERLINECONTROLS mlc = new MIXERLINECONTROLS();
@@ -293,7 +293,7 @@ namespace EuphoricElephant.Helpers
 
             return rtn;
         }
-        public static VOLUME GetVolume(MixerInfo mi)
+        public VOLUME GetVolume(MixerInfo mi)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
@@ -311,7 +311,7 @@ namespace EuphoricElephant.Helpers
 
             return rtn;
         }
-        public static bool IsMuted(MixerInfo mi)
+        public bool IsMuted(MixerInfo mi)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
@@ -329,7 +329,7 @@ namespace EuphoricElephant.Helpers
 
             return rtn != 0;
         }
-        public static void AdjustVolume(MixerInfo mi, int delta)
+        public void AdjustVolume(MixerInfo mi, int delta)
         {
             VOLUME volume = GetVolume(mi);
 
@@ -346,7 +346,7 @@ namespace EuphoricElephant.Helpers
 
             SetVolume(mi, volume);
         }
-        public static void SetVolume(MixerInfo mi, VOLUME volume)
+        public void SetVolume(MixerInfo mi, VOLUME volume)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
@@ -362,7 +362,7 @@ namespace EuphoricElephant.Helpers
 
             Marshal.FreeHGlobal(mcd.paDetails);
         }
-        public static void SetMute(MixerInfo mi, bool mute)
+        public void SetMute(MixerInfo mi, bool mute)
         {
             MIXERCONTROLDETAILS mcd = new MIXERCONTROLDETAILS();
             mcd.cbStruct = (uint)Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));

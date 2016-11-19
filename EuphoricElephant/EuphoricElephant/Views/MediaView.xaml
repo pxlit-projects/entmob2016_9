@@ -38,7 +38,7 @@
                     </StackPanel>
 
                     <StackPanel x:Name="SettingsPanel" Orientation="Vertical" HorizontalAlignment="Center">
-                        <Button Width="150" x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
+                        <!--<Button Width="150" x:Name="LoopButton" Content="Loop" Command="{Binding ToggleLoopCommand}" Background="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=background, Mode=OneWay}" Foreground="{Binding IsLooped, Converter={StaticResource booleanToColorConverter}, ConverterParameter=foreground, Mode=OneWay}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>-->
                         <Button Width="150" x:Name="ShuffleButton" Content="Shuffle" Command="{Binding ShuffleCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
                         <Button Width="150" x:Name="FolderButton"  Content="Select Folder" Command="{Binding OpenFolderCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource booleanInverter}}"/>
                     </StackPanel>

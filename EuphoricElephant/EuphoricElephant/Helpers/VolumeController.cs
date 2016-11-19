@@ -15,6 +15,5 @@ namespace EuphoricElephant.Helpers
 
         [DllImport("winmm.dll")]
         public static extern int waveOutSetVolume(IntPtr hwo, uint dwVolume);
-
     }
 }

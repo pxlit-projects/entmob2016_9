@@ -8,7 +8,7 @@ namespace EuphoricElephant.Enumerations
 {
     public enum ActionType
     {
-        NoAction = 1,
+        NoAction = 0,
         UP = 1,
         DOWN = 2,
         LEFT = 3,
