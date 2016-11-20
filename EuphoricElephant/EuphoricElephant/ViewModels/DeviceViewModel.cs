@@ -155,13 +155,13 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Error
-        private async void showError(string error)
+        private void showError(string error)
         {
             var dialog = new Windows.UI.Popups.MessageDialog(error);
 
             dialog.Commands.Add(new Windows.UI.Popups.UICommand("OK") { Id = 0 });
 
-            var result = await dialog.ShowAsync();
+            var result = Task.Run(() => dialog.ShowAsync());
 
             if (Convert.ToUInt32(result.Id.ToString()) == 0)
             {
@@ -169,9 +169,9 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private async void showMessage(string message)
+        private void showMessage(string message)
         {
-            await ErrorService.showError(message);
+            Task.Run(() => ErrorService.showError(message));
         }
         #endregion
 

@@ -13,13 +13,13 @@ using Windows.Devices.Enumeration;
 
 namespace EuphoricElephant.Services
 {
-    internal static class SensorTagService
+    public static class SensorTagService
     {
         private static Guid AccelServiceGuid = new Guid("F000AA10-0451-4000-B000-00000000000");
         private static Guid AccelDataGuid = new Guid("F000AA11-0451-4000-B000-000000000000");
         private static Guid AccelConfidGuid = new Guid("F000AA12-0451-4000-B000-000000000000");
 
-        internal async static Task<List<DeviceInformation>> FindAllTagNames()
+        public async static Task<List<DeviceInformation>> FindAllTagNames()
         {
             List<DeviceInformation> result = new List<DeviceInformation>();
 

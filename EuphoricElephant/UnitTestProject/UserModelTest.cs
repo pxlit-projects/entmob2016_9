@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+﻿using EuphoricElephant.ViewModels;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace UnitTestProject
             Assert.IsNotNull(uvm.RefreshCommand);
             Assert.IsNotNull(uvm.SaveCommand);
         }
+
+        []
     }
 }

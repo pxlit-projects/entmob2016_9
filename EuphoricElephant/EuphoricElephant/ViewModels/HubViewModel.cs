@@ -163,11 +163,11 @@ namespace EuphoricElephant.ViewModels
                 password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
             };
 
-            string b = SetPass(u);
+            string b = Task.Run(() => Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post)).Result;
             
             if (b.Equals("1"))
             {
-                myUser = getUser();
+                myUser = Task.Run(() => Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName)).Result;
                 IsLoggedIn = true;
 
                 UserName = string.Empty;
@@ -179,31 +179,14 @@ namespace EuphoricElephant.ViewModels
             }
             else if (b.Equals("2"))
             {
-                Error("Username and password did not match.");
+                Task.Run(() => ErrorService.showError("Username and password did not match."));
             }
             else
             {
-                Error("");
+                Task.Run(() => ErrorService.showError());
             }
 
             IsNotBusy = true;;
-        }
-
-        private string SetPass(User u)
-        {
-            Task<string> t = Task.Run(() => Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post));
-            return t.Result;
-        }
-
-        private User getUser()
-        {
-            Task<User> t = Task.Run(() => Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName));
-            return t.Result;
-        }
-
-        private void Error(string message)
-        {
-            Task t = Task.Run(() => ErrorService.showError(message));
         }
         #endregion
     }
