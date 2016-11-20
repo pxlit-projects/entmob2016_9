@@ -32,7 +32,9 @@ public class UserDataService {
 
 	public String addOrUpdateUser(User user) {
         try {
+        	System.out.println(user.getCountry());
             User u = repo.save(user);
+            System.out.println(u.getCountry());
             if (repo.findByUserName(u.getUserName()).get(0).getUserId() != 0){
                 return "1";
             } else {

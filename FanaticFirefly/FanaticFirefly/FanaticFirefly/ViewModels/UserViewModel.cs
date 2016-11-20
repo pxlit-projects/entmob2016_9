@@ -1,5 +1,6 @@
 ﻿using FanaticFirefly.Data;
 using FanaticFirefly.Helpers;
+using FanaticFirefly.Services;
 using FanaticFirefly.Views;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,48 @@ using Xamarin.Forms;
 
 namespace FanaticFirefly.ViewModels
 {
-    class UserViewModel : BaseModel
+    public class UserViewModel : BaseModel
     {
         private string userName = string.Empty;
         public string UserName
         {
             get { return userName; }
             set { SetProperty(ref userName, value); }
+        }
+
+        private string email = string.Empty;
+        public string Email
+        {
+            get { return email; }
+            set { SetProperty(ref email, value); }
+        }
+
+        private string country = string.Empty;
+        public string Country
+        {
+            get { return country; }
+            set { SetProperty(ref country, value); }
+        }
+
+        private string phone = string.Empty;
+        public string Phone
+        {
+            get { return phone; }
+            set { SetProperty(ref phone, value); }
+        }
+
+        private string joinedOn = string.Empty;
+        public string JoinedOn
+        {
+            get { return joinedOn; }
+            set { SetProperty(ref joinedOn, value); }
+        }
+
+        private string defaultProfileName = string.Empty;
+        public string DefaultProfileName
+        {
+            get { return defaultProfileName; }
+            set { SetProperty(ref defaultProfileName, value); }
         }
 
         private string firstName = string.Empty;
@@ -34,12 +70,18 @@ namespace FanaticFirefly.ViewModels
             set { SetProperty(ref lastName, value); }
         }
 
+        private User user;
+
         public UserViewModel()
         {
-            var user = (User)ApplicationSettings.GetItem("SelectedUser");
+            user = (User)ApplicationSettings.GetItem("SelectedUser");
             UserName = user.userName;
             FirstName = user.firstName;
             LastName = user.lastName;
+            JoinedOn = user.joinedOn;
+            Country = user.country;
+            Email = user.email;
+            Phone = user.phone;
 
             LoadCommands();
         }

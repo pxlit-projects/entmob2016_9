@@ -1,13 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:FanaticFirefly.Helpers"
              x:Class="FanaticFirefly.Views.LoginPage">
-  <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Spacing="10">
-    <Label Text="UserName:" WidthRequest="250"/>
-    <Entry Text="{Binding UserName}" WidthRequest="250"/>
-    <Label Text="Password:" WidthRequest="250"/>
-    <Entry Text="{Binding PassWord}" IsPassword="True" WidthRequest="250"/>
-    <Button Text="Login" WidthRequest="250" Command="{Binding LoginCommand}"/>
-  </StackLayout>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converter:BooleanInverter x:Key="booleanInverter"></converter:BooleanInverter>
+    </ResourceDictionary>
+  </ContentPage.Resources>
 
-  </ContentPage>
+  <ContentPage.Content>
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Spacing="10">
+      <Label Text="UserName:" IsVisible="{Binding IsLoggedIn, Converter={StaticResource booleanInverter}}" WidthRequest="250"/>
+      <Entry Text="{Binding UserName}" IsVisible="{Binding IsLoggedIn, Converter={StaticResource booleanInverter}}" WidthRequest="250"/>
+      <Label Text="Password:" IsVisible="{Binding IsLoggedIn, Converter={StaticResource booleanInverter}}" WidthRequest="250"/>
+      <Entry Text="{Binding PassWord}" IsVisible="{Binding IsLoggedIn, Converter={StaticResource booleanInverter}}" IsPassword="True" WidthRequest="250"/>
+      <Button IsEnabled="{Binding IsNotBusy}" Text="{Binding LoginText}" WidthRequest="250" Command="{Binding LoginCommand}" />
+      <Button Text="Show Users" IsVisible="{Binding IsLoggedIn}" WidthRequest="250" Command="{Binding ShowUsersCommand}"/>
+    </StackLayout>
+  </ContentPage.Content>
+  
+</ContentPage>

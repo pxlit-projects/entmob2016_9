@@ -39,9 +39,9 @@
                 <TextBox Grid.Row="1" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding FirstName, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding LastName, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Width="150" IsEnabled="False" Text="{Binding JoinedOn, Converter={StaticResource stringToDateTimeConverter}, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Email, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Phone, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
-                <TextBox Grid.Row="6" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Country, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Country, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Email, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Width="150" IsEnabled="{Binding IsNotEditing, Converter={StaticResource booleanInverter}}" Text="{Binding Phone, Mode=TwoWay}" IsSpellCheckEnabled="False"/>
             </Grid>
 
             <StackPanel Margin="0,25,0,0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">

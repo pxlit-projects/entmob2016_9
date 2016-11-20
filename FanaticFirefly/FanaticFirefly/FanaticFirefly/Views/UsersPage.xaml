@@ -9,28 +9,26 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <ScrollView>
-      <ListView x:Name="listView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <Grid>
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="Auto"/>
-                  <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Column="0" Grid.Row="0" Text="{Binding userName}"/>
-                <Label Grid.Column="1" Grid.Row="0" Text="{Binding joinedOn, Converter={StaticResource stringToDateTimeConverter}}"/>
-              </Grid>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-    </ScrollView>
+    <StackLayout Orientation="Vertical" HorizontalOptions="LayoutOptions.Center" Padding="10" VerticalOptions="FillAndExpand">
+      <!--<StackLayout Orientation="Horizontal">
+        <Button  Text="UserName" Command="{Binding SortByUserNameCommand}" HorizontalOptions="Start"></Button>  
+        <Button Text="Joined Date" Command="{Binding SortByJoinedDateCommand}" HorizontalOptions="EndAndExpand"></Button>
+      </StackLayout>-->
+      <SearchBar Text="{Binding SearchText, Mode = TwoWay}" SearchCommand="{Binding SearchCommand}"></SearchBar>
+      <ScrollView HorizontalOptions="LayoutOptions.Center" VerticalOptions="FillAndExpand">
+        <ListView x:Name="listView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" HorizontalOptions="LayoutOptions.Center" VerticalOptions="FillAndExpand">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                  <Label Text="{Binding userName}" HorizontalOptions="Start"/>
+                  <Label Text="{Binding joinedOn, Converter={StaticResource stringToDateTimeConverter}}" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </ScrollView>
+    </StackLayout>
   </ContentPage.Content>
 </ContentPage>

@@ -1,23 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FanaticFirefly.Views.UserPage">
-  <ContentView>
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-      </Grid.RowDefinitions>
+             xmlns:converter="clr-namespace:FanaticFirefly.Helpers"
+             x:Class="FanaticFirefly.Views.UserPage"
+             Title="User Information">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converter:StringToDateTimeConverter x:Key="stringToDateTimeConverter"></converter:StringToDateTimeConverter>
+    </ResourceDictionary>
+  </ContentPage.Resources>
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-      </Grid.ColumnDefinitions>
+  <ContentPage.Content>
+    <ContentView>
+      <ScrollView HorizontalOptions="Center">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
 
-      <Label Grid.Column="0" Grid.Row="0" Text="{Binding UserName}" FontAttributes="Bold" />
-      <Label Grid.Column="0" Grid.Row="1" Text="{Binding FirstName}" />
-      <Label Grid.Column="0" Grid.Row="2" Text="{Binding LastName}"/>
-      <Button Grid.Column="0" Grid.Row="3" Text="Edit" Command="{Binding EditCommand}"></Button>
-    </Grid>
-  </ContentView>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+          </Grid.ColumnDefinitions>
+
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="End" Text="User Information:" FontAttributes="Bold" />
+          <BoxView HorizontalOptions="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="White"/>
+
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="2" Text="{Binding UserName}" FontAttributes="Bold" />
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="3" Text="{Binding FirstName}" />
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="4" Text="{Binding LastName}"/>
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="5" Text="{Binding JoinedOn, Converter={StaticResource stringToDateTimeConverter}}"/>
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="6" Text="{Binding Country}"/>
+
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalOptions="End" Text="Contact Information:" FontAttributes="Bold" />
+          <BoxView HorizontalOptions="Start" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" BackgroundColor="White"/>
+
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="9" Text="{Binding Email}"/>
+          <Label HorizontalOptions="Start" Grid.Column="1" Grid.Row="10" Text="{Binding Phone}"/>
+
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="2" Text="UserName:" FontAttributes="Bold" />
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="3" Text="FirstName:" />
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="4" Text="LastName"/>
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="5" Text="JoinedOn:"/>
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="6" Text="Country:"/>
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="9" Text="Email:"/>
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="10" Text="Phone:"/>
+
+        </Grid>
+      </ScrollView>
+    </ContentView>
+  </ContentPage.Content>
 </ContentPage>

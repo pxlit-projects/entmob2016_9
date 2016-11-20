@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FanaticFirefly.Data
 {
-    class Profile
+    public class Profile
     {
         public int profileId { get; set; }
         public int userId { get; set; }

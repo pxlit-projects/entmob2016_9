@@ -4,11 +4,7 @@ using FanaticFirefly.Helpers;
 using FanaticFirefly.Services;
 using FanaticFirefly.Views;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace FanaticFirefly.ViewModels
@@ -16,6 +12,13 @@ namespace FanaticFirefly.ViewModels
     public class LoginViewmodel : BaseModel
     {
         private User myUser = null;
+
+        private string loginText = "Login";
+        public string LoginText
+        {
+            get { return loginText; }
+            set { SetProperty(ref loginText, value); }
+        }
 
         private string userName = string.Empty;
         public string UserName
@@ -45,7 +48,8 @@ namespace FanaticFirefly.ViewModels
             set { SetProperty(ref isNotBusy, value); }
         }
 
-        public Xamarin.Forms.Command LoginCommand { get; set; }
+        public ICommand LoginCommand { get; set; }
+        public ICommand ShowUsersCommand { get; set; }
 
         public LoginViewmodel()
         {
@@ -54,8 +58,14 @@ namespace FanaticFirefly.ViewModels
 
         private void LoadCommands()
         {
-            //LoginCommand = new Xamarin.Forms.Command(async () => await LoginAction());
             LoginCommand = new Xamarin.Forms.Command(LoginAction);
+            ShowUsersCommand = new Xamarin.Forms.Command(ShowUsersAction);
+        }
+
+        private async void ShowUsersAction(object obj)
+        {
+            var v = (NavigationPage)App.Current.MainPage;
+            await v.PushAsync(new UsersPage());
         }
 
         private async void LoginAction(object obj)
@@ -63,8 +73,6 @@ namespace FanaticFirefly.ViewModels
             try
             {
                 var main = (NavigationPage)Application.Current.MainPage;
-                /*  ApplicationSettings.AddItem("ErrorMessage", "Error");
-                  NavigationService.Navigate(main, new ErrorPage());*/
 
                 if (!IsLoggedIn)
                 {
@@ -85,16 +93,21 @@ namespace FanaticFirefly.ViewModels
                             if (b.Equals("1"))
                             {
                                 myUser = await Services.JsonParseService<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
-                                IsLoggedIn = true;
 
-                                UserName = string.Empty;
-                                PassWord = string.Empty;
+                                if(myUser != null)
+                                {
+                                    IsLoggedIn = true;
 
-                                Debug.WriteLine("Success");
-                                ApplicationSettings.AddItem("CurrentUser", myUser);
+                                    UserName = string.Empty;
+                                    PassWord = string.Empty;
+                                    ApplicationSettings.AddItem("CurrentUser", myUser);
 
-                                var v = (NavigationPage)App.Current.MainPage;
-                                await v.PushAsync(new UsersPage());
+                                    LoginText = "Logout";
+                                }
+                                else
+                                {
+                                    ErrorService.ShowError();
+                                }
                             }
                             else if (b.Equals("2"))
                             {
@@ -118,14 +131,11 @@ namespace FanaticFirefly.ViewModels
 
                     UserName = string.Empty;
                     PassWord = string.Empty;
-
                 }
-
-                //ErrorService.ShowError();
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                ErrorService.ShowError(e.Message);
             }
         }
 

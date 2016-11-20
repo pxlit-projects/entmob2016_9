@@ -16,12 +16,23 @@ namespace FanaticFirefly.ViewModels
 {
     class UsersViewModel : BaseModel
     {
+        private ObservableCollection<User> InitUsers;
+
 
         private ObservableCollection<User> users;
         public ObservableCollection<User> Users
         {
             get { return users; }
             set { SetProperty(ref users, value); }
+        }
+
+        private string searchtText = string.Empty;
+        public string SearchText
+        {
+            get { return searchtText; }
+            set { SetProperty(ref searchtText, value);
+                SearchAction(null);
+            }
         }
 
         private User selectedUser;
@@ -40,19 +51,51 @@ namespace FanaticFirefly.ViewModels
         public UsersViewModel()
         {
             Init();
+            LoadCommands();
         }
 
         private async void Init()
         {
-            Users = new ObservableCollection<User>(await Services.JsonParseService <List<User>>.DeserializeDataFromJson(Constants.USER_ALL_URL, null));
-            Debug.WriteLine("funfunfun");
+            InitUsers = new ObservableCollection<User>(await Services.JsonParseService <List<User>>.DeserializeDataFromJson(Constants.USER_ALL_URL, null));
+            Users = new ObservableCollection<User>(InitUsers);
         }
 
-        public ICommand EditCommand
+        private void LoadCommands()
         {
-            get;
-            set;
+            SortByUserNameCommand = new CustomCommand(SortByUserNameAction);
+            SortByJoinedDateCommand = new CustomCommand(SortByJoinedDateAction);
+            SearchCommand = new CustomCommand(SearchAction);
         }
+
+        private void SearchAction(object obj)
+        {
+            if(InitUsers != null && Users != null)
+            {
+                if (SearchText.Equals(string.Empty))
+                {
+                    Users = new ObservableCollection<User>(InitUsers);
+                }
+                else
+                {
+                    Users = new ObservableCollection<User>(InitUsers.Where(x => x.userName.Contains(SearchText)));
+                }
+            }
+        }
+
+        private void SortByJoinedDateAction(object obj)
+        {
+            Users = new ObservableCollection<User>(Users.OrderBy(x => x.joinedOn).ToList());
+        }
+
+        private void SortByUserNameAction(object obj)
+        {
+            Users = new ObservableCollection<User>(Users.OrderBy(x => x.userName).ToList());
+        }
+
+        public ICommand EditCommand {get;set;}
+        public ICommand SortByUserNameCommand { get; set; }
+        public ICommand SortByJoinedDateCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
         private async void OpenUser()
         {
@@ -65,7 +108,7 @@ namespace FanaticFirefly.ViewModels
                 ApplicationSettings.AddItem("SelectedUser", SelectedUser);
             }
             var v = (NavigationPage)App.Current.MainPage;
-            await v.PushAsync(new UserPage());
+            await v.PushAsync(new TabbedUserPage());
         }
     }
 }
