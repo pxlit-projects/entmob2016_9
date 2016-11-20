@@ -243,3 +243,10 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#UserFolders
+/xamarin
+/eMotion_xamarin
+/FanaticFireFly_xamarin_0.1
+/App2 - kopie
+/App2

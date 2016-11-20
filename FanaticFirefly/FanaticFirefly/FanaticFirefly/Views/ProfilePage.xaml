@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FanaticFirefly.Views.ProfilePage"
+             xmlns:converter="clr-namespace:FanaticFirefly.Helpers">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converter:StringToActionTypeConverter x:Key="stringToActionTypeConverter"></converter:StringToActionTypeConverter>
+      <converter:StringToCommandTypeConverter x:Key="stringToCommandTypeConverter"></converter:StringToCommandTypeConverter>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+    <ContentView >
+      <ScrollView HorizontalOptions="Center">
+        <Grid Padding="20">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+          </Grid.ColumnDefinitions>
+
+          <Label HorizontalOptions="Start" VerticalOptions="End" Grid.Column="1" Grid.Row="0" Text="{Binding ProfileName}" FontAttributes="Bold" />
+          <BoxView HorizontalOptions="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="White"/>
+
+          <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" Text="ProfileName:" FontAttributes="Bold" />
+
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="2" Text="{Binding Action1, Converter={StaticResource stringToActionTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Text="{Binding Action2, Converter={StaticResource stringToActionTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="4" Text="{Binding Action3, Converter={StaticResource stringToActionTypeConverter}}" />
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="5" Text="{Binding Action4, Converter={StaticResource stringToActionTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="6" Text="{Binding Action5, Converter={StaticResource stringToActionTypeConverter}}"/>
+
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="2" Text="{Binding Command1, Converter={StaticResource stringToCommandTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="3" Text="{Binding Command2, Converter={StaticResource stringToCommandTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="4" Text="{Binding Command3, Converter={StaticResource stringToCommandTypeConverter}}" />
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="5" Text="{Binding Command4, Converter={StaticResource stringToCommandTypeConverter}}"/>
+          <Label HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="6" Text="{Binding Command5, Converter={StaticResource stringToCommandTypeConverter}}"/>
+        </Grid>
+      </ScrollView>
+    </ContentView>
+  </ContentPage.Content>
+  
+</ContentPage>

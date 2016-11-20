@@ -1,0 +1,19 @@
+﻿<Application
+    x:Class="EuphoricElephant.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EuphoricElephant"
+    xmlns:converter="using:EuphoricElephant.Converters"
+    RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ViewModelLocator x:Key="viewModelLocator"></local:ViewModelLocator>
+            <converter:SecondsToTimeConverter x:Key="secondsToTimeConverter"></converter:SecondsToTimeConverter>
+            <converter:BooleanToColorConverter x:Key="booleanToColorConverter"></converter:BooleanToColorConverter>
+            <converter:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></converter:BooleanToVisibilityConverter>
+            <converter:BooleanToOpacityConverter x:Key="booleanToOpacityConverter"></converter:BooleanToOpacityConverter>
+            <converter:BooleanInverter x:Key="booleanInverter"></converter:BooleanInverter>
+            <converter:StringToDateTimeConverter x:Key="stringToDateTimeConverter"></converter:StringToDateTimeConverter>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
