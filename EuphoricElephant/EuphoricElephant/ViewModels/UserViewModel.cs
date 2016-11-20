@@ -17,8 +17,11 @@ namespace EuphoricElephant.ViewModels
 {
     public class UserViewModel : BaseModel
     {
+        #region privatevariables
         private User currentUser = null;
+        #endregion
 
+        #region public properties
         private string userName = string.Empty;
 
         public string UserName
@@ -122,20 +125,26 @@ namespace EuphoricElephant.ViewModels
             get { return profileItems; }
             set { SetProperty(ref profileItems, value); }
         }
+        #endregion
 
+        #region commands
         public ICommand EditCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand NewCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand DefaultCommand { get; set; }
+        #endregion
 
+        #region constructor
         public UserViewModel()
         {
-            RefisterMessages();
+            RegisterMessages();
             LoadCommands();
         }
+        #endregion
 
+        #region Init
         private void LoadCommands()
         {
             EditCommand = new CustomCommand(EditAction);
@@ -146,6 +155,42 @@ namespace EuphoricElephant.ViewModels
             DefaultCommand = new CustomCommand(DefaultAction);
         }
 
+        private void Init()
+        {
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+            }
+
+            if (currentUser != null)
+            {
+                LoadUser();
+            }
+        }
+
+        private async void LoadUser()
+        {
+            UserName = currentUser.userName;
+            FirstName = currentUser.firstName;
+            LastName = currentUser.lastName;
+            JoinedOn = currentUser.joinedOn;
+            Email = currentUser.email;
+            Phone = currentUser.phone;
+            Country = currentUser.country;
+
+            Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
+
+            DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
+            SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
+        }
+
+        private async void LoadProfileItems()
+        {
+            ProfileItems = new ObservableCollection<ProfileItem>(await ProfileService.SetPairings(SelectedProfile));
+        }
+        #endregion
+
+        #region private actions
         private async void DefaultAction(object obj)
         {
             var d = currentUser.defaultProfileId;
@@ -176,28 +221,6 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private async void RefreshAction(object obj)
-        {
-            Profiles = null;
-            Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
-
-            DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
-            SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
-        }
-
-        private void RefisterMessages()
-        {
-            Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
-        }
-
-        private void OnNavigationMessageRecieved(NavigationMessage m)
-        {
-            if(m.Type == Enumerations.ViewType.UserViewType)
-            {
-                Init();
-            }
-        }
-
         private void EditAction(object param)
         {
             IsNotEditing = !IsNotEditing;
@@ -205,7 +228,8 @@ namespace EuphoricElephant.ViewModels
             if (!isNotEditing)
             {
                 EditButtonText = "Cancel";
-            }else
+            }
+            else
             {
                 LoadUser();
                 EditButtonText = "Edit";
@@ -219,7 +243,7 @@ namespace EuphoricElephant.ViewModels
 
             var v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, p, Enumerations.SerializeType.Put);
 
-            if(v.Equals("1"))
+            if (v.Equals("1"))
             {
                 User u = currentUser;
 
@@ -244,17 +268,17 @@ namespace EuphoricElephant.ViewModels
                 {
                     List<ComboBox> comboxList = new List<ComboBox>();
 
-                    foreach(var i in ProfileItems)
+                    foreach (var i in ProfileItems)
                     {
                         ComboBox box = new ComboBox();
 
-                        foreach(var c in i.command)
+                        foreach (var c in i.command)
                         {
                             ComboBoxItem item = new ComboBoxItem();
                             item.Content = c.command;
                             box.Items.Add(item);
                         }
-                        
+
                         box.SelectedIndex = i.commandIndex;
                         comboxList.Add(box);
                     };
@@ -283,14 +307,18 @@ namespace EuphoricElephant.ViewModels
                             await ErrorService.showError(v);
                         }
                     }
-                    
+
                 }
             }
         }
 
-        private int GetProfileId()
+        private async void RefreshAction(object obj)
         {
-            return Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault().profileId;
+            Profiles = null;
+            Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
+
+            DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
+            SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
         }
 
         private async void NewAction(object param)
@@ -298,44 +326,36 @@ namespace EuphoricElephant.ViewModels
             ContentDialog d = await ProfileService.CreateNewProfileDialog(currentUser);
             ContentDialogResult r = await d.ShowAsync();
 
-            if(r == ContentDialogResult.Primary)
+            if (r == ContentDialogResult.Primary)
             {
                 Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
             }
         }
-            
+        #endregion
 
-        private void Init()
+        #region Messaging
+        private void RegisterMessages()
         {
-            if (ApplicationSettings.Contains("CurrentUser")){
-                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
-            }
+            Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
+        }
 
-            if(currentUser != null)
+        private void OnNavigationMessageRecieved(NavigationMessage m)
+        {
+            if(m.Type == Enumerations.ViewType.UserViewType)
             {
-                LoadUser();
+                Init();
+
             }
         }
+        #endregion
 
-        private async void LoadUser()
+        #region private methods
+
+        private int GetProfileId()
         {
-            UserName = currentUser.userName;
-            FirstName = currentUser.firstName;
-            LastName = currentUser.lastName;
-            JoinedOn = currentUser.joinedOn;
-            Email = currentUser.email;
-            Phone = currentUser.phone;
-            Country = currentUser.country;
-
-            Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
-
-            DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
-            SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
+            return Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault().profileId;
         }
 
-        private async void LoadProfileItems()
-        {
-            ProfileItems = new ObservableCollection<ProfileItem>(await ProfileService.SetPairings(SelectedProfile));
-        }
+        #endregion
     }
 }

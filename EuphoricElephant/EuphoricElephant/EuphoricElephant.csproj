@@ -132,9 +132,11 @@
     <Compile Include="Custom\CustomGyroscoop.cs" />
     <Compile Include="Model\SensorTag.cs" />
     <Compile Include="Services\AudioFilterService.cs" />
+    <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\AudioShuffleService.cs" />
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\JSonParseService2.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\RestService.cs" />
@@ -144,16 +146,12 @@
     <Compile Include="ViewModels\BaseModel.cs" />
     <Compile Include="Services\SensorTagService.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\DroneViewModel.cs" />
     <Compile Include="ViewModels\HubViewModel.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\SensorTagViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DroneView.xaml.cs">
-      <DependentUpon>DroneView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HubView.xaml.cs">
       <DependentUpon>HubView.xaml</DependentUpon>
@@ -195,10 +193,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\DeviceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DroneView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

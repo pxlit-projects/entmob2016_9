@@ -24,58 +24,37 @@ namespace UnitTestProject
             Assert.IsNotNull(hvm.RegisterCommand);
         }
 
-        /*  [TestMethod]
-
-          public void TestMethod2()
-          {
-
-              HubViewModel hubViewModel = new HubViewModel();
-              String userName1 = "1";
-              String password1 = "1";
-              hubViewModel.IsLoggedIn = false;
-              hubViewModel.myUser = null;
-
-              hubViewModel.UserName = userName1;
-              hubViewModel.PassWord = password1;
-              Task t = Task.Run(()=> hubViewModel.LoginAction(null));
-              Task.WaitAll();
-
-              //hubViewModel.IsLoggedIn = true;
-
-              //Assert.Equals(hubViewModel.myUser.lastName, "1");
-              Assert.IsTrue(hubViewModel.IsNotBusy == true);
-          }*/
-
-
-
-        /*   [TestMethod]
-
-           public void TestMethod2()
-           {
-              DeviceViewModel deviceViewModel = new DeviceViewModel();
-              deviceViewModel.activeSensor= new SensorTag();
-              deviceViewModel.UnpairAction(null);
-
-              Assert.AreEqual(deviceViewModel.SelectedTag, null);
-          }
-
-
-          [TestMethod]
-
-          public void TestMethod3()
-          {
-              DeviceViewModel deviceViewModel = new DeviceViewModel();
-
-
-              Assert.IsNotNull(deviceViewModel.Sensors);
-          }*/
+        [TestMethod]
+        public void TestDeviceModel()
+        {
+            DeviceViewModel dvm = new DeviceViewModel();
+            Assert.IsNotNull(dvm.UnpairCommand);
+        }
 
         [TestMethod]
         public void TestMediaViewModel()
         {
-            DeviceViewModel deviceViewModel = new DeviceViewModel();
+            MediaViewModel mvm = new MediaViewModel();
+            Assert.IsNotNull(mvm.LoadProfilesCommand);
+            Assert.IsNotNull(mvm.NextTrackCommand);
+            Assert.IsNotNull(mvm.OpenFolderCommand);
+            Assert.IsNotNull(mvm.PlayTrackCommand);
+            Assert.IsNotNull(mvm.PreviousTrackCommand);
+            Assert.IsNotNull(mvm.ShuffleCommand);
+            Assert.IsNotNull(mvm.StopTrackCommand);
+            Assert.IsNotNull(mvm.ToggleLoopCommand);
+        }
 
-            Assert.Fail(deviceViewModel.);
+        [TestMethod]
+        public void TestUserViewModel()
+        {
+            UserViewModel uvm = new UserViewModel();
+            Assert.IsNotNull(uvm.DefaultCommand);
+            Assert.IsNotNull(uvm.DeleteCommand);
+            Assert.IsNotNull(uvm.EditCommand);
+            Assert.IsNotNull(uvm.NewCommand);
+            Assert.IsNotNull(uvm.RefreshCommand);
+            Assert.IsNotNull(uvm.SaveCommand);
         }
     }
 }

@@ -23,6 +23,14 @@ namespace EuphoricElephant.ViewModels
 {
     public class HubViewModel : BaseModel
     {
+        #region Properties
+        private ObservableCollection<String> hubPoints;
+
+        public ObservableCollection<String> HubPoints
+        {
+            get { return hubPoints; }
+            set { SetProperty(ref hubPoints, value); }
+        }
         private string logButtonText = "Log in";
 
         public string LogButtonText
@@ -62,33 +70,26 @@ namespace EuphoricElephant.ViewModels
             get { return isNotBusy; }
             set { SetProperty(ref isNotBusy, value); }
         }
+        #endregion
 
-        private ObservableCollection<String> hubPoints;
-
-        public ObservableCollection<String> HubPoints
-        {
-            get { return hubPoints; }
-            set { SetProperty(ref hubPoints, value); }
-        }
-
+        #region Commands
         public ICommand NavigateCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
+        #endregion
 
+        #region Constructor
         public HubViewModel()
         {
             Init();
         }
+        #endregion
 
+        #region Init
         private void Init()
         {
             HubPoints = Constants.HUB_POINTS;
             LoadCommands();
-
-            if (ApplicationSettings.Contains("ActiveSensor"))
-            {
-
-            }
         }
 
         private void LoadCommands()
@@ -97,36 +98,16 @@ namespace EuphoricElephant.ViewModels
             LoginCommand = new CustomCommand(LoginAction);
             RegisterCommand = new CustomCommand(RegisterAction);
         }
+        #endregion
 
-        public async void NavigateAction(object param)
+        #region Private Actions
+        private void NavigateAction(object param)
         {
-            var frame = (Frame)Window.Current.Content;
-
-            switch ((string)param)
-            {
-                case Constants.DEVICES_TEXT:
-                    frame.Navigate(typeof(DeviceView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.DeviceViewType, frame));
-                    break;
-                case Constants.MEDIA_TEXT:
-                    frame.Navigate(typeof(MediaView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.MediaPlayerViewType, frame));
-                    break;
-                case Constants.DRONE_TEXT:
-                    frame.Navigate(typeof(DroneView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.DroneViewType, frame));
-                    break;
-                case Constants.USER_TEXT:
-                    frame.Navigate(typeof(UserView));
-                    Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType, frame));
-                    break;
-                default:
-                    await ErrorService.showError();
-                    break;
-            }
+            Frame frame = (Frame)Window.Current.Content;
+            NavigationService.Navigate(frame, (string)param);
         }
 
-        public async void LoginAction(object param)
+        private async void LoginAction(object param)
         {
             if (!IsLoggedIn)
             {
@@ -135,68 +116,85 @@ namespace EuphoricElephant.ViewModels
                     if (myUser == null)
                     {
                         IsNotBusy = false;
-
-                        User u = new User
-                        {
-                            userName = UserName,
-                            password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
-                        };
-
-                        string b = await Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
-
-                        if (b.Equals("1"))
-                        {
-                            myUser = await Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
-                            IsLoggedIn = true;
-
-                            UserName = string.Empty;
-                            PassWord = string.Empty;
-
-                            LogButtonText = "Log out";
-
-                            ApplicationSettings.AddItem("CurrentUser", myUser);
-                        }
-                        else if(b.Equals("2"))
-                        {
-                            await ErrorService.showError("Username and password did not match.");
-                        }
-                        else
-                        {
-                            await ErrorService.showError(b);
-                        }
-
-                        IsNotBusy = true;
+                        await Login();
                     }
                 }
             }
             else
             {
-                myUser = null;
-                IsLoggedIn = false;
+                Logout();
+            }
+        }
 
-                ApplicationSettings.Remove("CurrentUser");
+        private void RegisterAction(object param)
+        {
+            RegisterService.CreateRegisterDialog();
+        }
+        #endregion
+
+        #region Private Methods
+        private void Logout()
+        {
+            myUser = null;
+            IsLoggedIn = false;
+
+            ApplicationSettings.Remove("CurrentUser");
+
+            UserName = string.Empty;
+            PassWord = string.Empty;
+
+            LogButtonText = "Log in";
+
+            if (ApplicationSettings.Contains("MediaPlayer"))
+            {
+                MusicPlayer player = (MusicPlayer)ApplicationSettings.GetItem("MediaPlayer");
+                player.Stop();
+                ApplicationSettings.Remove("MediaPlayer");
+            }
+
+            ApplicationSettings.Remove("ActiveSensor");
+        }
+
+        private async Task<bool> Login()
+        {
+            bool succes = false;
+
+            IsNotBusy = false;
+
+            User u = new User
+            {
+                userName = UserName,
+                password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
+            };
+
+            string b = await Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
+
+            if (b.Equals("1"))
+            {
+                myUser = await Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
+                IsLoggedIn = true;
 
                 UserName = string.Empty;
                 PassWord = string.Empty;
 
-                LogButtonText = "Log in";
+                LogButtonText = "Log out";
 
-                if (ApplicationSettings.Contains("MediaPlayer"))
-                {
-                    MusicPlayer player = (MusicPlayer)ApplicationSettings.GetItem("MediaPlayer");
-                    player.Stop();
-                    ApplicationSettings.Remove("MediaPlayer");
-                }
-
-                ApplicationSettings.Remove("ActiveSensor");
+                ApplicationSettings.AddItem("CurrentUser", myUser);
+                succes = true;
             }
-        }
+            else if (b.Equals("2"))
+            {
+                await ErrorService.showError("Username and password did not match.");
+            }
+            else
+            {
+                await ErrorService.showError(b);
+            }
 
-        public void RegisterAction(object param)
-        {
-            RegisterService.CreateRegisterDialog();
-        }
+            IsNotBusy = true;
 
-        
+            return succes;
+        }
+        #endregion
     }
 }

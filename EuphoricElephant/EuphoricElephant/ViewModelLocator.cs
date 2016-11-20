@@ -11,7 +11,6 @@ namespace EuphoricElephant
     {
         private static HubViewModel hubViewModel = new HubViewModel();
         private static DeviceViewModel deviceViewModel = new DeviceViewModel();
-        private static DroneViewModel droneViewModel = new DroneViewModel();
         private static MediaViewModel mediaViewModel = new MediaViewModel();
         private static UserViewModel userViewModel = new UserViewModel();
 
@@ -28,14 +27,6 @@ namespace EuphoricElephant
             get
             {
                 return deviceViewModel;
-            }
-        }
-
-        public static DroneViewModel DroneViewModel
-        {
-            get
-            {
-                return droneViewModel;
             }
         }
 

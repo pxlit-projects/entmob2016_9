@@ -26,7 +26,7 @@ namespace EuphoricElephant.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                await ErrorService.showError(e.Message);
             }
 
             return reply;
@@ -83,7 +83,6 @@ namespace EuphoricElephant.Services
             catch (Exception e)
             {
                 //OK Just Return NULL
-                Debug.WriteLine(e.Message);
             }
 
             return (T)Convert.ChangeType(obj, typeof(T));

@@ -23,26 +23,12 @@ namespace EuphoricElephant.ViewModels
         public ICommand UnpairCommand { get; set; }
         #endregion
 
+        #region Properties
         private ObservableCollection<DeviceInformation> sensors;
         private ObservableCollection<DeviceInformation> drones;
 
         private DeviceInformation selectedTag;
         private DeviceInformation selectedDrone;
-
-        private string selectedIndex = null;
-
-        private Frame frame;
-
-        private void LoadCommands()
-        {
-            UnpairCommand = new CustomCommand(UnpairAction);
-        }
-
-        private void UnpairAction(object obj)
-        {
-            SelectedTag = null;
-            activeSensor = null;
-        }
 
         public string SelectedIndex
         {
@@ -67,7 +53,7 @@ namespace EuphoricElephant.ViewModels
             get { return selectedTag; }
             set
             {
-                if( value != null)
+                if (value != null)
                 {
                     SetProperty(ref selectedTag, value);
                     activeSensor = new SensorTag
@@ -84,7 +70,7 @@ namespace EuphoricElephant.ViewModels
                     {
                         showMessage("SensorTag was already paired, unpair to select another");
                     }
-                    
+
                 }
                 else
                 {
@@ -99,59 +85,76 @@ namespace EuphoricElephant.ViewModels
             get { return selectedDrone; }
             set
             {
-                SetProperty(ref selectedDrone, value);               
+                SetProperty(ref selectedDrone, value);
             }
         }
+        #endregion
 
+        #region Private Variables
+        private string selectedIndex = null;
+        private Frame frame;
         private SensorTag activeSensor;
+        #endregion 
 
+        #region Actions
+        private void UnpairAction(object obj)
+        {
+            SelectedTag = null;
+            activeSensor = null;
+        }
+        #endregion
+
+        #region Constructor
         public DeviceViewModel()
         {
+            LoadCommands();
             RegisterMessages();
         }
+        #endregion
 
+        #region Init
+        private async Task<bool> Init()
+        {
+            bool succes = false;
+
+            
+            if (!(await LoadData()))
+            {
+                showError("No devices found.");
+            }else
+            {
+                succes = true;
+            }
+
+            return succes;
+        }
+
+        private void LoadCommands()
+        {
+            UnpairCommand = new CustomCommand(UnpairAction);
+        }
+        #endregion
+
+        #region Messaging
         private void RegisterMessages()
         {
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
         }
 
-        private void OnNavigationMessageRecieved(NavigationMessage m)
+        private async void OnNavigationMessageRecieved(NavigationMessage m)
         {
             if (m.Type == Enumerations.ViewType.DeviceViewType)
             {
                 frame = m.Frame;
-                Init();
-            }
-        }
-
-        private async void Init()
-        {
-
-            LoadCommands();
-
-
-            Sensors = new ObservableCollection<DeviceInformation>();
-            Drones = new ObservableCollection<DeviceInformation>();
-
-
-            foreach (DeviceInformation d in (await SensorTagService.FindAllTagNames()))
-            {
-                if (d.Name.ToLower().Contains("sensortag"))
+                if(!await Init())
                 {
-                    Sensors.Add(d);
-                }
-                else if (d.Name.ToLower().Contains("drone"))
-                {
-                    Drones.Add(d);
+                    await ErrorService.showError();
                 }
             }
-
-            if (Sensors.Count() == 0 && Drones.Count() == 0)
-            {
-                showError("No devices found.");
-            }
         }
+        #endregion
 
+        #region Error
         private async void showError(string error)
         {
             var dialog = new Windows.UI.Popups.MessageDialog(error);
@@ -170,5 +173,35 @@ namespace EuphoricElephant.ViewModels
         {
             await ErrorService.showError(message);
         }
+        #endregion
+
+        #region Private Methods
+        private async Task<bool> LoadData()
+        {
+            bool succes = false;
+
+            Sensors = new ObservableCollection<DeviceInformation>();
+            Drones = new ObservableCollection<DeviceInformation>();
+
+            foreach (DeviceInformation d in (await SensorTagService.FindAllTagNames()))
+            {
+                if (d.Name.ToLower().Contains("sensortag"))
+                {
+                    Sensors.Add(d);
+                }
+                else if (d.Name.ToLower().Contains("drone"))
+                {
+                    Drones.Add(d);
+                }
+            }
+
+            if (!((Sensors.Count() == 0 && Drones.Count() == 0)))
+            {
+                succes = true;
+            }
+
+            return succes;
+        }
+        #endregion
     }
 }

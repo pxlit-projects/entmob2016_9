@@ -73,7 +73,7 @@ namespace EuphoricElephant.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                await ErrorService.showError(e.Message);
             }
             finally
             {
