@@ -16,7 +16,7 @@ namespace UnitTestProject
 
         [TestMethod]
 
-        public void TestMethod1()
+        public void TestHubViewModel()
         {
             HubViewModel hvm = new HubViewModel();
             Assert.IsNotNull(hvm.NavigateCommand);
@@ -24,51 +24,58 @@ namespace UnitTestProject
             Assert.IsNotNull(hvm.RegisterCommand);
         }
 
-      /*  [TestMethod]
+        /*  [TestMethod]
 
-        public void TestMethod2()
-        {
-            
-            HubViewModel hubViewModel = new HubViewModel();
-            String userName1 = "1";
-            String password1 = "1";
-            hubViewModel.IsLoggedIn = false;
-            hubViewModel.myUser = null;
+          public void TestMethod2()
+          {
 
-            hubViewModel.UserName = userName1;
-            hubViewModel.PassWord = password1;
-            Task t = Task.Run(()=> hubViewModel.LoginAction(null));
-            Task.WaitAll();
+              HubViewModel hubViewModel = new HubViewModel();
+              String userName1 = "1";
+              String password1 = "1";
+              hubViewModel.IsLoggedIn = false;
+              hubViewModel.myUser = null;
 
-            //hubViewModel.IsLoggedIn = true;
+              hubViewModel.UserName = userName1;
+              hubViewModel.PassWord = password1;
+              Task t = Task.Run(()=> hubViewModel.LoginAction(null));
+              Task.WaitAll();
 
-            //Assert.Equals(hubViewModel.myUser.lastName, "1");
-            Assert.IsTrue(hubViewModel.IsNotBusy == true);
-        }*/
+              //hubViewModel.IsLoggedIn = true;
 
-        
+              //Assert.Equals(hubViewModel.myUser.lastName, "1");
+              Assert.IsTrue(hubViewModel.IsNotBusy == true);
+          }*/
 
-         [TestMethod]
 
-         public void TestMethod2()
-         {
-            DeviceViewModel deviceViewModel = new DeviceViewModel();
-            deviceViewModel.activeSensor= new SensorTag();
-            deviceViewModel.UnpairAction(null);
 
-            Assert.AreEqual(deviceViewModel.SelectedTag, null);
-        }
+        /*   [TestMethod]
 
+           public void TestMethod2()
+           {
+              DeviceViewModel deviceViewModel = new DeviceViewModel();
+              deviceViewModel.activeSensor= new SensorTag();
+              deviceViewModel.UnpairAction(null);
+
+              Assert.AreEqual(deviceViewModel.SelectedTag, null);
+          }
+
+
+          [TestMethod]
+
+          public void TestMethod3()
+          {
+              DeviceViewModel deviceViewModel = new DeviceViewModel();
+
+
+              Assert.IsNotNull(deviceViewModel.Sensors);
+          }*/
 
         [TestMethod]
-
-        public void TestMethod3()
+        public void TestMediaViewModel()
         {
             DeviceViewModel deviceViewModel = new DeviceViewModel();
-            
 
-            Assert.IsNotNull(deviceViewModel.Sensors);
+            Assert.Fail(deviceViewModel.);
         }
-
     }
 }
