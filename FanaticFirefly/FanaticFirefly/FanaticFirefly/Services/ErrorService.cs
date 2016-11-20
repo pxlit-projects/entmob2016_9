@@ -1,4 +1,6 @@
-﻿using FanaticFirefly.Helpers;
+﻿using FanaticFirefly.Enumerations;
+using FanaticFirefly.Helpers;
+using FanaticFirefly.Messaging;
 using FanaticFirefly.Views;
 using System;
 using System.Collections.Generic;
@@ -12,21 +14,9 @@ namespace FanaticFirefly.Services
 {
     public static class ErrorService
     {
-        public static string GetErrorMessage()
+        public static void ShowError(ViewType type, string message = "Oops something went wrong.")
         {
-            object error = null;
-
-            if (ApplicationSettings.Contains("ErrorMessage"))
-            {
-                error = ApplicationSettings.GetItem("ErrorMessage");
-            }
-
-            return (string)error;
-        }
-
-        public static void ShowError(string message = "Oops something went wrong.")
-        {
-            
+            Messenger.Default.Send<ErrorServiceMessage>(new ErrorServiceMessage(message, type));
         }
     }
 }

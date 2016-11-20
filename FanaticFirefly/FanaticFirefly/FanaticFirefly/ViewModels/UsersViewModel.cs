@@ -1,6 +1,7 @@
 ﻿using FanaticFirefly.Data;
 using FanaticFirefly.Enumerations;
 using FanaticFirefly.Helpers;
+using FanaticFirefly.Services;
 using FanaticFirefly.Views;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace FanaticFirefly.ViewModels
                 SetProperty(ref selectedUser, value);
                 if (SelectedUser != null)
                 {
-                    OpenUser();
+                    NavigationService.OpenUser(value, (NavigationPage)App.Current.MainPage);
                 }
             }
         }
@@ -57,7 +58,14 @@ namespace FanaticFirefly.ViewModels
         private async void Init()
         {
             InitUsers = new ObservableCollection<User>(await Services.JsonParseService <List<User>>.DeserializeDataFromJson(Constants.USER_ALL_URL, null));
-            Users = new ObservableCollection<User>(InitUsers);
+            if(InitUsers != null)
+            {
+                Users = new ObservableCollection<User>(InitUsers);
+            }
+            else
+            {
+                ErrorService.ShowError(ViewType.UsersView);
+            }
         }
 
         private void LoadCommands()
@@ -97,18 +105,6 @@ namespace FanaticFirefly.ViewModels
         public ICommand SortByJoinedDateCommand { get; set; }
         public ICommand SearchCommand { get; set; }
 
-        private async void OpenUser()
-        {
-            if (ApplicationSettings.Contains("SelectedUser"))
-            {
-                ApplicationSettings.Edit("SelectedUser", SelectedUser);
-            }
-            else
-            {
-                ApplicationSettings.AddItem("SelectedUser", SelectedUser);
-            }
-            var v = (NavigationPage)App.Current.MainPage;
-            await v.PushAsync(new TabbedUserPage());
-        }
+        
     }
 }

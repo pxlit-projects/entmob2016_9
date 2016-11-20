@@ -22,7 +22,7 @@ namespace FanaticFirefly.Services
             }
             catch (Exception e)
             {
-                ErrorService.ShowError(e.Message);
+                return e.Message;
             }
 
             return reply;

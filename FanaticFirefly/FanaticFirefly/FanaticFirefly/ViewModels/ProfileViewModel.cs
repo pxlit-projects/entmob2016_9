@@ -1,5 +1,6 @@
 ﻿using FanaticFirefly.Data;
 using FanaticFirefly.Helpers;
+using FanaticFirefly.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,23 +106,34 @@ namespace FanaticFirefly.ViewModels
             {
                 SelectedProfile = (Profile)ApplicationSettings.GetItem("SelectedProfile");
 
-                var aList = SelectedProfile.pairings.Split(';')[0].Split(',');
+                if(SelectedProfile != null)
+                {
+                    var aList = SelectedProfile.pairings.Split(';')[0].Split(',');
 
-                Action1 = aList[0];
-                Action2 = aList[1];
-                Action3 = aList[2];
-                Action4 = aList[3];
-                Action5 = aList[4];
+                    Action1 = aList[0];
+                    Action2 = aList[1];
+                    Action3 = aList[2];
+                    Action4 = aList[3];
+                    Action5 = aList[4];
 
-                var cList = SelectedProfile.pairings.Split(';')[1].Split(',');
+                    var cList = SelectedProfile.pairings.Split(';')[1].Split(',');
 
-                Command1 = cList[0];
-                Command2 = cList[1];
-                Command3 = cList[2];
-                Command4 = cList[3];
-                Command5 = cList[4];
+                    Command1 = cList[0];
+                    Command2 = cList[1];
+                    Command3 = cList[2];
+                    Command4 = cList[3];
+                    Command5 = cList[4];
 
-                ProfileName = SelectedProfile.profileName;
+                    ProfileName = SelectedProfile.profileName;
+                }
+                else
+                {
+                    ErrorService.ShowError(Enumerations.ViewType.ProfileView);
+                }
+            }
+            else
+            {
+                ErrorService.ShowError(Enumerations.ViewType.ProfileView);
             }
         }
     }

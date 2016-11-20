@@ -1,4 +1,6 @@
-﻿using FanaticFirefly.ViewModels;
+﻿using FanaticFirefly.Enumerations;
+using FanaticFirefly.Messaging;
+using FanaticFirefly.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,15 @@ namespace FanaticFirefly.Views
         {
             BindingContext = new UserViewModel();
             InitializeComponent();
+            Messenger.Default.Register<ErrorServiceMessage>(this, OnErrorServiceMessageRecieved);
+        }
+
+        private void OnErrorServiceMessageRecieved(ErrorServiceMessage m)
+        {
+            if (m.Type == ViewType.UserView)
+            {
+                DisplayAlert("Error", m.ErrorMessage, "OK");
+            }
         }
     }
 }

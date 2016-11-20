@@ -75,13 +75,21 @@ namespace FanaticFirefly.ViewModels
         public UserViewModel()
         {
             user = (User)ApplicationSettings.GetItem("SelectedUser");
-            UserName = user.userName;
-            FirstName = user.firstName;
-            LastName = user.lastName;
-            JoinedOn = user.joinedOn;
-            Country = user.country;
-            Email = user.email;
-            Phone = user.phone;
+
+            if(user != null)
+            {
+                UserName = user.userName;
+                FirstName = user.firstName;
+                LastName = user.lastName;
+                JoinedOn = user.joinedOn;
+                Country = user.country;
+                Email = user.email;
+                Phone = user.phone;
+            }else
+            {
+                ErrorService.ShowError(Enumerations.ViewType.UserView);
+            }
+            
 
             LoadCommands();
         }

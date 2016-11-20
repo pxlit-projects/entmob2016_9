@@ -25,7 +25,7 @@ namespace FanaticFirefly.ViewModels
         public Profile SelectedProfile
         {
             get { return selectedProfile; }
-            set { SetProperty(ref selectedProfile, value); OpenProfile(); }
+            set { SetProperty(ref selectedProfile, value); NavigationService.OpenProfile(value, (NavigationPage)App.Current.MainPage); }
         }
 
         public ProfilesViewModel()
@@ -36,28 +36,25 @@ namespace FanaticFirefly.ViewModels
         private async void Init()
         {
             User currUser = null;
-            if (ApplicationSettings.Contains("CurrentUser")) currUser = (User)ApplicationSettings.GetItem("CurrentUser");
+            if (ApplicationSettings.Contains("SelectedUser")) currUser = (User)ApplicationSettings.GetItem("SelectedUser");
             if(currUser != null)
             {
-                Profiles = new ObservableCollection<Profile>(await JsonParseService<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currUser.userId)));
+                var profiles = await DataAccessService.GetProfiles(currUser);
+
+                if(profiles == null)
+                {
+                    ErrorService.ShowError(Enumerations.ViewType.ProfilesView);
+                }
+                else
+                {
+                    Profiles = profiles;
+                }
+            }else
+            {
+                ErrorService.ShowError(Enumerations.ViewType.ProfilesView);
             }
         }
 
-        private async void OpenProfile()
-        {
-            if (ApplicationSettings.Contains("SelectedProfile"))
-            {
-                ApplicationSettings.Edit("SelectedProfile", SelectedProfile);
-            }
-            else
-            {
-                ApplicationSettings.AddItem("SelectedProfile", SelectedProfile);
-            }
-            if (SelectedProfile != null)
-            {
-                var v = (NavigationPage)App.Current.MainPage;
-                await v.PushAsync(new ProfilePage());
-            }
-        }
+        
     }
 }

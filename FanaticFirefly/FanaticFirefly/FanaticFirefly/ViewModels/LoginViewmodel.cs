@@ -4,6 +4,7 @@ using FanaticFirefly.Helpers;
 using FanaticFirefly.Services;
 using FanaticFirefly.Views;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -68,7 +69,7 @@ namespace FanaticFirefly.ViewModels
             await v.PushAsync(new UsersPage());
         }
 
-        private async void LoginAction(object obj)
+        private void LoginAction(object obj)
         {
             try
             {
@@ -81,63 +82,70 @@ namespace FanaticFirefly.ViewModels
                         if (myUser == null)
                         {
                             IsNotBusy = false;
-
-                            User u = new User
-                            {
-                                userName = UserName,
-                                password = EasyEncryption.SHA.ComputeSHA256Hash(PassWord + UserName)
-                            };
-
-                            string b = await Services.JsonParseService<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
-
-                            if (b.Equals("1"))
-                            {
-                                myUser = await Services.JsonParseService<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
-
-                                if(myUser != null)
-                                {
-                                    IsLoggedIn = true;
-
-                                    UserName = string.Empty;
-                                    PassWord = string.Empty;
-                                    ApplicationSettings.AddItem("CurrentUser", myUser);
-
-                                    LoginText = "Logout";
-                                }
-                                else
-                                {
-                                    ErrorService.ShowError();
-                                }
-                            }
-                            else if (b.Equals("2"))
-                            {
-                                ErrorService.ShowError("Username and password did not match.");
-                            }
-                            else
-                            {
-                                ErrorService.ShowError(b);
-                            }
-
-                            IsNotBusy = true;
+                            Login();
                         }
                     }
                 }
                 else
                 {
-                    myUser = null;
-                    IsLoggedIn = false;
-
-                    ApplicationSettings.Remove("CurrentUser");
-
-                    UserName = string.Empty;
-                    PassWord = string.Empty;
+                    Logout();
                 }
             }
             catch (Exception e)
             {
-                ErrorService.ShowError(e.Message);
+                ErrorService.ShowError(ViewType.LoginView, e.Message);
+            }
+            finally
+            {
+                IsNotBusy = true;
             }
         }
 
+        private void Logout()
+        {
+            myUser = null;
+            IsLoggedIn = false;
+
+            ApplicationSettings.Remove("CurrentUser");
+
+            UserName = string.Empty;
+            PassWord = string.Empty;
+
+            LoginText = "Login";
+        }
+
+        private async void Login()
+        {
+            string b = await DataAccessService.GetLoginStatus(UserName, PassWord);
+
+            if (b.Equals("1"))
+            {
+
+                myUser = await DataAccessService.GetLogedInUser(UserName);
+
+                if (myUser != null)
+                {
+                    IsLoggedIn = true;
+
+                    UserName = string.Empty;
+                    PassWord = string.Empty;
+                    ApplicationSettings.AddItem("CurrentUser", myUser);
+
+                    LoginText = "Logout";
+                }
+                else
+                {
+                    ErrorService.ShowError(ViewType.LoginView);
+                }
+            }
+            else if (b.Equals("2"))
+            {
+                ErrorService.ShowError(ViewType.LoginView, "Username and password did not match.");
+            }
+            else
+            {
+                ErrorService.ShowError(ViewType.LoginView, b);
+            }
+        }
     }
 }
