@@ -107,7 +107,7 @@ namespace EuphoricElephant.ViewModels
             NavigationService.Navigate(frame, (string)param);
         }
 
-        private async void LoginAction(object param)
+        private void LoginAction(object param)
         {
             if (!IsLoggedIn)
             {
@@ -116,7 +116,7 @@ namespace EuphoricElephant.ViewModels
                     if (myUser == null)
                     {
                         IsNotBusy = false;
-                        await Login();
+                        Login();
                     }
                 }
             }
@@ -155,23 +155,19 @@ namespace EuphoricElephant.ViewModels
             ApplicationSettings.Remove("ActiveSensor");
         }
 
-        private async Task<bool> Login()
+        private void Login()
         {
-            bool succes = false;
-
-            IsNotBusy = false;
-
             User u = new User
             {
                 userName = UserName,
                 password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
             };
 
-            string b = await Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
-
+            string b = SetPass(u);
+            
             if (b.Equals("1"))
             {
-                myUser = await Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
+                myUser = getUser();
                 IsLoggedIn = true;
 
                 UserName = string.Empty;
@@ -180,20 +176,34 @@ namespace EuphoricElephant.ViewModels
                 LogButtonText = "Log out";
 
                 ApplicationSettings.AddItem("CurrentUser", myUser);
-                succes = true;
             }
             else if (b.Equals("2"))
             {
-                await ErrorService.showError("Username and password did not match.");
+                Error("Username and password did not match.");
             }
             else
             {
-                await ErrorService.showError(b);
+                Error("");
             }
 
-            IsNotBusy = true;
+            IsNotBusy = true;;
+        }
 
-            return succes;
+        private string SetPass(User u)
+        {
+            Task<string> t = Task.Run(() => Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post));
+            return t.Result;
+        }
+
+        private User getUser()
+        {
+            Task<User> t = Task.Run(() => Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName));
+            return t.Result;
+        }
+
+        private void Error(string message)
+        {
+            Task t = Task.Run(() => ErrorService.showError(message));
         }
         #endregion
     }
