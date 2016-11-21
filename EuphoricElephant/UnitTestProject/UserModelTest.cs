@@ -22,7 +22,5 @@ namespace UnitTestProject
             Assert.IsNotNull(uvm.RefreshCommand);
             Assert.IsNotNull(uvm.SaveCommand);
         }
-
-        []
     }
 }

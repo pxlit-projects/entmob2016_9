@@ -23,7 +23,18 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        public async Task SetSensorTag()
+        public void TestUnpair()
+        {
+            DeviceViewModel dvm = new DeviceViewModel();
+
+            dvm.UnpairCommand.Execute(null);
+
+            Assert.IsNull(dvm.SelectedTag);
+            Assert.IsFalse(ApplicationSettings.Contains("ActiveSensor"));
+        }
+
+        [TestMethod]
+        public async Task TestSetSensorTag()
         {
             ApplicationSettings.Remove("ActiveSensor");
             DeviceViewModel dvm = new DeviceViewModel();
