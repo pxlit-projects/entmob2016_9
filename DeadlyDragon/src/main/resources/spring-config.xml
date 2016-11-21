@@ -21,13 +21,6 @@
         <property name="password" value="" />
     </bean>
 
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:password-encoder hash="sha-256" />
-            <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT userName, password FROM user WHERE userName = ?" authorities-by-username-query="SELECT userName,role FROM users WHERE userName = ?" />
-        </security:authentication-provider>
-    </security:authentication-manager>
-
     <data:repositories base-package="be.pxl.emotion.repositories" />
 
     <mvc:annotation-driven />
