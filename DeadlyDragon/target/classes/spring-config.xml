@@ -30,13 +30,6 @@
         <constructor-arg value="randQueue" />
     </bean>
 
-    <bean id="jmsListenerContainerFactory"
-          class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
-        <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="destinationResolver" ref="destinationResolver"/>
-        <property name="concurrency" value="3-10"/>
-    </bean>
-
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="receiveTimeout" value="10000" />
