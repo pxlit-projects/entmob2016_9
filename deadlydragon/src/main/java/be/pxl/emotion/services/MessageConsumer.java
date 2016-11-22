@@ -28,14 +28,14 @@ public class MessageConsumer {
     }
 
     @JmsListener(destination = "ErrorQueue")
-    public void recieveError() throws JMSException {
+    public void receiveError() throws JMSException {
         Exception ex = (Exception) getJmsTemplate().receiveAndConvert();
         logger.error("Sorry, something went wrong",ex);
         
     }
 
     @JmsListener(destination = "LogQueue")
-    public void recieveMessage() throws JMSException {
+    public void receiveMessage() throws JMSException {
         TextMessage tm = (TextMessage) getJmsTemplate().receive();
         String log = tm.getText();
         logger.info(log);

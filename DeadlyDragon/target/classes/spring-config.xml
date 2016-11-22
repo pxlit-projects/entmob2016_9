@@ -24,7 +24,7 @@
 
 
     <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="auto://localhost:61616" />
+        <property name="brokerURL" value="tcp://0.0.0.0:61616" />
     </bean>
     <bean id="messageDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="randQueue" />
@@ -47,6 +47,8 @@
     <data:repositories base-package="be.pxl.emotion.repositories" />
 
     <mvc:annotation-driven />
+
+    <jms:annotation-driven/>
 
     <aop:aspectj-autoproxy/>
 
