@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans  xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
-        xmlns:data="http://www.springframework.org/schema/data/jpa"
-        xmlns:mvc="http://www.springframework.org/schema/mvc"
-        xmlns:security="http://www.springframework.org/schema/security"
-        xsi:schemaLocation="
-            http://www.springframework.org/schema/security
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:data="http://www.springframework.org/schema/data/jpa"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security.xsd
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
             http://www.springframework.org/schema/data/jpa
-            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-
+            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:property-placeholder location="classpath:application.properties" ignore-resource-not-found="false"/>
+	
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/emotiondb" />
@@ -21,15 +24,40 @@
         <property name="password" value="" />
     </bean>
 
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:password-encoder hash="sha-256" />
-            <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT userName, password FROM user WHERE userName = ?" authorities-by-username-query="SELECT userName,role FROM users WHERE userName = ?" />
-        </security:authentication-provider>
-    </security:authentication-manager>
+    <bean id="dataSourceTest" class="com.jolbox.bonecp.BoneCPDataSource">
+        <property name="driverClass" value="${db.driver}"/>
+        <property name="jdbcUrl" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://0.0.0.0:61616" />
+    </bean>
+    <bean id="messageDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="randQueue" />
+    </bean>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="receiveTimeout" value="10000" />
+        <property name="defaultDestination" ref="messageDestination" />
+    </bean>
+
+    <bean id="MessageProducer" class="be.pxl.emotion.services.MessageProducer">
+        <property name="jmsTemplate" ref="jmsTemplate" />
+    </bean>
+
+    <bean id="MessageConsumer" class="be.pxl.emotion.services.MessageConsumer" >
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+    </bean>
 
     <data:repositories base-package="be.pxl.emotion.repositories" />
 
     <mvc:annotation-driven />
+
+    <jms:annotation-driven/>
+
+    <aop:aspectj-autoproxy/>
 
 </beans>
