@@ -359,13 +359,13 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Private Methods
-        private void PlayTrackAction(object param)
+        private async void PlayTrackAction(object param)
         {
             if (!isPaused && !isPlaying)
             {
                 TrackIndex = Tracks.IndexOf(SelectedTrack);
 
-                byte[] data = Task.Run(() => player.Play(SelectedTrack)).Result;
+                byte[] data = await player.Play(SelectedTrack);
 
                 PlayButtonText = "Pause";
 
