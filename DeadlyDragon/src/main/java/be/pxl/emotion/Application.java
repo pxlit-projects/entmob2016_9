@@ -1,11 +1,14 @@
 package be.pxl.emotion;
 
-import be.pxl.emotion.beans.MessageProducer;
+import be.pxl.emotion.services.MessageProducer;
+import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.store.memory.MemoryPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -70,7 +73,6 @@ public class Application {
 	public static void main(String[] args) {
 
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-        MessageProducer sender = new MessageProducer();
-        sender.sendLog("Test");
+
 	}
 }
