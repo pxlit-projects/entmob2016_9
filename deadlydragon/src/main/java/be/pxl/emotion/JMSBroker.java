@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
  * Created by Dragonites on 22/11/2016.
  */
 public class JMSBroker {
-    public static void main(String[] args) throws URISyntaxException, Exception {
+    public static void main(String[] args) throws Exception {
         BrokerService broker = BrokerFactory.createBroker(new URI("broker:(tcp://0.0.0.0:61616)"));
         broker.start();
         System.in.read();
