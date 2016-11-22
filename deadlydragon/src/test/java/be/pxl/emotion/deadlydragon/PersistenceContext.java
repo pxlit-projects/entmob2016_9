@@ -1,6 +1,6 @@
-package deadlydragon;
+package be.pxl.emotion.deadlydragon;
 
-import com.jolbox.bonecp.BoneCPDataSource;
+//import com.jolbox.bonecp.BoneCPDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +40,7 @@ public class PersistenceContext {
     @Autowired
     private Environment environment;
     
-    @Bean
+    /*@Bean
     public DataSource dataSource() {
         BoneCPDataSource dataSource = new BoneCPDataSource();
 
@@ -50,7 +50,7 @@ public class PersistenceContext {
         dataSource.setPassword(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 
         return dataSource;
-    }
+    }*/
 
     @Bean
     public JpaTransactionManager transactionManager() {
@@ -65,7 +65,7 @@ public class PersistenceContext {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
-        entityManagerFactoryBean.setDataSource(dataSource());
+        //entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
 
