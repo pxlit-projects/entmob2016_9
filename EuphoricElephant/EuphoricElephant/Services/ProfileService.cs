@@ -17,7 +17,7 @@ namespace EuphoricElephant.Services
         private static List<Data.Action> actions;
         private static bool isCreatingNew = false;
 
-        public async static Task<ContentDialog> CreateNewProfileDialog(User user)
+        public static ContentDialog CreateNewProfileDialog(User user)
         {
             isCreatingNew = true;
 
@@ -40,7 +40,7 @@ namespace EuphoricElephant.Services
             grid.ColumnDefinitions.Add(col1);
             grid.ColumnDefinitions.Add(col2);
 
-            actions = await GetActions();
+            actions = GetActions();
 
             RowDefinition r1 = new RowDefinition();
             r1.Height = new GridLength(0, GridUnitType.Auto);
@@ -62,9 +62,9 @@ namespace EuphoricElephant.Services
                 TextBlock text = new TextBlock { Text = actions[i].action, Width = 150 };
 
                 ComboBox commandBox = new ComboBox { Width = 150 };
-                List<Command> commands = await GetCommands();
+                List<Command> commands = GetCommands();
 
-                foreach(var c in commands)
+                foreach (var c in commands)
                 {
                     commandBox.Items.Add(new ComboBoxItem { Content = c.command });
                 }
@@ -79,8 +79,8 @@ namespace EuphoricElephant.Services
                 Grid.SetColumn(text, 0);
                 Grid.SetColumn(commandBox, 1);
 
-                Grid.SetRow(text, i+1);
-                Grid.SetRow(commandBox, i+1);
+                Grid.SetRow(text, i + 1);
+                Grid.SetRow(commandBox, i + 1);
             }
 
             dialog.Content = grid;
@@ -97,7 +97,7 @@ namespace EuphoricElephant.Services
                         {
                             profileName = box.Text,
                             userId = user.userId,
-                            pairings = await GetPairings(comboxlist)
+                            pairings = GetPairings(comboxlist)
                         };
 
                         var v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_ADD_URL, newProfile, Enumerations.SerializeType.Post);
@@ -110,19 +110,18 @@ namespace EuphoricElephant.Services
                 }
                 catch (Exception e)
                 {
-                    await ErrorService.showError(e.Message);
-                    
+                   ErrorService.showError(e.Message);
                 }
             };
 
             return dialog;
         }
 
-        public static async Task<List<Data.Action>> GetActions()
+        public static List<Data.Action> GetActions()
         {
             try
             {
-                return await JSonParseService2<List<Data.Action>>.DeserializeDataFromJson(Constants.ACTION_ALL_URL, null);
+                return Task.Run(() => JSonParseService2<List<Data.Action>>.DeserializeDataFromJson(Constants.ACTION_ALL_URL, null)).Result;
             }
             catch (Exception e)
             {
@@ -131,16 +130,16 @@ namespace EuphoricElephant.Services
             }
         }
 
-        public static async Task<List<Command>> GetCommands()
+        public static List<Command> GetCommands()
         {
-            var v = await JSonParseService2<List<Command>>.DeserializeDataFromJson(Constants.COMMAND_ALL_URL, null);
+            var v = Task.Run(() => JSonParseService2<List<Command>>.DeserializeDataFromJson(Constants.COMMAND_ALL_URL, null)).Result;
             return v;
         }
 
-        public async static Task<List<ProfileItem>> SetPairings(Profile profile)
+        public static List<ProfileItem> SetPairings(Profile profile)
         {
-            var actions = await GetActions();
-            var commands = await GetCommands();
+            var actions = GetActions();
+            var commands = GetCommands();
 
             var pairingsString = profile.pairings.Split(';');
 
@@ -148,7 +147,7 @@ namespace EuphoricElephant.Services
 
             List<ProfileItem> items = new List<ProfileItem>();
 
-            for(int i = 0; i< actionString.Length; i++)
+            for (int i = 0; i < actionString.Length; i++)
             {
                 ProfileItem item = new ProfileItem
                 {
@@ -163,16 +162,105 @@ namespace EuphoricElephant.Services
             return items;
         }
 
-        public static async Task<string> GetPairings(List<ComboBox> comboxlist)
+        public static string GetPairings()
         {
+            string pairings = GetFirstPair();
+
+            if(pairings != null)
+            {
+                List<Command> commands = Task.Run(() => GetCommands()).Result;
+
+                for (int i = 0; i < commands.Count; i++)
+                {
+                    pairings += commands[i].commandId;
+
+                    if (i != actions.Count - 1)
+                    {
+                        pairings += ",";
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return pairings;
+        }
+
+        public static string GetPairings(List<ProfileItem> pList)
+        {
+            string pairings = GetFirstPair();
+
+            if (pairings != null)
+            {
+                List<Command> commands = Task.Run(() => GetCommands()).Result;
+
+                if (pList != null)
+                {
+                    for (int i = 0; i < pList.Count; i++)
+                    {
+                        var v = pList[i].command[pList[i].commandIndex].command;
+                        pairings += commands.Where(x => x.command == v).SingleOrDefault().commandId;
+
+                        if (i != pList.Count - 1)
+                        {
+                            pairings += ",";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return pairings;
+        }
+
+        public static string GetPairings(List<ComboBox> comboxlist)
+        {
+            string pairings = GetFirstPair();
+
+            try
+            {
+                List<Command> commands = Task.Run(() => GetCommands()).Result;
+
+                if (comboxlist != null)
+                {
+                    for (int i = 0; i < comboxlist.Count; i++)
+                    {
+                        var v = ((ComboBoxItem)comboxlist[i].SelectedItem).Content.ToString();
+                        pairings += commands.Where(x => x.command == v).SingleOrDefault().commandId;
+
+                        if (i != comboxlist.Count - 1)
+                        {
+                            pairings += ",";
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                showError(e.Message);
+                return null;
+            }
+
+            return pairings;
+        }
+
+        private static string GetFirstPair()
+        {
+            string pairings;
+
             try
             {
                 if (actions == null)
                 {
-                    actions = await GetActions();
+                    actions = Task.Run(() => GetActions()).Result;
                 }
 
-                string pairings = string.Empty;
+                pairings = string.Empty;
 
                 for (int i = 0; i < actions.Count; i++)
                 {
@@ -185,55 +273,22 @@ namespace EuphoricElephant.Services
                 }
 
                 pairings += ";";
-
-                List<Command> commands = await GetCommands(); ;
-
-                if (comboxlist == null)
-                {
-
-                    for (int i = 0; i < commands.Count; i++)
-                    {
-                        pairings += commands[i].commandId;
-
-                        if (i != actions.Count - 1)
-                        {
-                            pairings += ",";
-                        }
-                    }
-
-                    return pairings;
-                }
-                else
-                {
-                    for (int i = 0; i < comboxlist.Count; i++)
-                    {
-                        var v = ((ComboBoxItem)comboxlist[i].SelectedItem).Content.ToString();
-                        pairings += commands.Where(x => x.command == v).SingleOrDefault().commandId;
-    
-                    if (i != comboxlist.Count - 1)
-                        {
-                            pairings += ",";
-                        }
-                    }
-                    
-                    return pairings;
-                }
             }
             catch (Exception e)
             {
-                showError(e.Message);
                 return null;
             }
 
+            return pairings;
         }
 
-        public static bool Validated(string name, List<ComboBox> comboxList)
+        private static bool Validated(string name, List<ComboBox> comboxlist)
         {
-            if(name != null && name != string.Empty)
+            if (name != null && name != string.Empty)
             {
                 List<int> indexes = new List<int>();
 
-                foreach (var c in comboxList)
+                foreach (var c in comboxlist)
                 {
                     indexes.Add(c.SelectedIndex);
                 }
@@ -246,22 +301,45 @@ namespace EuphoricElephant.Services
                 }
 
                 return validated;
-            }else
+            }
+            else
             {
                 showError("Please enter a name for the profile.");
                 return false;
             }
-            
         }
 
-        private static async void showError(string error)
+        public static bool Validated(string name, List<ProfileItem> pList)
         {
-            var result = await ErrorService.showError(error);
-
-            if (Convert.ToUInt32(result.Id.ToString()) == 0 && isCreatingNew)
+            if (name != null && name != string.Empty)
             {
-                await CreateNewProfileDialog(_user);
+                List<int> indexes = new List<int>();
+
+                foreach (var c in pList)
+                {
+                    indexes.Add(c.commandIndex);
+                }
+
+                bool validated = indexes.Distinct().Count() == indexes.Count();
+
+                if (!validated)
+                {
+                    showError("All commands must be unique.");
+                }
+
+                return validated;
             }
+            else
+            {
+                showError("Please enter a name for the profile.");
+                return false;
+            }
+
+        }
+
+        private static void showError(string error)
+        {
+            ErrorService.showError(error);
         }
 
         public static CommandType getCommandType(Profile profile, ActionType action)

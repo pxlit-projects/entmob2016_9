@@ -29,7 +29,7 @@ namespace EuphoricElephant.Services
                     Messenger.Default.Send<NavigationMessage>(new NavigationMessage(Enumerations.ViewType.UserViewType, frame));
                     break;
                 default:
-                    await ErrorService.showError();
+                    ErrorService.showError();
                     break;
             }
         }

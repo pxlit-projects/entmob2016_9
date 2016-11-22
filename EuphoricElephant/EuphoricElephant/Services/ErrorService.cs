@@ -9,7 +9,7 @@ namespace EuphoricElephant.Services
 {
     public static class ErrorService
     {
-        public async static Task<IUICommand> showError(string message)
+        public static void showError(string message)
         {
             var m = message;
 
@@ -22,15 +22,12 @@ namespace EuphoricElephant.Services
 
             dialog.Commands.Add(new Windows.UI.Popups.UICommand("OK") { Id = 0 });
 
-            var result =  await dialog.ShowAsync();
-
-            return result;
+           Task.Run(()=>dialog.ShowAsync());
         }
 
-        public async static Task<IUICommand> showError()
+        public static void showError()
         {
-            var result = await showError("Oops, something went wrong.");
-            return result;
+            showError("Oops, something went wrong.");
         }
     }
 }

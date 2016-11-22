@@ -134,7 +134,7 @@ namespace EuphoricElephant.Services
                                         {
                                             profileName = "Default Profile",
                                             userId = newUser.userId,
-                                            pairings = await ProfileService.GetPairings(null)
+                                            pairings = ProfileService.GetPairings()
                                         };
 
                                         succes = await JSonParseService2<string>.SerializeDataToJson(Constants.PROFILE_ADD_URL, newProfile, SerializeType.Post);
@@ -178,7 +178,7 @@ namespace EuphoricElephant.Services
                                         showError(e.Message);
                                     }
                                 }
-                                    
+
                             }
                             else
                             {
@@ -205,14 +205,9 @@ namespace EuphoricElephant.Services
             await dialog.ShowAsync();
         }
 
-        private static async void showError(string error)
+        private static void showError(string error)
         {
-            var result = await ErrorService.showError(error);
-
-            if (Convert.ToUInt32(result.Id.ToString()) == 0)
-            {
-                CreateRegisterDialog();
-            }
+            ErrorService.showError(error);
         }
     }
 }

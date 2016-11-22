@@ -11,14 +11,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.UI.Core;
-using Windows.UI.Input;
 using Windows.UI.Xaml;
 using X2CodingLab.SensorTag;
 
@@ -27,6 +25,7 @@ namespace EuphoricElephant.ViewModels
     public class MediaViewModel : BaseModel
     {
         #region Private Members
+
         private StorageFile selectedTrack;
         private ObservableCollection<StorageFile> tracks;
         private double currentTrackTime = 0;
@@ -40,8 +39,8 @@ namespace EuphoricElephant.ViewModels
         private bool isTagListenerLoaded = false;
         private bool isPlaying = false;
         private bool isPaused = false;
+        private bool isLoading = false;
         private bool isStopped = false;
-        private bool isLoading = true;
         private bool isLooped = false;
         private bool pressed;
         private int TrackIndex;
@@ -52,10 +51,10 @@ namespace EuphoricElephant.ViewModels
         private Profile userProfile;
 
         private DispatcherTimer dispatcherTimer;
+
         #endregion
 
         #region Public Members  
-        // public IMediaView View { get; set; }
 
         public string PlayButtonText
         {
@@ -74,7 +73,6 @@ namespace EuphoricElephant.ViewModels
             get { return isLoading; }
             set { SetProperty(ref isLoading, value); }
         }
-
 
         public double CurrentTrackTime
         {
@@ -128,12 +126,16 @@ namespace EuphoricElephant.ViewModels
         }
         #endregion
 
-        #region Init
-
+        #region Messaging
         private void RegisterMessages()
         {
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
             Messenger.Default.Register<BackRequestedMessage>(this, OnBackRequestedMessageRecieved);
+        }
+
+        private void OnBackRequestedMessageRecieved(BackRequestedMessage obj)
+        {
+            StopTrackAction(null);
         }
 
         private void OnNavigationMessageRecieved(NavigationMessage m)
@@ -144,11 +146,9 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private void OnBackRequestedMessageRecieved(BackRequestedMessage obj)
-        {
-            StopTrackAction(null);
-        }
+        #endregion
 
+        #region Init
         private void Init()
         {
             if (ApplicationSettings.Contains("MediaPlayer"))
@@ -228,10 +228,12 @@ namespace EuphoricElephant.ViewModels
             }
             catch (Exception e)
             {
-                await ErrorService.showError(e.Message);
+                ErrorService.showError(e.Message);
             }
         }
+        #endregion
 
+        #region Listeners
         private async void SensorListener()
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -260,42 +262,10 @@ namespace EuphoricElephant.ViewModels
                         }
                         catch (Exception e)
                         {
-                            await ErrorService.showError(e.Message);
+                            ErrorService.showError(e.Message);
                         }
                     });
         }
-
-        private async Task sk_elementValueChanged()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    while (true)
-                    {
-                        var e = player.GetElement();
-
-                        var x = new ObservableCollection<StorageFile>(await CurrentFolder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery));
-
-                        if (e.CurrentState.ToString().Equals("Paused"))
-                        {
-                            if (!isPaused && isPlaying)
-                            {
-                                if (!IsLooped)
-                                {
-                                    NextTrackAction(null);
-                                }
-                                else
-                                {
-                                    isPlaying = false;
-                                    PlayTrackAction(null);
-                                }
-                            }
-                        }
-                    }
-                }
-            );
-        }
-
 
         private async void sk_sensorValueChanged(object sender, SensorValueChangedEventArgs e)
         {
@@ -308,13 +278,33 @@ namespace EuphoricElephant.ViewModels
 
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
-
-                        if (isLoading) //change true to pressed
+                        if (!isLoading) //change true to pressed
                         {
                             byte[] accData = await activeSensor.Accelerometer.ReadValue();
                             ActionType accAction = checker.MovementCheck(accData, player);
 
-                            lasthope.MixerInfo mi = lasthope.GetMixerControls();
+                            //lasthope.MixerInfo mi = lasthope.GetMixerControls();
+
+                            //switch (ProfileService.getCommandType(userProfile, accAction))
+                            //{
+                            //    case CommandType.PreviousTrack:
+                            //        PreviousTrackAction(null);
+                            //        break;
+                            //    case CommandType.NextTrack:
+                            //        NextTrackAction(null);
+                            //        break;
+                            //    case CommandType.VolumeUp:
+                            //        lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
+                            //        break;
+                            //    case CommandType.VolumeDown:
+                            //        lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
+                            //        break;
+                            //    case CommandType.Shuffle:
+                            //        ShuffleAction(null);
+                            //        break;
+                            //    default:
+                            //        break;
+                            //}
 
                             switch (ProfileService.getCommandType(userProfile, accAction))
                             {
@@ -325,10 +315,10 @@ namespace EuphoricElephant.ViewModels
                                     NextTrackAction(null);
                                     break;
                                 case CommandType.VolumeUp:
-                                    lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
+                                    player.SetVolume(0.25);
                                     break;
                                 case CommandType.VolumeDown:
-                                    lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
+                                    player.SetVolume(-0.25);
                                     break;
                                 case CommandType.Shuffle:
                                     ShuffleAction(null);
@@ -340,7 +330,9 @@ namespace EuphoricElephant.ViewModels
                         else
                         {
                             pressed = false;
+                            //  c = false;
                         }
+
                     }
                 });
         }
@@ -358,14 +350,14 @@ namespace EuphoricElephant.ViewModels
         }
         #endregion
 
-        #region Private Methods
-        private void PlayTrackAction(object param)
+        #region Private Actions
+        public void PlayTrackAction(object param)
         {
             if (!isPaused && !isPlaying)
             {
                 TrackIndex = Tracks.IndexOf(SelectedTrack);
 
-                byte[] data = Task.Run(() => player.Play(SelectedTrack)).Result;
+                byte[] data = player.Play(SelectedTrack);
 
                 PlayButtonText = "Pause";
 
@@ -403,7 +395,7 @@ namespace EuphoricElephant.ViewModels
             isStopped = false;
         }
 
-        private void StopTrackAction(object param)
+        public void StopTrackAction(object param)
         {
             dispatcherTimer.Stop();
             player.Stop();
@@ -417,7 +409,7 @@ namespace EuphoricElephant.ViewModels
             SetTrackProperties(null);
         }
 
-        private async void PreviousTrackAction(object param)
+        public void PreviousTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -431,13 +423,13 @@ namespace EuphoricElephant.ViewModels
                 }
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
-                byte[] data = await player.LoadNewTrack(SelectedTrack);
+                byte[] data = player.LoadNewTrack(SelectedTrack);
 
                 SetTrackProperties(data);
             }
         }
 
-        private async void NextTrackAction(object param)
+        public  void NextTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -451,12 +443,54 @@ namespace EuphoricElephant.ViewModels
                 }
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
-                byte[] data = await player.LoadNewTrack(SelectedTrack);
+                byte[] data =  player.LoadNewTrack(SelectedTrack);
 
                 SetTrackProperties(data);
             }
         }
 
+        public void ToggleLoopAction(object param)
+        {
+            IsLooped = !IsLooped;
+        }
+
+        public void ShuffleAction(object param)
+        {
+            StorageFile track = SelectedTrack;
+
+            AudioShuffleService.ShuffleAudio(Tracks, TrackIndex);
+
+            TrackIndex = Tracks.IndexOf(track);
+            SelectedTrack = Tracks.ElementAt(TrackIndex);
+
+        }
+
+        private async void LoadProfilesAction(object param)
+        {
+            if (ApplicationSettings.Contains("CurrentUser"))
+            {
+                IsLoading = true;
+                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+
+                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(()=> JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
+
+                userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
+
+                IsLoading = false;
+
+                if (!isTagListenerLoaded)
+                {
+                    LoadTagListener();
+                }
+            }
+            else
+            {
+                 ErrorService.showError("No user selected.");
+            }
+        }
+        #endregion
+
+        #region Private Methods
         private async void SetTrackProperties(byte[] data)
         {
             MusicProperties properties = null;
@@ -474,46 +508,6 @@ namespace EuphoricElephant.ViewModels
             {
                 CurrentTrackTime = 0;
             }
-        }
-
-        private async void LoadProfilesAction(object param)
-        {
-            if (ApplicationSettings.Contains("CurrentUser"))
-            {
-                IsLoading = true;
-                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
-
-                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(() => JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
-
-                userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
-
-                IsLoading = false;
-
-                if (!isTagListenerLoaded)
-                {
-                    LoadTagListener();
-                }
-            }
-            else
-            {
-                await ErrorService.showError("No user selected.");
-            }
-        }
-
-
-        private void ToggleLoopAction(object param)
-        {
-            IsLooped = !IsLooped;
-        }
-
-        private void ShuffleAction(object param)
-        {
-            StorageFile track = SelectedTrack;
-
-            AudioShuffleService.ShuffleAudio(Tracks, TrackIndex);
-
-            TrackIndex = Tracks.IndexOf(track);
-            SelectedTrack = Tracks.ElementAt(TrackIndex);
         }
 
         private async void OpenFolder(object param)

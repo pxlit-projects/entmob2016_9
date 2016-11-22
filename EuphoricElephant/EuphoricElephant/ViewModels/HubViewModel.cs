@@ -35,7 +35,7 @@ namespace EuphoricElephant.ViewModels
 
         public string LogButtonText
         {
-            get { return logButtonText;}
+            get { return logButtonText; }
             set { SetProperty(ref logButtonText, value); }
         }
 
@@ -164,7 +164,7 @@ namespace EuphoricElephant.ViewModels
             };
 
             string b = Task.Run(() => Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post)).Result;
-            
+
             if (b.Equals("1"))
             {
                 myUser = Task.Run(() => Services.JSonParseService2<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName)).Result;
@@ -186,7 +186,7 @@ namespace EuphoricElephant.ViewModels
                 Task.Run(() => ErrorService.showError());
             }
 
-            IsNotBusy = true;;
+            IsNotBusy = true; ;
         }
         #endregion
     }

@@ -113,15 +113,12 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Init
-        private async Task<bool> Init()
+        private bool Init()
         {
             bool succes = false;
 
             
-            if (!(await LoadData()))
-            {
-                showError("No devices found.");
-            }else
+            if (LoadData())
             {
                 succes = true;
             }
@@ -141,27 +138,27 @@ namespace EuphoricElephant.ViewModels
             Messenger.Default.Register<NavigationMessage>(this, OnNavigationMessageRecieved);
         }
 
-        private async void OnNavigationMessageRecieved(NavigationMessage m)
+        private void OnNavigationMessageRecieved(NavigationMessage m)
         {
             if (m.Type == Enumerations.ViewType.DeviceViewType)
             {
                 frame = m.Frame;
-                if(!await Init())
+                if (!Init())
                 {
-                    await ErrorService.showError();
+                    showError("no devices found");
                 }
             }
         }
         #endregion
 
         #region Error
-        private void showError(string error)
+        private async void showError(string error)
         {
             var dialog = new Windows.UI.Popups.MessageDialog(error);
 
             dialog.Commands.Add(new Windows.UI.Popups.UICommand("OK") { Id = 0 });
 
-            var result = Task.Run(() => dialog.ShowAsync());
+            var result = await dialog.ShowAsync();
 
             if (Convert.ToUInt32(result.Id.ToString()) == 0)
             {
@@ -176,14 +173,14 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Private Methods
-        private async Task<bool> LoadData()
+        private bool LoadData()
         {
             bool succes = false;
 
             Sensors = new ObservableCollection<DeviceInformation>();
             Drones = new ObservableCollection<DeviceInformation>();
 
-            foreach (DeviceInformation d in (await SensorTagService.FindAllTagNames()))
+            foreach (DeviceInformation d in (Task.Run(()=> SensorTagService.FindAllTagNames())).Result)
             {
                 if (d.Name.ToLower().Contains("sensortag"))
                 {

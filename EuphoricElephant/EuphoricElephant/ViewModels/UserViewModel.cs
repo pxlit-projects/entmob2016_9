@@ -18,7 +18,7 @@ namespace EuphoricElephant.ViewModels
     public class UserViewModel : BaseModel
     {
         #region privatevariables
-        private User currentUser = null;
+        public User currentUser = null;
         #endregion
 
         #region public properties
@@ -34,7 +34,9 @@ namespace EuphoricElephant.ViewModels
         public Profile SelectedProfile
         {
             get { return selectedProfile; }
-            set { SetProperty(ref selectedProfile, value);
+            set
+            {
+                SetProperty(ref selectedProfile, value);
                 if (SelectedProfile != null)
                 {
                     DefaultProfileName = SelectedProfile.profileName;
@@ -184,41 +186,49 @@ namespace EuphoricElephant.ViewModels
             SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
         }
 
-        private async void LoadProfileItems()
+        private void LoadProfileItems()
         {
-            ProfileItems = new ObservableCollection<ProfileItem>(await ProfileService.SetPairings(SelectedProfile));
+            ProfileItems = new ObservableCollection<ProfileItem>(Task.Run(() => ProfileService.SetPairings(SelectedProfile)).Result);
         }
         #endregion
 
         #region private actions
-        private async void DefaultAction(object obj)
+        private void DefaultAction(object obj)
         {
             var d = currentUser.defaultProfileId;
 
             currentUser.defaultProfileId = SelectedProfile.profileId;
 
-            var v = await JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, currentUser, Enumerations.SerializeType.Put);
+            var v = Task.Run(() => JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, currentUser, Enumerations.SerializeType.Put)).Result;
 
             if (!v.Equals("1"))
             {
                 currentUser.defaultProfileId = d;
-                await ErrorService.showError(v);
+                Task.Run(() => ErrorService.showError(v));
             }
         }
 
-        private async void DeleteAction(object obj)
+        private void DeleteAction(object obj)
         {
-            var v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_DELETE_URL, SelectedProfile.profileId, Enumerations.SerializeType.Delete);
-
-            if (v.Equals("1"))
+            if(SelectedProfile.profileId != currentUser.defaultProfileId)
             {
-                Profiles.Remove(SelectedProfile);
-                DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
+                var v = Task.Run(() => JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_DELETE_URL, SelectedProfile.profileId, Enumerations.SerializeType.Delete)).Result;
+
+                if (v.Equals("1"))
+                {
+                    DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
+                    Profiles.Remove(SelectedProfile);
+                }
+                else
+                {
+                    ErrorService.showError(v);
+                }
             }
             else
             {
-                await ErrorService.showError(v);
+                ErrorService.showError("Default profile can not be deleted");
             }
+
         }
 
         private void EditAction(object param)
@@ -236,12 +246,12 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private async void SaveAction(object param)
+        private void SaveAction(object param)
         {
             Profile p = SelectedProfile;
             p.profileName = DefaultProfileName;
 
-            var v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, p, Enumerations.SerializeType.Put);
+            string v = Task.Run(() => JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, p, Enumerations.SerializeType.Put)).Result;
 
             if (v.Equals("1"))
             {
@@ -249,7 +259,6 @@ namespace EuphoricElephant.ViewModels
 
                 u.firstName = FirstName;
                 u.lastName = LastName;
-                u.userName = UserName;
                 u.defaultProfileId = GetProfileId();
                 u.country = Country;
                 u.email = Email;
@@ -258,32 +267,15 @@ namespace EuphoricElephant.ViewModels
 
                 ApplicationSettings.Edit("CurrentUser", currentUser);
 
-                v = await JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, u, Enumerations.SerializeType.Put);
+                v = Task.Run(() => JSonParseService2<User>.SerializeDataToJson(Constants.USER_UPDATE_URL, u, Enumerations.SerializeType.Put)).Result;
 
                 if (!v.Equals("1"))
                 {
-                    await ErrorService.showError(v);
+                    Task.Run(() => ErrorService.showError(v));
                 }
                 else
                 {
-                    List<ComboBox> comboxList = new List<ComboBox>();
-
-                    foreach (var i in ProfileItems)
-                    {
-                        ComboBox box = new ComboBox();
-
-                        foreach (var c in i.command)
-                        {
-                            ComboBoxItem item = new ComboBoxItem();
-                            item.Content = c.command;
-                            box.Items.Add(item);
-                        }
-
-                        box.SelectedIndex = i.commandIndex;
-                        comboxList.Add(box);
-                    };
-
-                    bool b = ProfileService.Validated("default", comboxList);
+                    bool b = ProfileService.Validated("default", ProfileItems.ToList());
 
                     if (b)
                     {
@@ -291,11 +283,11 @@ namespace EuphoricElephant.ViewModels
                         {
                             profileName = SelectedProfile.profileName,
                             userId = SelectedProfile.userId,
-                            pairings = await ProfileService.GetPairings(comboxList),
-                            profileId = selectedProfile.profileId
+                            pairings = ProfileService.GetPairings(ProfileItems.ToList()),
+                            profileId = SelectedProfile.profileId
                         };
 
-                        v = await JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, profile, Enumerations.SerializeType.Put);
+                        v = Task.Run(() => JSonParseService2<Profile>.SerializeDataToJson(Constants.PROFILE_UPDATE_URL, profile, Enumerations.SerializeType.Put)).Result;
 
                         if (v.Equals("1"))
                         {
@@ -304,7 +296,7 @@ namespace EuphoricElephant.ViewModels
                         }
                         else
                         {
-                            await ErrorService.showError(v);
+                            Task.Run(() => ErrorService.showError(v));
                         }
                     }
 
@@ -312,10 +304,10 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        private async void RefreshAction(object obj)
+        private void RefreshAction(object obj)
         {
             Profiles = null;
-            Profiles = new ObservableCollection<Profile>(await JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId)));
+            Profiles = new ObservableCollection<Profile>(Task.Run(() => JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, Convert.ToString(currentUser.userId))).Result);
 
             DefaultProfileName = Profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault().profileName;
             SelectedProfile = Profiles.Where(x => x.profileName == DefaultProfileName).SingleOrDefault();
@@ -323,7 +315,7 @@ namespace EuphoricElephant.ViewModels
 
         private async void NewAction(object param)
         {
-            ContentDialog d = await ProfileService.CreateNewProfileDialog(currentUser);
+            ContentDialog d = ProfileService.CreateNewProfileDialog(currentUser);
             ContentDialogResult r = await d.ShowAsync();
 
             if (r == ContentDialogResult.Primary)
@@ -341,7 +333,7 @@ namespace EuphoricElephant.ViewModels
 
         private void OnNavigationMessageRecieved(NavigationMessage m)
         {
-            if(m.Type == Enumerations.ViewType.UserViewType)
+            if (m.Type == Enumerations.ViewType.UserViewType)
             {
                 Init();
 

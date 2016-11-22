@@ -32,18 +32,5 @@ namespace UnitTestProject
             Assert.IsNull(dvm.SelectedTag);
             Assert.IsFalse(ApplicationSettings.Contains("ActiveSensor"));
         }
-
-        [TestMethod]
-        public async Task TestSetSensorTag()
-        {
-            ApplicationSettings.Remove("ActiveSensor");
-            DeviceViewModel dvm = new DeviceViewModel();
-
-            DeviceInformationCollection devices = await DeviceInformation.FindAllAsync(GattDeviceService.GetDeviceSelectorFromUuid(GattServiceUuids.GenericAccess));
-
-            dvm.SelectedTag = devices[0];
-
-            Assert.IsTrue(ApplicationSettings.Contains("ActiveSensor"));
-        }
     }
 }

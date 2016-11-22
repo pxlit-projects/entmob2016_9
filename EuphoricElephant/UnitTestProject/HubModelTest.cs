@@ -25,6 +25,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestLogin()
         {
+            ApplicationSettings.Remove("CurrentUser");
             HubViewModel hvm = new HubViewModel();
             
             hvm.UserName = "d";

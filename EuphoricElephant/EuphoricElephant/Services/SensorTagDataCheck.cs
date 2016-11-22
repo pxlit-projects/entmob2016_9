@@ -34,7 +34,7 @@ namespace EuphoricElephant.Services
             else
             {
                 Debug.WriteLine(stabilizer.GyroscopeStabilizer(data).XGyr);
-                if (Math.Abs(stabilizer.GyroscopeStabilizer(data).XGyr) >= 100 && Math.Abs(stabilizer.GyroscopeStabilizer(data).ZGyr) >= 100 && Math.Abs(stabilizer.GyroscopeStabilizer(data).YGyr) >= 100)
+                if (Math.Abs(stabilizer.GyroscopeStabilizer(data).XGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).ZGyr) >= 200 && Math.Abs(stabilizer.GyroscopeStabilizer(data).YGyr) >= 200)
                 {
                     Debug.WriteLine("Shake");
                     b = false;

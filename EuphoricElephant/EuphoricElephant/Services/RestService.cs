@@ -35,7 +35,7 @@ namespace EuphoricElephant.Services
             }
             catch (Exception e)
             {
-                await ErrorService.showError(e.Message);
+                ErrorService.showError(e.Message);
                 return token;
             }
             finally
@@ -73,7 +73,7 @@ namespace EuphoricElephant.Services
             }
             catch (Exception e)
             {
-                await ErrorService.showError(e.Message);
+                ErrorService.showError(e.Message);
             }
             finally
             {
