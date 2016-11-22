@@ -13,8 +13,9 @@ import java.net.URISyntaxException;
  */
 public class JMSBroker {
     public static void main(String[] args) throws URISyntaxException, Exception {
-        BrokerService broker = new BrokerService();
-        broker.addConnector("tcp://localhost:61616");
+        BrokerService broker = BrokerFactory.createBroker(new URI("broker:(tcp://0.0.0.0:61616)"));
         broker.start();
+        System.in.read();
+        broker.stop();
     }
 }

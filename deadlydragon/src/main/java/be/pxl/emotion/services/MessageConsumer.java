@@ -1,5 +1,6 @@
 package be.pxl.emotion.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import javax.jms.TextMessage;
  */
 @Component
 public class MessageConsumer {
+    @Autowired
     private JmsTemplate jmsTemplate;
 
     public JmsTemplate getJmsTemplate() {

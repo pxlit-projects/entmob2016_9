@@ -4,7 +4,7 @@
        xmlns:data="http://www.springframework.org/schema/data/jpa"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jms="http://www.springframework.org/schema/jms"
        xsi:schemaLocation="http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security.xsd
             http://www.springframework.org/schema/beans
@@ -12,7 +12,7 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
             http://www.springframework.org/schema/data/jpa
-            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -24,7 +24,7 @@
 
 
     <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://localhost:61616" />
+        <property name="brokerURL" value="auto://localhost:61616" />
     </bean>
     <bean id="messageDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="randQueue" />
@@ -40,8 +40,8 @@
         <property name="jmsTemplate" ref="jmsTemplate" />
     </bean>
 
-    <bean id="MessageConsumer" class="be.pxl.emotion.services.MessageConsumer">
-        <property name="jmsTemplate" ref="jmsTemplate" />
+    <bean id="MessageConsumer" class="be.pxl.emotion.services.MessageConsumer" >
+        <property name="jmsTemplate" ref="jmsTemplate"/>
     </bean>
 
     <data:repositories base-package="be.pxl.emotion.repositories" />
