@@ -29,7 +29,6 @@ public class MessageProducer {
 
     public void sendError(final Exception exception) {
         getJmsTemplate().send("ErrorQueue", new MessageCreator() {
-            @Override
             public ObjectMessage createMessage(Session session) throws JMSException {
                 return session.createObjectMessage(exception);
             }
@@ -38,7 +37,6 @@ public class MessageProducer {
 
     public void sendMessage(final String message) {
         getJmsTemplate().send("LogQueue", new MessageCreator() {
-            @Override
             public TextMessage createMessage(Session session) throws JMSException {
                 return session.createTextMessage(message);
             }

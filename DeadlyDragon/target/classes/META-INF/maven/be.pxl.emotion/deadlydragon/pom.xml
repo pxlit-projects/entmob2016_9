@@ -34,6 +34,10 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>=
+        </dependency>
 
 		<!--ORM & database related -->
 		<dependency>
@@ -51,24 +55,17 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.17</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
-			<version>1.1</version>
+			<version>[1.1,]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			</dependency>
-		
-		<!--logging -->	
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
+
 
 		<!--Security -->
 		<dependency>
@@ -104,7 +101,15 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+			<version>[1,]</version>
 		</dependency>
+		
+		<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.2.0</version>
+    <scope>test</scope>
+</dependency>
 
 		<!--Testing -->
 		<dependency>
@@ -120,6 +125,35 @@
 			<artifactId>mockito-all</artifactId>
 			<version>1.10.19</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        
+        <dependency>
+    <groupId>org.dbunit</groupId>
+    <artifactId>dbunit</artifactId>
+    <version>2.5.1</version>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+
+		<dependency>
+    <groupId>com.github.springtestdbunit</groupId>
+    <artifactId>spring-test-dbunit</artifactId>
+    <version>1.2.1</version>
+    <scope>test</scope>
+</dependency>
 
 		<!--Servlet -->
 		<dependency>
@@ -143,5 +177,7 @@
             <artifactId>activemq-kahadb-store</artifactId>
         </dependency>
 
-	</dependencies>
+
+
+    </dependencies>
 </project>
