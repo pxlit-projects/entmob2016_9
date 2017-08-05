@@ -19,6 +19,8 @@ namespace EuphoricElephant.Model
 
         public DeviceInformation Info { get; set; }
 
+        public bool IsDummy { get; set; }
+
         public SensorTag()
         {
             

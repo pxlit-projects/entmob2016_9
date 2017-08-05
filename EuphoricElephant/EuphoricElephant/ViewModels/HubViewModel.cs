@@ -70,6 +70,13 @@ namespace EuphoricElephant.ViewModels
             get { return isNotBusy; }
             set { SetProperty(ref isNotBusy, value); }
         }
+
+        private bool isDummyMode = false;
+        public bool IsDummyMode
+        {
+            get { return isDummyMode; }
+            set { SetProperty(ref isDummyMode, value); }
+        }
         #endregion
 
         #region Commands
@@ -153,6 +160,7 @@ namespace EuphoricElephant.ViewModels
             }
 
             ApplicationSettings.Remove("ActiveSensor");
+            ApplicationSettings.Remove("IsDummyMode");
         }
 
         private void Login()
@@ -176,6 +184,7 @@ namespace EuphoricElephant.ViewModels
                 LogButtonText = "Log out";
 
                 ApplicationSettings.AddItem("CurrentUser", myUser);
+                ApplicationSettings.AddItem("IsDummyMode", isDummyMode);
             }
             else if (b.Equals("2"))
             {

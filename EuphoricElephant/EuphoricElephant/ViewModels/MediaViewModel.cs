@@ -16,6 +16,7 @@ using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using X2CodingLab.SensorTag;
@@ -47,7 +48,7 @@ namespace EuphoricElephant.ViewModels
         private SensorTagDataCheck checker = new SensorTagDataCheck();
         private SensorTag activeSensor;
 
-        private User currentUser;
+        private Data.User currentUser;
         private Profile userProfile;
 
         private DispatcherTimer dispatcherTimer;
@@ -219,8 +220,13 @@ namespace EuphoricElephant.ViewModels
                     activeSensor.SimpleKey = new CustomSimpleKey();
 
                     SensorListener();
-
                 }
+                else if ((bool)ApplicationSettings.GetItem("IsDummyMode"))
+                {
+                    if(!isTagListenerLoaded) MockSensorListener();
+                    isTagListenerLoaded = true;
+                }
+
                 else
                 {
                     isTagListenerLoaded = false;
@@ -232,6 +238,63 @@ namespace EuphoricElephant.ViewModels
             }
         }
         #endregion
+
+        private void MockSensorListener()
+        {
+            Window.Current.CoreWindow.KeyUp +=
+            (window, e) =>
+            {
+                if (userProfile != null && e.KeyStatus.RepeatCount == 1)
+                {
+                    ActionType accAction = ActionType.NoAction;
+
+                    switch (e.VirtualKey)
+                    {
+                        case VirtualKey.U:
+                            accAction = ActionType.UP;
+                            break;
+                        case VirtualKey.D:
+                            accAction = ActionType.DOWN;
+                            break;
+                        case VirtualKey.L:
+                            accAction = ActionType.LEFT;
+                            break;
+                        case VirtualKey.R:
+                            accAction = ActionType.RIGHT;
+                            break;
+                        case VirtualKey.S:
+                            accAction = ActionType.SHAKE;
+                            break;
+                        default:
+                            break;
+                    }
+                    e.Handled = true;
+
+                    switch (ProfileService.getCommandType(userProfile, accAction))
+                    {
+                        case CommandType.PreviousTrack:
+                            PreviousTrackAction(null);
+                            break;
+                        case CommandType.NextTrack:
+                            NextTrackAction(null);
+                            break;
+                        case CommandType.VolumeUp:
+                            player.SetVolume(0.25);
+                            break;
+                        case CommandType.VolumeDown:
+                            player.SetVolume(-0.25);
+                            break;
+                        case CommandType.Shuffle:
+                            ShuffleAction(null);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    
+                }
+            };
+        }
 
         #region Listeners
         private async void SensorListener()
@@ -278,33 +341,10 @@ namespace EuphoricElephant.ViewModels
 
                     while (ApplicationSettings.Contains("ActiveSensor"))
                     {
-                        if (!isLoading) //change true to pressed
+                        if (!isLoading)
                         {
                             byte[] accData = await activeSensor.Accelerometer.ReadValue();
                             ActionType accAction = checker.MovementCheck(accData, player);
-
-                            //lasthope.MixerInfo mi = lasthope.GetMixerControls();
-
-                            //switch (ProfileService.getCommandType(userProfile, accAction))
-                            //{
-                            //    case CommandType.PreviousTrack:
-                            //        PreviousTrackAction(null);
-                            //        break;
-                            //    case CommandType.NextTrack:
-                            //        NextTrackAction(null);
-                            //        break;
-                            //    case CommandType.VolumeUp:
-                            //        lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
-                            //        break;
-                            //    case CommandType.VolumeDown:
-                            //        lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
-                            //        break;
-                            //    case CommandType.Shuffle:
-                            //        ShuffleAction(null);
-                            //        break;
-                            //    default:
-                            //        break;
-                            //}
 
                             switch (ProfileService.getCommandType(userProfile, accAction))
                             {
@@ -330,7 +370,6 @@ namespace EuphoricElephant.ViewModels
                         else
                         {
                             pressed = false;
-                            //  c = false;
                         }
 
                     }
@@ -429,7 +468,7 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        public  void NextTrackAction(object param)
+        public void NextTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -443,7 +482,7 @@ namespace EuphoricElephant.ViewModels
                 }
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
-                byte[] data =  player.LoadNewTrack(SelectedTrack);
+                byte[] data = player.LoadNewTrack(SelectedTrack);
 
                 SetTrackProperties(data);
             }
@@ -470,9 +509,9 @@ namespace EuphoricElephant.ViewModels
             if (ApplicationSettings.Contains("CurrentUser"))
             {
                 IsLoading = true;
-                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+                currentUser = (Data.User)ApplicationSettings.GetItem("CurrentUser");
 
-                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(()=> JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
+                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(() => JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
 
                 userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
 
@@ -485,7 +524,7 @@ namespace EuphoricElephant.ViewModels
             }
             else
             {
-                 ErrorService.showError("No user selected.");
+                ErrorService.showError("No user selected.");
             }
         }
         #endregion
