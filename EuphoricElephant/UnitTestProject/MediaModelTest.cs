@@ -115,17 +115,5 @@ namespace UnitTestProject
 
             Assert.IsFalse(mvm.IsLoading);
         }
-
-        [TestMethod]
-        public void TestLoadProfilesFail()
-        {
-            MediaViewModel mvm = new MediaViewModel();
-
-            mvm.IsLoading = true;
-
-            mvm.LoadProfilesCommand.Execute(null);
-
-            Assert.IsTrue(mvm.IsLoading);
-        }
     }
 }

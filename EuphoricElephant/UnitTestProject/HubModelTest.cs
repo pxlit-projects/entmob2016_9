@@ -28,8 +28,8 @@ namespace UnitTestProject
             ApplicationSettings.Remove("CurrentUser");
             HubViewModel hvm = new HubViewModel();
             
-            hvm.UserName = "d";
-            hvm.PassWord = "d";
+            hvm.UserName = "Djuke";
+            hvm.PassWord = "hArtenaas@2";
             hvm.LoginCommand.Execute(null);
 
             Assert.IsTrue(hvm.IsLoggedIn);
