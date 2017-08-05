@@ -21,7 +21,7 @@ namespace EuphoricElephant.Helpers
         public static ObservableCollection<string> HUB_POINTS = new ObservableCollection<string> { DEVICES_TEXT, MEDIA_TEXT, USER_TEXT };
 
 
-        public const string BASE_URL = "http://localhost:8080/";
+        public const string BASE_URL = "http://localhost:8080/zanyzebra/";
 
         public const string USER_BY_ID_URL = BASE_URL + "user/id/";
         public const string USER_UPDATE_URL = BASE_URL + "user/update";
