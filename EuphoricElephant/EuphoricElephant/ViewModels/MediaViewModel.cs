@@ -54,7 +54,7 @@ namespace EuphoricElephant.ViewModels
 
         #endregion
 
-        #region Public Members  
+        #region Public Members 
 
         public string PlayButtonText
         {
@@ -219,7 +219,11 @@ namespace EuphoricElephant.ViewModels
                     activeSensor.SimpleKey = new CustomSimpleKey();
 
                     SensorListener();
-
+                }
+                else if ((bool)ApplicationSettings.GetItem("IsDummyMode"))
+                {
+                    if (!isTagListenerLoaded) MockSensorListener();
+                    isTagListenerLoaded = true;
                 }
                 else
                 {
@@ -234,107 +238,140 @@ namespace EuphoricElephant.ViewModels
         #endregion
 
         #region Listeners
+        private void MockSensorListener()
+        {
+            Window.Current.CoreWindow.KeyUp +=
+            (window, e) =>
+            {
+                if (userProfile != null && e.KeyStatus.RepeatCount == 1)
+                {
+                    ActionType accAction = ActionType.NoAction;
+
+                    switch (e.VirtualKey)
+                    {
+                        case VirtualKey.U:
+                            accAction = ActionType.UP;
+                            break;
+                        case VirtualKey.D:
+                            accAction = ActionType.DOWN;
+                            break;
+                        case VirtualKey.L:
+                            accAction = ActionType.LEFT;
+                            break;
+                        case VirtualKey.R:
+                            accAction = ActionType.RIGHT;
+                            break;
+                        case VirtualKey.S:
+                            accAction = ActionType.SHAKE;
+                            break;
+                        default:
+                            break;
+                    }
+                    e.Handled = true;
+
+                    switch (ProfileService.getCommandType(userProfile, accAction))
+                    {
+                        case CommandType.PreviousTrack:
+                            PreviousTrackAction(null);
+                            break;
+                        case CommandType.NextTrack:
+                            NextTrackAction(null);
+                            break;
+                        case CommandType.VolumeUp:
+                            player.SetVolume(0.25);
+                            break;
+                        case CommandType.VolumeDown:
+                            player.SetVolume(-0.25);
+                            break;
+                        case CommandType.Shuffle:
+                            ShuffleAction(null);
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                }
+            };
+        }
+
         private async void SensorListener()
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                    async () =>
+            async () =>
+            {
+                try
+                {
+                    if (activeSensor != null)
                     {
-                        try
-                        {
-                            if (activeSensor != null)
-                            {
-                                var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
+                        var c = (await GattUtils.GetDevicesOfService(String.Format(Constants.BASE_ID, "aa80")));
 
-                                await activeSensor.Accelerometer.Initialize(c[0]);
-                                await activeSensor.Accelerometer.CustomEnableSensor();
+                        await activeSensor.Accelerometer.Initialize(c[0]);
+                        await activeSensor.Accelerometer.CustomEnableSensor();
 
-                                CustomSimpleKey SimpleKey = new CustomSimpleKey();
+                        CustomSimpleKey SimpleKey = new CustomSimpleKey();
 
-                                SimpleKey.SensorValueChanged += sk_sensorValueChanged;
+                        SimpleKey.SensorValueChanged += sk_sensorValueChanged;
 
-                                var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
+                        var k = (await GattUtils.GetDevicesOfService(String.Format(Constants.SERVICE_ID, "ffe0")));
 
-                                await SimpleKey.Initialize(k[0]);
-                                await SimpleKey.EnableNotifications();
+                        await SimpleKey.Initialize(k[0]);
+                        await SimpleKey.EnableNotifications();
 
-                                isTagListenerLoaded = true;
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            ErrorService.showError(e.Message);
-                        }
-                    });
+                        isTagListenerLoaded = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorService.showError(e.Message);
+                }
+            });
         }
 
         private async void sk_sensorValueChanged(object sender, SensorValueChangedEventArgs e)
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
+            async () =>
+            {
+                byte[] raw = e.RawData;
+
+                pressed = Convert.ToBoolean(raw[0]);
+
+                while (ApplicationSettings.Contains("ActiveSensor"))
                 {
-                    byte[] raw = e.RawData;
+                    if (!isLoading) //change true to pressed
+         {
+                        byte[] accData = await activeSensor.Accelerometer.ReadValue();
+                        ActionType accAction = checker.MovementCheck(accData, player);
 
-                    pressed = Convert.ToBoolean(raw[0]);
-
-                    while (ApplicationSettings.Contains("ActiveSensor"))
-                    {
-                        if (!isLoading) //change true to pressed
+                        switch (ProfileService.getCommandType(userProfile, accAction))
                         {
-                            byte[] accData = await activeSensor.Accelerometer.ReadValue();
-                            ActionType accAction = checker.MovementCheck(accData, player);
-
-                            //lasthope.MixerInfo mi = lasthope.GetMixerControls();
-
-                            //switch (ProfileService.getCommandType(userProfile, accAction))
-                            //{
-                            //    case CommandType.PreviousTrack:
-                            //        PreviousTrackAction(null);
-                            //        break;
-                            //    case CommandType.NextTrack:
-                            //        NextTrackAction(null);
-                            //        break;
-                            //    case CommandType.VolumeUp:
-                            //        lasthope.AdjustVolume(mi, (mi.maxVolume - mi.minVolume) / 50);
-                            //        break;
-                            //    case CommandType.VolumeDown:
-                            //        lasthope.AdjustVolume(mi, -(mi.maxVolume - mi.minVolume) / 50);
-                            //        break;
-                            //    case CommandType.Shuffle:
-                            //        ShuffleAction(null);
-                            //        break;
-                            //    default:
-                            //        break;
-                            //}
-
-                            switch (ProfileService.getCommandType(userProfile, accAction))
-                            {
-                                case CommandType.PreviousTrack:
-                                    PreviousTrackAction(null);
-                                    break;
-                                case CommandType.NextTrack:
-                                    NextTrackAction(null);
-                                    break;
-                                case CommandType.VolumeUp:
-                                    player.SetVolume(0.25);
-                                    break;
-                                case CommandType.VolumeDown:
-                                    player.SetVolume(-0.25);
-                                    break;
-                                case CommandType.Shuffle:
-                                    ShuffleAction(null);
-                                    break;
-                                default:
-                                    break;
-                            }
+                            case CommandType.PreviousTrack:
+                                PreviousTrackAction(null);
+                                break;
+                            case CommandType.NextTrack:
+                                NextTrackAction(null);
+                                break;
+                            case CommandType.VolumeUp:
+                                player.SetVolume(0.25);
+                                break;
+                            case CommandType.VolumeDown:
+                                player.SetVolume(-0.25);
+                                break;
+                            case CommandType.Shuffle:
+                                ShuffleAction(null);
+                                break;
+                            default:
+                                break;
                         }
-                        else
-                        {
-                            pressed = false;
-                            //  c = false;
-                        }
-
                     }
-                });
+                    else
+                    {
+                        pressed = false;
+                    }
+
+                }
+            });
         }
 
         private void dispatcherTimer_Tick(object sender, object e)
@@ -429,7 +466,7 @@ namespace EuphoricElephant.ViewModels
             }
         }
 
-        public  void NextTrackAction(object param)
+        public void NextTrackAction(object param)
         {
             if (isPlaying)
             {
@@ -443,7 +480,7 @@ namespace EuphoricElephant.ViewModels
                 }
 
                 SelectedTrack = tracks.ElementAt(TrackIndex);
-                byte[] data =  player.LoadNewTrack(SelectedTrack);
+                byte[] data = player.LoadNewTrack(SelectedTrack);
 
                 SetTrackProperties(data);
             }
@@ -472,7 +509,7 @@ namespace EuphoricElephant.ViewModels
                 IsLoading = true;
                 currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
 
-                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(()=> JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
+                ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(() => JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
 
                 userProfile = profiles.Where(x => x.profileId == currentUser.defaultProfileId).SingleOrDefault();
 
@@ -485,7 +522,7 @@ namespace EuphoricElephant.ViewModels
             }
             else
             {
-                 ErrorService.showError("No user selected.");
+                ErrorService.showError("No user selected.");
             }
         }
         #endregion
