@@ -2,6 +2,7 @@ package com.pxl.emotionjava.services.impl;
 
 import com.pxl.emotionjava.entities.User;
 import com.pxl.emotionjava.repositories.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,10 +28,15 @@ public class UserDataServiceTest {
 
     @InjectMocks
     private UserDataServiceImpl userService;
+    private User user;
+
+    @Before
+    public void setUp() throws Exception {
+        user = aUser(1L);
+    }
 
     @Test
     public void getUserById() throws Exception {
-        User user = aUser(1);
         when(repository.findOne(user.getUserId())).thenReturn(user);
 
         User actualUser = userService.getUserById(user.getUserId());
@@ -40,7 +46,6 @@ public class UserDataServiceTest {
 
     @Test
     public void getUserByName() throws Exception {
-        User user = aUser(1);
         when(repository.findByUserName(user.getUserName())).thenReturn(Collections.singletonList(user));
 
         List<User> actualUsers = userService.getUserByName(user.getUserName());
@@ -51,7 +56,6 @@ public class UserDataServiceTest {
 
     @Test
     public void addOrUpdateUser() throws Exception {
-        User user = aUser(1);
         when(repository.save(eq(user))).thenReturn(user);
         when(repository.findByUserName(user.getUserName())).thenReturn(Collections.singletonList(user));
 
@@ -62,7 +66,6 @@ public class UserDataServiceTest {
 
     @Test
     public void deleteUser() throws Exception {
-        User user = aUser(1);
         when(repository.exists(user.getUserId())).thenReturn(true);
 
         String retVal = userService.deleteUser(user.getUserId());
@@ -75,7 +78,7 @@ public class UserDataServiceTest {
     @Test
     public void getAllUsers() throws Exception {
         List<User> users = new ArrayList<>();
-        users.add(aUser(1));
+        users.add(user);
         when(repository.findAll()).thenReturn(users);
 
         List <User> actualUsers = userService.getAllUsers();
@@ -86,7 +89,7 @@ public class UserDataServiceTest {
 
     @Test
     public void checkPass() throws Exception {
-        User user = aUser();
+        user = aUser();
         when(repository.findByUserName(user.getUserName())).thenReturn(Collections.singletonList(user));
 
         String retVal = userService.checkPass(user);

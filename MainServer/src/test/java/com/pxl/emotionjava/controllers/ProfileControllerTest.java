@@ -47,7 +47,7 @@ public class ProfileControllerTest extends ControllerTest{
         List<Profile> profiles = new ArrayList<>();
         profiles.add(aProfile());
 
-        when(service.getProfilesByUserId(1)).thenReturn(profiles);
+        when(service.getProfilesByUserId(1L)).thenReturn(profiles);
 
         mvc.perform(get("/profile/userid/1")
                 .header("Authorization", TOKEN))
@@ -58,7 +58,7 @@ public class ProfileControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void getProfileById() throws Exception {
-        Profile profile = aProfile(1);
+        Profile profile = aProfile(1L);
 
         when(service.getProfileById(profile.getProfileId())).thenReturn(profile);
 
@@ -85,7 +85,7 @@ public class ProfileControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void deleteProfile() throws Exception {
-        Profile profile = aProfile(1);
+        Profile profile = aProfile(1L);
 
         when(service.deleteProfile(profile.getProfileId())).thenReturn("1");
 
@@ -98,7 +98,7 @@ public class ProfileControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void updateProfile() throws Exception {
-        Profile profile = aProfile(1);
+        Profile profile = aProfile(1L);
 
         when(service.addOrUpdateProfile(eq(profile))).thenReturn("1");
 

@@ -16,6 +16,7 @@ using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using X2CodingLab.SensorTag;
@@ -47,7 +48,7 @@ namespace EuphoricElephant.ViewModels
         private SensorTagDataCheck checker = new SensorTagDataCheck();
         private SensorTag activeSensor;
 
-        private User currentUser;
+        private Data.User currentUser;
         private Profile userProfile;
 
         private DispatcherTimer dispatcherTimer;
@@ -507,7 +508,7 @@ namespace EuphoricElephant.ViewModels
             if (ApplicationSettings.Contains("CurrentUser"))
             {
                 IsLoading = true;
-                currentUser = (User)ApplicationSettings.GetItem("CurrentUser");
+                currentUser = (Data.User)ApplicationSettings.GetItem("CurrentUser");
 
                 ObservableCollection<Profile> profiles = new ObservableCollection<Profile>(Task.Run(() => JSonParseService2<List<Profile>>.DeserializeDataFromJson(Constants.PROFILE_BY_USERID_URL, currentUser.userId.ToString())).Result);
 

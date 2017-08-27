@@ -5,7 +5,7 @@ public class UserFixture {
         return User.UserBuilder.aUser()
                 .withUserName("user")
                 .withPassword("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
-                .withDefaultProfileId(1)
+                .withDefaultProfileId(1L)
                 .withCountry("Belgie")
                 .withEmail("john.doe@email.com")
                 .withFirstName("John")
@@ -15,7 +15,7 @@ public class UserFixture {
                 .build();
     }
 
-    public static User aUser(int id) {
+    public static User aUser(Long id) {
         User user = aUser();
         user.setUserId(id);
         return user;

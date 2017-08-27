@@ -2,6 +2,7 @@ package com.pxl.emotionjava.controllers;
 
 import com.pxl.emotionjava.entities.User;
 import com.pxl.emotionjava.services.impl.UserDataServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,6 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest extends ControllerTest{
     @MockBean
     private UserDataServiceImpl service;
+    private User user;
+
+    @Before
+    public void setUp() throws Exception {
+        user = aUser(1L);
+    }
 
     @Test
     @WithMockUser(username = "user")
@@ -45,8 +52,6 @@ public class UserControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void getUserById() throws Exception {
-        User user = aUser(1);
-
         when(service.getUserById(user.getUserId())).thenReturn(user);
 
         mvc.perform(get("/user/id/" + user.getUserId())
@@ -58,8 +63,6 @@ public class UserControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void getUserByName() throws Exception {
-        User user = aUser(1);
-
         when(service.getUserByName(user.getUserName())).thenReturn(Collections.singletonList(user));
 
         mvc.perform(get("/user/name/" + user.getUserName())
@@ -85,8 +88,6 @@ public class UserControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void deleteUser() throws Exception {
-        User user = aUser(1);
-
         when(service.deleteUser(user.getUserId())).thenReturn("1");
 
         mvc.perform(delete("/user/delete/" + user.getUserId())
@@ -98,8 +99,6 @@ public class UserControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void updateUser() throws Exception {
-        User user = aUser(1);
-
         when(service.addOrUpdateUser(eq(user))).thenReturn("1");
 
         mvc.perform(put("/user/update").content(toJson(user))
@@ -112,8 +111,6 @@ public class UserControllerTest extends ControllerTest{
     @Test
     @WithMockUser(username = "user")
     public void checkPass() throws Exception {
-        User user = aUser(1);
-
         when(service.checkPass(eq(user))).thenReturn("1");
 
         mvc.perform(post("/user/pass").content(toJson(user))

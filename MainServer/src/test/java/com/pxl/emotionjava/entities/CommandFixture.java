@@ -3,7 +3,7 @@ package com.pxl.emotionjava.entities;
 public class CommandFixture {
     public static Command aCommand() {
         Command command = new Command();
-        command.setCommand("UP");
+        command.setCommand("TEST");
         return command;
     }
 

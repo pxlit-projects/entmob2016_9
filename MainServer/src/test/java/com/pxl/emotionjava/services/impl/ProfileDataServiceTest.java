@@ -2,6 +2,8 @@ package com.pxl.emotionjava.services.impl;
 
 import com.pxl.emotionjava.entities.Profile;
 import com.pxl.emotionjava.repositories.ProfileRepository;
+import com.pxl.emotionjava.repositories.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.pxl.emotionjava.entities.ProfileFixture.aProfile;
+import static com.pxl.emotionjava.entities.UserFixture.aUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -25,12 +28,20 @@ public class ProfileDataServiceTest {
     @Mock
     private ProfileRepository repository;
 
+    @Mock
+    private UserRepository userRepository;
+
     @InjectMocks
     private ProfileDataServiceImpl profileService;
+    private Profile profile;
+
+    @Before
+    public void setUp() throws Exception {
+        profile = aProfile(1L);
+    }
 
     @Test
     public void getProfileById() throws Exception {
-        Profile profile = aProfile(1);
         when(repository.findOne(profile.getProfileId())).thenReturn(profile);
 
         Profile actualProfile = profileService.getProfileById(profile.getProfileId());
@@ -40,10 +51,10 @@ public class ProfileDataServiceTest {
 
     @Test
     public void getProfilesByUserId() throws Exception {
-        List<Profile> profiles = Collections.singletonList(aProfile(1));
-        when(repository.findByUserId(1)).thenReturn(profiles);
+        List<Profile> profiles = Collections.singletonList(profile);
+        when(repository.findByUserId(profile.getUserId())).thenReturn(profiles);
 
-        List<Profile> actualProfiles = profileService.getProfilesByUserId(1);
+        List<Profile> actualProfiles = profileService.getProfilesByUserId(profile.getUserId());
 
         assertThat(actualProfiles).hasSize(1);
         assertThat(actualProfiles.get(0)).isEqualTo(profiles.get(0));
@@ -51,9 +62,9 @@ public class ProfileDataServiceTest {
 
     @Test
     public void addOrUpdateProfile() throws Exception {
-        Profile profile = aProfile(1);
         when(repository.save(eq(profile))).thenReturn(profile);
-        when(repository.findByUserId(profile.getUserId())).thenReturn(Collections.singletonList(profile));
+        when(repository.findOne(profile.getProfileId())).thenReturn(profile);
+        when(userRepository.findOne(profile.getUserId())).thenReturn(aUser(profile.getUserId()));
 
         String retVal = profileService.addOrUpdateProfile(profile);
 
@@ -62,7 +73,6 @@ public class ProfileDataServiceTest {
 
     @Test
     public void deleteProfile() throws Exception {
-        Profile profile = aProfile(1);
         when(repository.exists(profile.getProfileId())).thenReturn(true);
 
         String retVal = profileService.deleteProfile(profile.getProfileId());
@@ -75,7 +85,7 @@ public class ProfileDataServiceTest {
     @Test
     public void getAllProfiles() throws Exception {
         List<Profile> profiles = new ArrayList<>();
-        profiles.add(aProfile(1));
+        profiles.add(profile);
         when(repository.findAll()).thenReturn(profiles);
 
         List <Profile> actualProfiles = profileService.getAllProfiles();
