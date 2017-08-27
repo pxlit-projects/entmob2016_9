@@ -31,7 +31,7 @@ public class UserController {
 	//Een user opvragen aan de hand van id (json user)
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public User getUserById(@PathVariable int id) {
+	public User getUserById(@PathVariable Long id) {
 		return userService.getUserById(id);
 	}
 	
@@ -59,7 +59,7 @@ public class UserController {
 	 //verwijder user adhv id
 	 @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	 @ResponseBody
-	 public String deleteUser(@PathVariable("id") int id) {
+	 public String deleteUser(@PathVariable("id") Long id) {
 	  return userService.deleteUser(id); 
 	 }
 

@@ -32,7 +32,7 @@ public class ProfileController {
 	// Lijst van alle profiles opvragen adhv userId(json profile list)
 	@RequestMapping(value = "/userid/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public List<Profile> getProfiles(@PathVariable int id) {
+	public List<Profile> getProfiles(@PathVariable Long id) {
 		List<Profile> listOfProfiles = profileService.getProfilesByUserId(id);
 		return listOfProfiles;
 	}
@@ -40,7 +40,7 @@ public class ProfileController {
 	// Een profile opvragen aan de hand van id (json profile)
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public Profile getProfileById(@PathVariable int id) {
+	public Profile getProfileById(@PathVariable Long id) {
 		return profileService.getProfileById(id);
 	}
 
@@ -62,7 +62,7 @@ public class ProfileController {
 	// verwijder profile adhv id
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	@ResponseBody
-	public String deleteProfile(@PathVariable("id") int id) {
+	public String deleteProfile(@PathVariable("id") Long id) {
 		return profileService.deleteProfile(id);
 
 	}

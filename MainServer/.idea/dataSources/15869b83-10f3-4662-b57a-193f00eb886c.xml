@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="emotiondb@localhost">
+<dataSource name="emotiondb@192.168.99.100">
   <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.2">
     <root id="1"/>
     <database id="2" parent="1" name="emotiondb">
@@ -9,8 +9,8 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-08-26.19:21:03.412</IntrospectionTimestamp>
-      <IntrospectionStateNumber>580</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-08-27.16:48:23.646</IntrospectionTimestamp>
+      <IntrospectionStateNumber>579</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -29,213 +29,241 @@
     <schema id="8" parent="2" name="information_schema">
       <ObjectId>12119</ObjectId>
     </schema>
-    <sequence id="9" parent="3" name="user_id_seq">
-      <ObjectId>16416</ObjectId>
-      <StateNumber>561</StateNumber>
+    <sequence id="9" parent="3" name="profile_id_seq">
+      <ObjectId>16415</ObjectId>
+      <StateNumber>575</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <table id="10" parent="3" name="action">
-      <ObjectId>16385</ObjectId>
-      <StateNumber>552</StateNumber>
-    </table>
-    <table id="11" parent="3" name="command">
-      <ObjectId>16390</ObjectId>
-      <StateNumber>577</StateNumber>
-    </table>
-    <table id="12" parent="3" name="profile">
-      <ObjectId>16395</ObjectId>
-      <StateNumber>556</StateNumber>
-    </table>
-    <table id="13" parent="3" name="user_role">
-      <ObjectId>16426</ObjectId>
+    <sequence id="10" parent="3" name="users_id_seq">
+      <ObjectId>16403</ObjectId>
       <StateNumber>571</StateNumber>
+      <SequenceIdentity>1</SequenceIdentity>
+      <BelongsToColumn>1</BelongsToColumn>
+    </sequence>
+    <table id="11" parent="3" name="action">
+      <ObjectId>16391</ObjectId>
+      <StateNumber>557</StateNumber>
     </table>
-    <table id="14" parent="3" name="users">
-      <ObjectId>16400</ObjectId>
-      <StateNumber>580</StateNumber>
+    <table id="12" parent="3" name="command">
+      <ObjectId>16396</ObjectId>
+      <StateNumber>563</StateNumber>
     </table>
-    <column id="15" parent="10" name="id">
+    <table id="13" parent="3" name="profile">
+      <ObjectId>16417</ObjectId>
+      <StateNumber>578</StateNumber>
+    </table>
+    <table id="14" parent="3" name="user_role">
+      <ObjectId>16436</ObjectId>
+      <StateNumber>579</StateNumber>
+    </table>
+    <table id="15" parent="3" name="users">
+      <ObjectId>16405</ObjectId>
+      <StateNumber>579</StateNumber>
+    </table>
+    <column id="16" parent="11" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>555</StateNumber>
+      <StateNumber>557</StateNumber>
     </column>
-    <column id="16" parent="10" name="action">
+    <column id="17" parent="11" name="action">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
-      <StateNumber>552</StateNumber>
+      <NotNull>1</NotNull>
+      <StateNumber>557</StateNumber>
     </column>
-    <index id="17" parent="10" name="action_pkey">
-      <ObjectId>16388</ObjectId>
+    <index id="18" parent="11" name="action_pkey">
+      <ObjectId>16394</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="18" parent="10" name="action_pkey">
-      <ObjectId>16389</ObjectId>
+    <index id="19" parent="11" name="action_action_uindex">
+      <ObjectId>16402</ObjectId>
+      <ColNames>action</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="20" parent="11" name="action_pkey">
+      <ObjectId>16395</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>action_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="19" parent="11" name="id">
+    <column id="21" parent="12" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>553</StateNumber>
+      <StateNumber>563</StateNumber>
     </column>
-    <column id="20" parent="11" name="command">
+    <column id="22" parent="12" name="command">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
-      <StateNumber>577</StateNumber>
+      <NotNull>1</NotNull>
+      <StateNumber>563</StateNumber>
     </column>
-    <index id="21" parent="11" name="command_pkey">
-      <ObjectId>16393</ObjectId>
+    <index id="23" parent="12" name="command_pkey">
+      <ObjectId>16399</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="22" parent="11" name="command_pkey">
-      <ObjectId>16394</ObjectId>
+    <index id="24" parent="12" name="command_command_uindex">
+      <ObjectId>16401</ObjectId>
+      <ColNames>command</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="25" parent="12" name="command_pkey">
+      <ObjectId>16400</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>command_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="23" parent="12" name="id">
+    <column id="26" parent="13" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>556</StateNumber>
+      <StateNumber>575</StateNumber>
+      <SequenceName>profile_id_seq</SequenceName>
+      <DefaultExpression>nextval(&apos;profile_id_seq&apos;::regclass)</DefaultExpression>
     </column>
-    <column id="24" parent="12" name="user_id">
+    <column id="27" parent="13" name="user_id">
       <Position>2</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>556</StateNumber>
+      <StateNumber>575</StateNumber>
     </column>
-    <column id="25" parent="12" name="pairings">
+    <column id="28" parent="13" name="pairings">
       <Position>3</Position>
-      <DataType>varchar(50)|0</DataType>
-      <StateNumber>556</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>575</StateNumber>
     </column>
-    <column id="26" parent="12" name="profile_name">
+    <column id="29" parent="13" name="profile_name">
       <Position>4</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>556</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>575</StateNumber>
     </column>
-    <index id="27" parent="12" name="profile_pkey">
-      <ObjectId>16398</ObjectId>
+    <index id="30" parent="13" name="profile_pkey">
+      <ObjectId>16424</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="28" parent="12" name="profile_pkey">
-      <ObjectId>16399</ObjectId>
+    <key id="31" parent="13" name="profile_pkey">
+      <ObjectId>16425</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>profile_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="29" parent="13" name="user_id">
+    <foreign-key id="32" parent="13" name="profile_users_id_fk">
+      <ObjectId>16426</ObjectId>
+      <ColNames>user_id</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="33" parent="14" name="user_id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>571</StateNumber>
+      <StateNumber>579</StateNumber>
     </column>
-    <column id="30" parent="13" name="role">
+    <column id="34" parent="14" name="role">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>571</StateNumber>
-      <DefaultExpression>&apos;ROLE_USER&apos;::character varying</DefaultExpression>
+      <StateNumber>579</StateNumber>
     </column>
-    <index id="31" parent="13" name="user_role_user_id_role_pk">
-      <ObjectId>16430</ObjectId>
+    <index id="35" parent="14" name="user_role_user_id_role_pk">
+      <ObjectId>16439</ObjectId>
       <ColNames>user_id
 role</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="13" name="user_role_user_id_role_pk">
-      <ObjectId>16431</ObjectId>
+    <key id="36" parent="14" name="user_role_user_id_role_pk">
+      <ObjectId>16440</ObjectId>
       <ColNames>user_id
 role</ColNames>
       <UnderlyingIndexName>user_role_user_id_role_pk</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="33" parent="13" name="user_id_fk">
-      <ObjectId>16432</ObjectId>
+    <foreign-key id="37" parent="14" name="user_role_users_id_fk">
+      <ObjectId>16441</ObjectId>
       <ColNames>user_id</ColNames>
       <RefTableName>users</RefTableName>
-      <RefKeyName>user_pkey</RefKeyName>
+      <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="34" parent="14" name="id">
+    <column id="38" parent="15" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>562</StateNumber>
-      <SequenceName>user_id_seq</SequenceName>
-      <DefaultExpression>nextval(&apos;user_id_seq&apos;::regclass)</DefaultExpression>
+      <StateNumber>571</StateNumber>
+      <SequenceName>users_id_seq</SequenceName>
+      <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
     </column>
-    <column id="35" parent="14" name="first_name">
+    <column id="39" parent="15" name="first_name">
       <Position>2</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>571</StateNumber>
     </column>
-    <column id="36" parent="14" name="last_name">
+    <column id="40" parent="15" name="last_name">
       <Position>3</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>571</StateNumber>
     </column>
-    <column id="37" parent="14" name="password">
+    <column id="41" parent="15" name="password">
       <Position>4</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
-    </column>
-    <column id="38" parent="14" name="user_name">
-      <Position>5</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
-    </column>
-    <column id="39" parent="14" name="default_profile_id">
-      <Position>6</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
-    </column>
-    <column id="40" parent="14" name="email">
-      <Position>7</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
-    </column>
-    <column id="41" parent="14" name="joined_on">
-      <Position>8</Position>
-      <DataType>varchar(100)|0</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>565</StateNumber>
+      <StateNumber>571</StateNumber>
+    </column>
+    <column id="42" parent="15" name="user_name">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>571</StateNumber>
+    </column>
+    <column id="43" parent="15" name="default_profile_id">
+      <Position>6</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>571</StateNumber>
+    </column>
+    <column id="44" parent="15" name="email">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>571</StateNumber>
+    </column>
+    <column id="45" parent="15" name="joined_on">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>571</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
     </column>
-    <column id="42" parent="14" name="country">
+    <column id="46" parent="15" name="country">
       <Position>9</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>571</StateNumber>
     </column>
-    <column id="43" parent="14" name="phone">
+    <column id="47" parent="15" name="phone">
       <Position>10</Position>
-      <DataType>varchar(100)|0</DataType>
-      <StateNumber>557</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>571</StateNumber>
     </column>
-    <column id="44" parent="14" name="role">
-      <Position>11</Position>
-      <DataType>varchar(50)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>560</StateNumber>
-      <DefaultExpression>&apos;ROLE_USER&apos;::character varying</DefaultExpression>
-    </column>
-    <index id="45" parent="14" name="user_pkey">
-      <ObjectId>16406</ObjectId>
+    <index id="48" parent="15" name="users_pkey">
+      <ObjectId>16413</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="46" parent="14" name="user_pkey">
-      <ObjectId>16407</ObjectId>
+    <key id="49" parent="15" name="users_pkey">
+      <ObjectId>16414</ObjectId>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>user_pkey</UnderlyingIndexName>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="50" parent="15" name="users_profile_id_fk">
+      <ObjectId>16431</ObjectId>
+      <ColNames>default_profile_id</ColNames>
+      <RefTableName>profile</RefTableName>
+      <RefKeyName>profile_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
   </database-model>
 </dataSource>

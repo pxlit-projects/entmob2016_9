@@ -5,7 +5,7 @@ import com.pxl.emotionjava.entities.User;
 import java.util.List;
 
 public interface UserDataService {
-    User getUserById(int id);
+    User getUserById(Long id);
 
     List<User> getUserByName(String name);
 
@@ -13,7 +13,7 @@ public interface UserDataService {
 
     String addOrUpdateUser(User user);
 
-    String deleteUser(int id);
+    String deleteUser(Long id);
 
     String checkPass(User user);
 }

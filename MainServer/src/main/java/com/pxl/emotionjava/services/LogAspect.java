@@ -1,6 +1,5 @@
-package com.pxl.emotionjava;
+package com.pxl.emotionjava.services;
 
-import com.pxl.emotionjava.services.MessageProducer;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;

@@ -9,7 +9,7 @@ public class ProfileFixture {
                 .build();
     }
 
-    public static Profile aProfile(int id) {
+    public static Profile aProfile(Long id) {
         Profile profile = aProfile();
         profile.setProfileId(id);
         return profile;

@@ -14,7 +14,7 @@ public class UserDataServiceImpl implements com.pxl.emotionjava.services.api.Use
 	private UserRepository repo;
 
 	@Override
-	public User getUserById(int id) {
+	public User getUserById(Long id) {
 		return repo.findOne(id);
 	}
 
@@ -31,21 +31,23 @@ public class UserDataServiceImpl implements com.pxl.emotionjava.services.api.Use
     @Override
 	public String addOrUpdateUser(User user) {
         try {
-        	System.out.println(user.getCountry());
+            if (user.getUserId() == 0) {
+                user.setUserId(null);
+            }
+
             User u = repo.save(user);
-            System.out.println(u.getCountry());
             if (repo.findByUserName(u.getUserName()).get(0).getUserId() != 0){
                 return "1";
             } else {
                 return "2";
             }
         } catch (Exception e) {
-            return e.getMessage();
+            return e.getClass().getCanonicalName();
         }
 	}
 
     @Override
-	public String deleteUser(int id) {
+	public String deleteUser(Long id) {
         try {
             if (repo.exists(id)) {
                 repo.delete(id);

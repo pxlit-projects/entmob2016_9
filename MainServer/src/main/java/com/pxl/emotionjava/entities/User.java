@@ -7,7 +7,9 @@ import javax.persistence.*;
 public class User {
 	@Id
 	@Column(name = "id")
-	private int userId;
+    @GeneratedValue(generator = "users_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
+	private Long userId;
     @Column(name = "first_name")
 	private String firstName;
     @Column(name = "last_name")
@@ -17,7 +19,7 @@ public class User {
     @Column(name = "user_name")
 	private String userName;
     @Column(name = "default_profile_id")
-    private int defaultProfileId;
+    private Long defaultProfileId;
     @Column(name="email")
     private String email;
     @Column(name="joined_on")
@@ -27,11 +29,11 @@ public class User {
     @Column(name="phone")
     private String phone;
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -67,11 +69,11 @@ public class User {
         this.userName = userName;
     }
 
-    public int getDefaultProfileId() {
+    public Long getDefaultProfileId() {
         return defaultProfileId;
     }
 
-    public void setDefaultProfileId(int defaultProfileId) {
+    public void setDefaultProfileId(Long defaultProfileId) {
         this.defaultProfileId = defaultProfileId;
     }
 
@@ -129,12 +131,12 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = getUserId();
+        int result = getUserId().hashCode();
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
         result = 31 * result + getPassword().hashCode();
         result = 31 * result + getUserName().hashCode();
-        result = 31 * result + getDefaultProfileId();
+        result = 31 * result + getDefaultProfileId().hashCode();
         result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
         result = 31 * result + getJoinedOn().hashCode();
         result = 31 * result + (getCountry() != null ? getCountry().hashCode() : 0);
@@ -143,12 +145,12 @@ public class User {
     }
 
     public static final class UserBuilder {
-        private int userId;
+        private Long userId;
         private String firstName;
         private String lastName;
         private String password;
         private String userName;
-        private int defaultProfileId;
+        private Long defaultProfileId;
         private String email;
         private String joinedOn;
         private String country;
@@ -161,7 +163,7 @@ public class User {
             return new UserBuilder();
         }
 
-        public UserBuilder withUserId(int userId) {
+        public UserBuilder withUserId(Long userId) {
             this.userId = userId;
             return this;
         }
@@ -186,7 +188,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder withDefaultProfileId(int defaultProfileId) {
+        public UserBuilder withDefaultProfileId(Long defaultProfileId) {
             this.defaultProfileId = defaultProfileId;
             return this;
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="emotiondb@localhost" uuid="15869b83-10f3-4662-b57a-193f00eb886c">
+    <data-source source="LOCAL" name="emotiondb@192.168.99.100" uuid="15869b83-10f3-4662-b57a-193f00eb886c">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:32769/emotiondb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://192.168.99.100:32768/emotiondb</jdbc-url>
     </data-source>
   </component>
 </project>

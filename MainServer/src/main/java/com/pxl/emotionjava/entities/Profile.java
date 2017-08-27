@@ -6,9 +6,11 @@ import javax.persistence.*;
 public class Profile {
 	@Id
 	@Column(name = "id")
-	private int profileId;
+    @GeneratedValue(generator = "profile_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "profile_id_seq", sequenceName = "profile_id_seq", allocationSize = 1)
+	private Long profileId;
     @Column(name = "user_id")
-	private int userId;
+	private Long userId;
 	@Column(name="pairings")
     private String pairings;
     @Column(name="profile_name")
@@ -16,19 +18,19 @@ public class Profile {
 
     public Profile(){}
     
-    public int getProfileId() {
+    public Long getProfileId() {
         return profileId;
     }
 
-    public void setProfileId(int profileId) {
+    public void setProfileId(Long profileId) {
         this.profileId = profileId;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -63,16 +65,16 @@ public class Profile {
 
     @Override
     public int hashCode() {
-        int result = getProfileId();
-        result = 31 * result + getUserId();
+        int result = getProfileId().hashCode();
+        result = 31 * result + getUserId().hashCode();
         result = 31 * result + (getPairings() != null ? getPairings().hashCode() : 0);
         result = 31 * result + getProfileName().hashCode();
         return result;
     }
 
     public static final class ProfileBuilder {
-        private int profileId;
-        private int userId;
+        private Long profileId;
+        private Long userId;
         private String pairings;
         private String profileName;
 
@@ -83,12 +85,12 @@ public class Profile {
             return new ProfileBuilder();
         }
 
-        public ProfileBuilder withProfileId(int profileId) {
+        public ProfileBuilder withProfileId(Long profileId) {
             this.profileId = profileId;
             return this;
         }
 
-        public ProfileBuilder withUserId(int userId) {
+        public ProfileBuilder withUserId(Long userId) {
             this.userId = userId;
             return this;
         }

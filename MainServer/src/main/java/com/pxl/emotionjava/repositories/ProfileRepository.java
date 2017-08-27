@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProfileRepository extends CrudRepository<Profile,Integer> {
-    List<Profile> findByUserId(int userId);
+public interface ProfileRepository extends CrudRepository<Profile,Long> {
+    List<Profile> findByUserId(Long userId);
 }

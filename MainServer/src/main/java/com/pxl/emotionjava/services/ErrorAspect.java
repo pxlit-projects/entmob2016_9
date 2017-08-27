@@ -12,7 +12,7 @@ public class ErrorAspect {
     @Autowired
     private MessageProducer messageProducer;
 
-    @AfterThrowing(value = "execution(* *.*(..))", throwing = "ex")
+    @AfterThrowing(value = "execution(* com.pxl.emotionjava.*.*(..))", throwing = "ex")
     private void error(Exception ex) {
         messageProducer.sendError(ex);
     }
