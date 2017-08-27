@@ -4,6 +4,7 @@ import com.pxl.emotionjava.entities.User;
 import com.pxl.emotionjava.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,21 +15,25 @@ public class UserDataServiceImpl implements com.pxl.emotionjava.services.api.Use
 	private UserRepository repo;
 
 	@Override
+    @Transactional(readOnly = true)
 	public User getUserById(Long id) {
 		return repo.findOne(id);
 	}
 
     @Override
+    @Transactional(readOnly = true)
 	public List<User> getUserByName(String name) {
 		return repo.findByUserName(name);
 	}
 
     @Override
+    @Transactional(readOnly = true)
 	public List<User> getAllUsers() {
 		return (List<User>) repo.findAll();
 	}
 
     @Override
+    @Transactional
 	public String addOrUpdateUser(User user) {
         try {
             if (user.getUserId() == 0) {
@@ -47,6 +52,7 @@ public class UserDataServiceImpl implements com.pxl.emotionjava.services.api.Use
 	}
 
     @Override
+    @Transactional
 	public String deleteUser(Long id) {
         try {
             if (repo.exists(id)) {
@@ -61,6 +67,7 @@ public class UserDataServiceImpl implements com.pxl.emotionjava.services.api.Use
     }
 
     @Override
+    @Transactional(readOnly = true)
 	public String checkPass(User user) {
         try {
             User u = getUserByName(user.getUserName()).get(0);

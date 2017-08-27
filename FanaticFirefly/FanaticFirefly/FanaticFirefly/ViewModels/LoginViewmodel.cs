@@ -121,7 +121,7 @@ namespace FanaticFirefly.ViewModels
             if (b.Equals("1"))
             {
 
-                myUser = await DataAccessService.GetLogedInUser(UserName);
+                myUser = await DataAccessService.GetLoggedInUser(UserName);
 
                 if (myUser != null)
                 {

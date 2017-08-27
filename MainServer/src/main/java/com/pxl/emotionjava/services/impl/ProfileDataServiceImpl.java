@@ -7,6 +7,7 @@ import com.pxl.emotionjava.repositories.UserRepository;
 import com.pxl.emotionjava.services.api.ProfileDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,16 +22,19 @@ public class ProfileDataServiceImpl implements ProfileDataService {
 	private UserRepository userRepository;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Profile getProfileById(Long id) {
 		return repo.findOne(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Profile> getProfilesByUserId(Long id) {
 		return repo.findByUserId(id);
 	}
 
 	@Override
+	@Transactional
 	public String addOrUpdateProfile(Profile profile) {
 		if (profile.getProfileId() == 0) {
 			profile.setProfileId(null);
@@ -53,6 +57,7 @@ public class ProfileDataServiceImpl implements ProfileDataService {
 	}
 
 	@Override
+	@Transactional
 	public String deleteProfile(Long id) {
         try {
             if (repo.exists(id)) {
@@ -67,6 +72,7 @@ public class ProfileDataServiceImpl implements ProfileDataService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
     public List<Profile> getAllProfiles() {
 		return (List<Profile>) repo.findAll();
     }

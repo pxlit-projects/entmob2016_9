@@ -14,7 +14,7 @@ namespace eMotion_Entity_Framework
         {
             using (var db = new eMotionDBContext())
             {
-                if (db.User.Any(o => o.FirstName == "Giel") || db.User.Any(o => o.FirstName == "Maarten"))
+                if (db.User.Any(o => o.firstName == "Giel") || db.User.Any(o => o.firstName == "Maarten"))
                 {
                     Console.WriteLine("Giel of Maarten bestaat al");
                     
@@ -25,9 +25,9 @@ namespace eMotion_Entity_Framework
 
                 db.User.Add(new User
                 {
-                    FirstName = "Giel",
-                    LastName = "Reynders",
-                    Password = "456456"
+                    firstName = "Giel",
+                    lastName = "Reynders",
+                    password = "456456"
                 });
 
 
@@ -36,16 +36,16 @@ namespace eMotion_Entity_Framework
 
                 db.User.Add(new User
                 {
-                    FirstName = "Maarten",
-                    LastName = "Hermans",
-                    Password = "456456"
+                    firstName = "Maarten",
+                    lastName = "Hermans",
+                    password = "456456"
                 });
 
                 db.SaveChanges();
 
                 foreach (var user in db.User)
                 {
-                    Console.WriteLine(user.FirstName);
+                    Console.WriteLine(user.firstName);
                 }
             }
 

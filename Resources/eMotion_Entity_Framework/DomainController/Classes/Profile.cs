@@ -13,16 +13,9 @@ namespace eMotion.DomainClasses.Classes
     {
 
         [Key]
-        public int ProfileId { get; set; }
-        public int UserId { get; set; }
-        public int CommandId { get; set; }
-        public string ProfileName { get; set; }
-
-        public int ActId { get; set; }
-        public virtual Action action { get; set; }
-        public virtual User user { get; set; }
-        public virtual Command command { get; set; }
-
-
+        public int profileId { get; set; }
+        public int userId { get; set; }
+        public string profileName { get; set; }
+        public string pairings { get; set; }
     }
 }

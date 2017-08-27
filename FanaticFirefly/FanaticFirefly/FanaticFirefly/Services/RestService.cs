@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace FanaticFirefly.Data
         {
             HttpClient client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YWRtaW46cGFzc3dvcmQ=");
 
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(continueOnCapturedContext: false);
 
@@ -40,6 +43,8 @@ namespace FanaticFirefly.Data
             {
                 HttpClient client = new HttpClient();
                 client.MaxResponseContentBufferSize = 256000;
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YWRtaW46cGFzc3dvcmQ=");
 
                 var serealizedfile = JsonConvert.SerializeObject(data);
                 var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");

@@ -12,11 +12,8 @@ namespace eMotion.DomainClasses.Classes
     public class Command
     {
         [Key]
-        public int CommandId { get; set; }
-        public int Command1 { get; set; }
-        public int Command2 { get; set; }
-        public int Command3 { get; set; }
-        public int Command4 { get; set; }
+        public int commandId { get; set; }
+        public String command { get; set; }
 
         public virtual ICollection<Profile> profiles { get; set; }
     }

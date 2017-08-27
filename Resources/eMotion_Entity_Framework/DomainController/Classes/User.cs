@@ -12,10 +12,16 @@ namespace eMotion.DomainClasses.Classes
     public class User
     {
         [Key]
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Password { get; set; }
+        public int userId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string password { get; set; }
+        public string userName { get; set; }
+        public int defaultProfileId { get; set; }
+        public string email { get; set; }
+        public string joinedOn { get; set; }
+        public string country { get; set; }
+        public string phone { get; set; }
 
         public virtual ICollection<Profile> profiles { get; set; }
     }

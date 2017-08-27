@@ -1,4 +1,5 @@
-﻿using FanaticFirefly.Data;
+﻿using FanaticFirefly.Custom;
+using FanaticFirefly.Data;
 using FanaticFirefly.Enumerations;
 using FanaticFirefly.Helpers;
 using System;
@@ -17,7 +18,7 @@ namespace FanaticFirefly.Services
             User u = new User
             {
                 userName = UserName,
-                password = GetEncriptedPassword(UserName, PassWord)
+                password = GetEncryptedPassword(PassWord)
             };
 
             string b = await Services.JsonParseService<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
@@ -25,14 +26,14 @@ namespace FanaticFirefly.Services
             return b;
         }
 
-        public static async Task<User> GetLogedInUser(string UserName)
+        public static async Task<User> GetLoggedInUser(string UserName)
         {
             return await Services.JsonParseService<User>.DeserializeDataFromJson(Constants.USER_BY_USERNAME_URL, UserName);
         }
 
-        public static string GetEncriptedPassword(string UserName, string PassWord)
+        public static string GetEncryptedPassword(string PassWord)
         {
-            return EasyEncryption.SHA.ComputeSHA256Hash(PassWord + UserName);
+            return CustomPasswordEncryptor.sha256_hash(PassWord);
         }
 
         public static async Task<ObservableCollection<Profile>> GetProfiles(User currUser)
