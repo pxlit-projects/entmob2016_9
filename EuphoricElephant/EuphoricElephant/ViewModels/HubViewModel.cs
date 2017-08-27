@@ -70,10 +70,17 @@ namespace EuphoricElephant.ViewModels
             get { return isNotBusy; }
             set { SetProperty(ref isNotBusy, value); }
         }
-        #endregion
 
-        #region Commands
-        public ICommand NavigateCommand { get; set; }
+		private bool isDummyMode = false;
+		public bool IsDummyMode
+		{
+			get { return isDummyMode; }
+			set { SetProperty(ref isDummyMode, value); }
+		}
+		#endregion
+
+		#region Commands
+		public ICommand NavigateCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
         #endregion
@@ -153,7 +160,8 @@ namespace EuphoricElephant.ViewModels
             }
 
             ApplicationSettings.Remove("ActiveSensor");
-        }
+			ApplicationSettings.Remove("IsDummyMode");
+		}
 
         private void Login()
         {
@@ -176,7 +184,9 @@ namespace EuphoricElephant.ViewModels
                 LogButtonText = "Log out";
 
                 ApplicationSettings.AddItem("CurrentUser", myUser);
-            }
+				ApplicationSettings.AddItem("IsDummyMode", isDummyMode);
+
+			}
             else if (b.Equals("2"))
             {
                 Task.Run(() => ErrorService.showError("Username and password did not match."));

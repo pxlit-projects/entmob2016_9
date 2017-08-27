@@ -24,7 +24,8 @@ namespace EuphoricElephant.Services
             {
                 var client = new HttpClient();
 
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+                //admin authorization
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YWRtaW46cGFzc3dvcmQ=");
 
                 response = await client.GetAsync(url);
                 var data = await response.Content.ReadAsStringAsync();

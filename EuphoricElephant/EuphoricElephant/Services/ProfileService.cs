@@ -350,10 +350,10 @@ namespace EuphoricElephant.Services
 
             switch (action)
             {
-                case ActionType.DOWN:
+                case ActionType.UP:
                     command = (CommandType)Convert.ToInt32(pairingsString[0]);
                     break;
-                case ActionType.UP:
+                case ActionType.DOWN:
                     command = (CommandType)Convert.ToInt32(pairingsString[1]);
                     break;
                 case ActionType.LEFT:
