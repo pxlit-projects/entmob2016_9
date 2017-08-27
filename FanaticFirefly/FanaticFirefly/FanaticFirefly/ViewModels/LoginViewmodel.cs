@@ -12,8 +12,11 @@ namespace FanaticFirefly.ViewModels
 {
     public class LoginViewmodel : BaseModel
     {
+        #region Private Members
         private User myUser = null;
+        #endregion
 
+        #region Properties
         private string loginText = "Login";
         public string LoginText
         {
@@ -48,28 +51,36 @@ namespace FanaticFirefly.ViewModels
             get { return isNotBusy; }
             set { SetProperty(ref isNotBusy, value); }
         }
+        #endregion
 
+        #region Commands
         public ICommand LoginCommand { get; set; }
         public ICommand ShowUsersCommand { get; set; }
+        #endregion
 
+        #region Constructors
         public LoginViewmodel()
         {
             LoadCommands();
         }
+        #endregion
 
+        #region Init & Load
         private void LoadCommands()
         {
             LoginCommand = new Xamarin.Forms.Command(LoginAction);
             ShowUsersCommand = new Xamarin.Forms.Command(ShowUsersAction);
         }
+        #endregion
 
+        #region Actions
         private async void ShowUsersAction(object obj)
         {
             var v = (NavigationPage)App.Current.MainPage;
             await v.PushAsync(new UsersPage());
         }
 
-        private void LoginAction(object obj)
+        private async void LoginAction(object obj)
         {
             try
             {
@@ -82,7 +93,7 @@ namespace FanaticFirefly.ViewModels
                         if (myUser == null)
                         {
                             IsNotBusy = false;
-                            Login();
+                            myUser = await Login();
                         }
                     }
                 }
@@ -100,7 +111,9 @@ namespace FanaticFirefly.ViewModels
                 IsNotBusy = true;
             }
         }
+        #endregion
 
+        #region Private Methods
         private void Logout()
         {
             myUser = null;
@@ -114,7 +127,7 @@ namespace FanaticFirefly.ViewModels
             LoginText = "Login";
         }
 
-        private async void Login()
+        private async Task<User> Login()
         {
             string b = await DataAccessService.GetLoginStatus(UserName, PassWord);
 
@@ -146,6 +159,10 @@ namespace FanaticFirefly.ViewModels
             {
                 ErrorService.ShowError(ViewType.LoginView, b);
             }
+
+            return myUser;
         }
+
+        #endregion
     }
 }

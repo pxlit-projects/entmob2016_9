@@ -1,5 +1,0 @@
-	<?xml version="1.0" encoding="UTF-8"?>
-	<dataset>
-		<user id="1" firstName="Giel" lastName="Reynders" password="546" userName="Drabzes" defaultProfileId="1" email="reynders_giel@hotmail.com" joinedOn="01/01/16" country="Belgium" phone="049830435" version="0"/>
-		<user id="2" firstName="Maarten" lastName="Nogwa" password="888" userName="Drabzes" defaultProfileId="1" email="reynders_giel@hotmail.com" joinedOn="01/01/16" country="Belgium" phone="049830435" version="0"/>
-	</dataset>

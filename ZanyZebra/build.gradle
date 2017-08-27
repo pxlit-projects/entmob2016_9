@@ -31,5 +31,13 @@ dependencies {
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
     
+    // Messageing with JVM
+    compile("org.springframework.boot:spring-boot-starter-activemq")
+    compile("org.apache.activemq:activemq-broker")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    
+    //AOP
+    compile("org.aspectj:aspectjweaver:1.8.8")  
+    
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

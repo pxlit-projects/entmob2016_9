@@ -8,7 +8,8 @@ namespace FanaticFirefly.Helpers
 {
     public class Constants
     {
-        public const string BASE_URL = "http://10.71.34.1:8080/";
+        public const string BASE_URL = "http://192.168.1.16:8080/zanyzebra/";
+        //public const string BASE_URL = "http://localhost:8080/zanyzebra/";
 
         public const string USER_BY_ID_URL = BASE_URL + "user/id/";
         public const string USER_UPDATE_URL = BASE_URL + "user/update";

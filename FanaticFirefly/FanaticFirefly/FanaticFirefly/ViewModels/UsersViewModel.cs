@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace FanaticFirefly.ViewModels
 {
-    class UsersViewModel : BaseModel
+    public class UsersViewModel : BaseModel
     {
         private ObservableCollection<User> InitUsers;
 

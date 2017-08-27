@@ -19,7 +19,6 @@ namespace FanaticFirefly.Services
                 userName = UserName,
                 password = GetEncriptedPassword(UserName, PassWord)
             };
-
             string b = await Services.JsonParseService<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post);
 
             return b;
