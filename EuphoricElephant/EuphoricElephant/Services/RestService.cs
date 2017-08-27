@@ -24,7 +24,6 @@ namespace EuphoricElephant.Services
             {
                 var client = new HttpClient();
 
-                //admin authorization
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YWRtaW46cGFzc3dvcmQ=");
 
                 response = await client.GetAsync(url);
@@ -55,8 +54,9 @@ namespace EuphoricElephant.Services
             {
                 var client = new HttpClient();
                 var serealizedfile = JsonConvert.SerializeObject(data);
-                var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");             
+                var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");
 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YWRtaW46cGFzc3dvcmQ=");
                 switch (serialize)
                 {
                     case SerializeType.Post:

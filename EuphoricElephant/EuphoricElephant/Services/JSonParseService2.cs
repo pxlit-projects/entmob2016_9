@@ -48,7 +48,7 @@ namespace EuphoricElephant.Services
 
                 var formattedUrl = url + param;
 
-                JToken res = res = await RestService.Deserialize(formattedUrl);
+                JToken res = await RestService.Deserialize(formattedUrl);
 
                 switch (url){
                     case Constants.USER_ALL_URL:

@@ -168,7 +168,7 @@ namespace EuphoricElephant.ViewModels
             User u = new User
             {
                 userName = UserName,
-                password = CustomPasswordIncriptor.sha256_hash(PassWord, UserName)
+                password = CustomPasswordIncriptor.sha256_hash(PassWord)
             };
 
             string b = Task.Run(() => Services.JSonParseService2<string>.SerializeDataToJson(Constants.CHECK_PASSWORD, u, SerializeType.Post)).Result;

@@ -120,7 +120,7 @@ namespace EuphoricElephant.Services
                                         userName = userNameTB.Text,
                                         lastName = lnTB.Text,
                                         firstName = fnTB.Text,
-                                        password = CustomPasswordIncriptor.sha256_hash(passWordTB.Password.ToString(), userNameTB.Text),
+                                        password = CustomPasswordIncriptor.sha256_hash(passWordTB.Password.ToString()),
                                         defaultProfileId = 0,
                                         joinedOn = DateTime.UtcNow.ToBinary().ToString()
                                     };

@@ -12,10 +12,9 @@ namespace EuphoricElephant.Custom
 {
     public static class CustomPasswordIncriptor
     {
-        public static String sha256_hash(String password, String userName)
+        public static String sha256_hash(String password)
         {
-            String inputText = password + userName;
-            IBuffer input = CryptographicBuffer.ConvertStringToBinary(inputText,
+            IBuffer input = CryptographicBuffer.ConvertStringToBinary(password,
             BinaryStringEncoding.Utf8);
 
             // hash it...
