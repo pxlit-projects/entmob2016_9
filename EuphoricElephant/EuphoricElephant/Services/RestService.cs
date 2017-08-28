@@ -22,9 +22,10 @@ namespace EuphoricElephant.Services
 
             try
             {
-                var client = new HttpClient();
+                HttpClient client = new HttpClient();
 
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+                var byteArray = Encoding.ASCII.GetBytes("user:password");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
                 response = await client.GetAsync(url);
                 var data = await response.Content.ReadAsStringAsync();
@@ -53,6 +54,10 @@ namespace EuphoricElephant.Services
             try
             {
                 var client = new HttpClient();
+
+                var byteArray = Encoding.ASCII.GetBytes("user:password");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
                 var serealizedfile = JsonConvert.SerializeObject(data);
                 var content = new StringContent(serealizedfile.ToString(), Encoding.UTF8, "application/json");             
 

@@ -48,7 +48,7 @@ public class UserController {
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
 	public List<User> getUserById(@PathVariable String name) {
-        jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Users %s", name), this.getClass().getName()));		
+        jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request User %s", name), this.getClass().getName()));		
 		List<User> users = userService.getUserByName(name);
 		jmsTemplate.convertAndSend("log", new LogMessage("Success!", this.getClass().getName()));
 		return users;
@@ -58,7 +58,7 @@ public class UserController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseBody
 	 public String addUser(@RequestBody User user) {
-      jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Adding User %s", user.getUserId()), this.getClass().getName()));		
+      jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Adding User %s", user.getUserName()), this.getClass().getName()));		
 	  String response = userService.addOrUpdateUser(user);
 	  jmsTemplate.convertAndSend("log", new LogMessage("Success!", this.getClass().getName()));
 	  return response;
@@ -77,7 +77,7 @@ public class UserController {
 	 //verwijder user adhv id
 	 @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	 @ResponseBody
-	 public String deleteUser(@PathVariable("id") int id, @RequestHeader("X-Auth") String auth) {
+	 public String deleteUser(@PathVariable("id") int id) {
 	  jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Delete for User %s", id), this.getClass().getName()));		
 	  String response = userService.deleteUser(id);
 	  jmsTemplate.convertAndSend("log", new LogMessage("Success!", this.getClass().getName()));
@@ -88,7 +88,8 @@ public class UserController {
      @RequestMapping(value = "/pass", method=RequestMethod.POST, headers="Accept=application/json")
      @ResponseBody
      public String CheckPass(@RequestBody User user) {
-    	 jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Check Password for User %s", user.getUserId()), this.getClass().getName()));		
+    	 System.out.println(user);
+    	 jmsTemplate.convertAndSend("log", new LogMessage(String.format("Request Check Password for User %s", user.getUserName()), this.getClass().getName()));		
    	  	String response = userService.checkPass(user);
    	  	jmsTemplate.convertAndSend("log", new LogMessage("Success!", this.getClass().getName()));
    	  	return response;

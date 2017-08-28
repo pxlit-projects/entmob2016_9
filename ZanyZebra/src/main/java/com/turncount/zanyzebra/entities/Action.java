@@ -9,6 +9,11 @@ public class Action {
 	private int actId;
 	@Column(name = "action")
 	private String action;
+	
+	public Action(int actId, String action) {
+		this.actId = actId;
+		this.action  =action;
+	}
 
 	public int getActId() {
 		return actId;

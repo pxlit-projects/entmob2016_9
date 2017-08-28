@@ -122,7 +122,7 @@ namespace EuphoricElephant.Services
                                         firstName = fnTB.Text,
                                         password = CustomPasswordIncriptor.sha256_hash(passWordTB.Password.ToString(), userNameTB.Text),
                                         defaultProfileId = 0,
-                                        //joinedOn = DateTime.UtcNow.ToBinary().ToString()
+                                        joinedOn = ""
                                     };
                                     string succes = await JSonParseService2<string>.SerializeDataToJson(Constants.USER_ADD_URL, newUser, SerializeType.Post);
 

@@ -26,6 +26,13 @@ public class User {
     @Column(name="phone")
     private String phone;
 
+    public User() {}
+    
+    public User(int userId, String userName) {
+    	this.userId = userId;
+    	this.userName = userName;
+    }
+    
     public int getUserId() {
         return userId;
     }

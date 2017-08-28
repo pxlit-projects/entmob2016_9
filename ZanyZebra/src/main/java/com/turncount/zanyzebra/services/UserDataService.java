@@ -92,13 +92,13 @@ public class UserDataService {
 	@Transactional(readOnly = true)
 	public String checkPass(User user) {
         try {
-        	jmsTemplate.convertAndSend("log", new LogMessage(String.format("Searching for User %s", user.getUserId()), this.getClass().getName()));	
+        	jmsTemplate.convertAndSend("log", new LogMessage(String.format("Searching for User %s", user.getUserName()), this.getClass().getName()));	
             User u = getUserByName(user.getUserName()).get(0);
-        	jmsTemplate.convertAndSend("log", new LogMessage(String.format("Checking password for User %s", user.getUserId()), this.getClass().getName()));	
+        	jmsTemplate.convertAndSend("log", new LogMessage(String.format("Checking password for User %s", user.getUserName()), this.getClass().getName()));	
             if (u.getPassword().equals(user.getPassword())) {
                 return "1";
             } else {
-            	jmsTemplate.convertAndSend("log", new LogMessage("Passwords did not match for User %s", this.getClass().getName()));	
+            	jmsTemplate.convertAndSend("log", new LogMessage("Passwords did not match for User", this.getClass().getName()));	
                 return "2";
             }
         } catch (Exception e) {

@@ -188,11 +188,11 @@ namespace EuphoricElephant.ViewModels
             }
             else if (b.Equals("2"))
             {
-                Task.Run(() => ErrorService.showError("Username and password did not match."));
+               ErrorService.showError("Username and password did not match.");
             }
             else
             {
-                Task.Run(() => ErrorService.showError());
+                ErrorService.showError();
             }
 
             IsNotBusy = true; ;
